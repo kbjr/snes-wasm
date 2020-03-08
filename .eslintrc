@@ -1,0 +1,35 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"project": "tsconfig.json"
+	},
+	"extends": [
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		"@typescript-eslint/indent": [
+			2,
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"@typescript-eslint/explicit-function-return-type": 0,
+		"@typescript-eslint/type-annotation-spacing": 0,
+		"@typescript-eslint/explicit-member-accessibility": 0,
+		"@typescript-eslint/no-parameter-properties": 0,
+		"@typescript-eslint/no-triple-slash-reference": 0,
+		"@typescript-eslint/no-explicit-any": 0,
+		"@typescript-eslint/array-type": 0,
+		"@typescript-eslint/no-use-before-define": 0,
+		"@typescript-eslint/prefer-namespace-keyword": 0,
+		"@typescript-eslint/no-object-literal-type-assertion": 0
+	}
+}

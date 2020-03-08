@@ -1,0 +1,27 @@
+{
+  "name": "snes-wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean:wasm": "rimraf build/wasm",
+    "build:wasm": "node scripts/build-wasm.js",
+    "clean:lib": "rimraf build/lib",
+    "build:lib": "tsc --build ./lib/tsconfig.json",
+    "build": "npm run build:wasm && npm run build:lib",
+    "dist": "npm run clean:wasm && npm run clean:lib && npm run build:wasm -- -o1 && npm run build:lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "assemblyscript": "^0.9.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.9.2",
+    "@types/node": "^13.9.0"
+  }
+}
