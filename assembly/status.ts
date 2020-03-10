@@ -1,12 +1,26 @@
 
-import { p, alloc } from './mem';
+export namespace status {
+	// @ts-ignore: decorator
+	@inline export const NoROM: u8 = 0x00;
 
-const enum MachineStatus {
-	Initializing = 0x00,
-	Ready = 0x01,
-	Running = 0x02,
-	Paused = 0x03,
-	Crashed = 0xff
+	// @ts-ignore: decorator
+	@inline export const Ready: u8 = 0x01;
+
+	// @ts-ignore: decorator
+	@inline export const Running: u8 = 0x02;
+
+	// @ts-ignore: decorator
+	@inline export const Paused: u8 = 0x03;
 }
 
-const addr = alloc(8);
+let _status: u8 = status.NoROM;
+
+// @ts-ignore: decorator
+@inline export function setStatus(status: u8) : void {
+	_status = status;
+}
+
+// @ts-ignore: decorator
+@inline export function getStatus() : u8 {
+	return _status;
+}

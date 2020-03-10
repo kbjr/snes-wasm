@@ -30,7 +30,7 @@ export class Thread {
 
 	constructor(
 		/** The frequency of the thread (cycles / second) */
-		protected readonly frequency: f64,
+		protected frequency: f64,
 		/** The main loop function that is called for the thread when no instruction is active */
 		protected readonly mainLoop: Callback,
 		/** Called when the thread is removed from the scheduler */
@@ -83,6 +83,11 @@ export class Thread {
 		this.instruction = null;
 	}
 
+	public resetWithNewFrequency(frequency: f64) : void {
+		this.reset();
+		this.frequency = frequency;
+	}
+
 	public countCycles(cycles: u8) : void {
 		this.cycles += cycles;
 	}
@@ -95,3 +100,7 @@ export class Thread {
 		this.activeInterrupt = Interrupt.NONE;
 	}
 }
+
+export function noop() : void { }
+
+export const NullThread = new Thread(0, noop, noop);

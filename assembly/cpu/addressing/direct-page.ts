@@ -3,6 +3,7 @@ import { flags } from '../flags';
 import { registers } from '../registers';
 import { addr_immediate_u8 } from './immediate';
 import { read_u16, read_u8 } from '../../system-bus';
+import { cpuThread } from '../../scheduler/threads';
 
 /**
  * Direct Page Addressing
@@ -16,6 +17,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPage() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	return <u32>(registers.D + addr_immediate_u8()) & 0xffff;
 }
 
@@ -31,6 +37,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndexedX() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	let addr: u16 = registers.D + addr_immediate_u8();
 
 	// If in emulation mode, or 8-bit index register mode, we only use the low byte of X
@@ -58,6 +69,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndexedY() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	let addr: u16 = registers.D + addr_immediate_u8();
 
 	// If in emulation mode, or 8-bit index register mode, we only use the low byte of Y
@@ -83,6 +99,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndirect() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	 // Read the operand byte and add it to D to get the first address
 	const operand: u8 = addr_immediate_u8();
 	const indirectAddr: u16 = registers.D + operand;
@@ -103,6 +124,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndexedIndirectX() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	// Read the operand byte and add it to D to get the first address
    const operand: u8 = addr_immediate_u8();
    let indirectAddr: u16 = registers.D + operand;
@@ -133,6 +159,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndirectIndexedY() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	// Read the operand byte and add it to D to get the first address
    const operand: u8 = addr_immediate_u8();
    const indirectAddr: u16 = registers.D + operand;
@@ -163,6 +194,11 @@ import { read_u16, read_u8 } from '../../system-bus';
  */
 // @ts-ignore: decorator
 @inline export function addr_directPageIndirectLong() : u32 {
+	// Count 1 extra cycle if the low byte of `D` is non-zero
+	if (registers.D & 0xff) {
+		cpuThread.countCycles(1);
+	}
+
 	// Read the operand byte and add it to D to get the first address
    const operand: u8 = addr_immediate_u8();
    const indirectAddr: u16 = registers.D + operand;

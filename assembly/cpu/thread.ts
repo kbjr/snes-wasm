@@ -1,30 +1,37 @@
 
-import { createThread, Thread } from '../scheduler';
+import { getNextInstruction } from './instructions';
+import { cpuThread, Interrupt } from '../scheduler';
 
-export let thread: Thread | null = null;
-
-/** TODO: What is this value? */
-const frequency: f64 = 10;
-
-/** Registers the CPU as a thread in the scheduler */
-export function registerThread() : void {
-	if (thread === null) {
-		thread = createThread(frequency, mainLoop, destroy);
-	}
-}
-
-/** Called when the thread is removed from the scheduler (like when the system is shut down) */
-export function destroy() : void {
-	thread = null;
-}
+let idle: bool = false;
 
 /** The CPU's main loop function */
-export function mainLoop() : void {
+export function main() : void {
 	// First, check to see if there is an interrupt to handle
-	if (thread?.activeInterrupt !== null) {
-		// TODO: Handle the interrupt
+	switch (cpuThread.activeInterrupt) {
+		case Interrupt.RESET:
+			// TODO: RESET interupt
+			break;
+		
+		// Otherwise, execute the next instruction
+		case Interrupt.NONE:
+		default:
+			step();
+			break;
+	}
+}
+
+// @ts-ignore: decorator
+@inline export function waitForInterrupt() : void {
+	idle = true;
+}
+
+/** Run the next actual instruction (or idle if waiting) */
+function step() : void {
+	if (idle) {
+		cpuThread.countCycles(1);
 	}
 
-	// Otherwise, execute the next instruction
-	// TODO: Run instruction
+	else {
+		cpuThread.runInstruction(getNextInstruction());
+	}
 }

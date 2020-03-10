@@ -1,8 +1,8 @@
 
 import { flags } from '../flags';
-import { read_u8, read_u16 } from '../../system-bus';
 import { registers } from '../registers';
-import { countCycles, countCyclesIf } from '../cycle-counter';
+import { cpuThread } from '../../scheduler/threads';
+import { read_u8, read_u16 } from '../../system-bus';
 import {
 	addr_directPageIndexedIndirectX,
 	addr_stackRelative,
@@ -26,6 +26,15 @@ import {
  * Add With Carry Instruction (`adc`)
  *
  * Adds operand to the Accumulator; adds an additional 1 if `C` is set
+ *
+ * Opcode references:
+ * 
+ *     [1]: Add 1 cycle if M = 0
+ *     [2]: Add 1 cycle if low byte of D is non-zero
+ *     [3]: Add 1 byte if M = 0
+ *     [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
+ *
+ * FIXME: Implement [4]
  */
 export namespace adc {
 	/**
@@ -40,18 +49,14 @@ export namespace adc {
 	 *     adc (dp,X)
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if `C` is set
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of D is non-zero
 	 */
-	export function $61() : void {
+	export function $61() : bool {
 		adc(addr_directPageIndexedIndirectX());
 		
 		// Count 6 cycles for the instruction
-		countCycles(6);
+		cpuThread.countCycles(6);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -66,14 +71,14 @@ export namespace adc {
 	 *     adc sr,S
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if `C` is set
-	 *
-	 * [1]: Add 1 cycle if M = 0
 	 */
-	export function $63() : void {
+	export function $63() : bool {
 		adc(addr_stackRelative());
 		
 		// Count 4 cycles for the instruction
-		countCycles(4);
+		cpuThread.countCycles(4);
+
+		return false;
 	}
 	
 	/**
@@ -88,18 +93,14 @@ export namespace adc {
 	 *     adc dp
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
 	 */
-	export function $65() : void {
+	export function $65() : bool {
 		adc(addr_directPage());
 		
 		// Count 3 cycles for the instruction
-		countCycles(3);
+		cpuThread.countCycles(3);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -114,18 +115,14 @@ export namespace adc {
 	 *     adc [dp]
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
 	 */
-	export function $67() : void {
+	export function $67() : bool {
 		adc(addr_directPageIndirectLong());
 	
 		// Count 6 cycles for the instruction
-		countCycles(6);
+		cpuThread.countCycles(6);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -134,17 +131,14 @@ export namespace adc {
 	 * Opcode:     0x69
 	 * Flags:      nv----zc-
 	 * Addressing: Immediate
-	 * Bytes:      2 [2]
+	 * Bytes:      2 [3]
 	 * Cycles:     2 [1]
 	 *
 	 *     adc #const
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C = 1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 byte if M = 0
 	 */
-	export function $69() : void {
+	export function $69() : bool {
 		if (flags.E || flags.M) {
 			adc_u8(addr_immediate_u8());
 		}
@@ -154,7 +148,9 @@ export namespace adc {
 		}
 	
 		// Count 2 cycles for the instruction
-		countCycles(2);
+		cpuThread.countCycles(2);
+
+		return false;
 	}
 	
 	/**
@@ -169,14 +165,14 @@ export namespace adc {
 	 *     adc addr
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
 	 */
-	export function $6D() : void {
+	export function $6D() : bool {
 		adc(addr_absolute());
 	
 		// Count 4 cycles for the instruction
-		countCycles(4);
+		cpuThread.countCycles(4);
+
+		return false;
 	}
 	
 	/**
@@ -191,14 +187,14 @@ export namespace adc {
 	 *     adc long
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
 	 */
-	export function $6F() : void {
+	export function $6F() : bool {
 		adc(addr_absoluteLong());
 	
 		// Count 5 cycles for the instruction
-		countCycles(5);
+		cpuThread.countCycles(5);
+
+		return false;
 	}
 	
 	/**
@@ -208,26 +204,19 @@ export namespace adc {
 	 * Flags:      nv----zc-
 	 * Addressing: Direct Page Indirect Indexed,Y
 	 * Bytes:      2
-	 * Cycles:     5 [1],[2],[3]
+	 * Cycles:     5 [1],[2],[4]
 	 *
 	 *     adc (dp),Y
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
-	 * [3]: Add 1 cycle if adding index crosses a page boundary or x=0 (16-bit index registers)
-	 *
-	 * FIXME: Implement [3]
 	 */
-	export function $71() : void {
+	export function $71() : bool {
 		adc(addr_directPageIndirectIndexedY());
 	
 		// Count 5 cycles for the instruction
-		countCycles(5);
+		cpuThread.countCycles(5);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -242,18 +231,14 @@ export namespace adc {
 	 *     adc (dp)
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
 	 */
-	export function $72() : void {
+	export function $72() : bool {
 		adc(addr_directPageIndirect());
 	
 		// Count 5 cycles for the instruction
-		countCycles(5);
+		cpuThread.countCycles(5);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -268,14 +253,14 @@ export namespace adc {
 	 *     adc (sr,S),Y
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
 	 */
-	export function $73() : void {
+	export function $73() : bool {
 		adc(addr_stackRelativeIndirectIndexedY());
 	
 		// Count 7 cycles for the instruction
-		countCycles(7);
+		cpuThread.countCycles(7);
+
+		return false;
 	}
 	
 	/**
@@ -290,18 +275,14 @@ export namespace adc {
 	 *     adc dp,X
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
 	 */
-	export function $75() : void {
+	export function $75() : bool {
 		adc(addr_directPageIndexedX());
 	
 		// Count 4 cycles for the instruction
-		countCycles(4);
+		cpuThread.countCycles(4);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -316,18 +297,14 @@ export namespace adc {
 	 *     adc [dp],Y
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if low byte of Direct Page Register is non-zero
 	 */
-	export function $77() : void {
+	export function $77() : bool {
 		adc(addr_directPageIndirectLongIndexedY());
 	
 		// Count 6 cycles for the instruction
-		countCycles(6);
+		cpuThread.countCycles(6);
 
-		// Count 1 extra cycle if the low byte of `D` is non-zero
-		countCyclesIf(<bool>(registers.D & 0xff), 1);
+		return false;
 	}
 	
 	/**
@@ -337,22 +314,19 @@ export namespace adc {
 	 * Flags:      nv----zc-
 	 * Addressing: Absolute Indexed,Y
 	 * Bytes:      3
-	 * Cycles:     4 [1],[2]
+	 * Cycles:     4 [1],[4]
 	 *
 	 *     adc addr,Y
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if adding index crosses a page boundary or x=0 (16-bit index registers)
-	 *
-	 * FIXME: Implement [2]
 	 */
-	export function $79() : void {
+	export function $79() : bool {
 		adc(addr_absoluteIndexedY());
 	
 		// Count 4 cycles for the instruction
-		countCycles(4);
+		cpuThread.countCycles(4);
+
+		return false;
 	}
 	
 	/**
@@ -362,22 +336,19 @@ export namespace adc {
 	 * Flags:      nv----zc-
 	 * Addressing: Absolute Indexed,X
 	 * Bytes:      3
-	 * Cycles:     4 [1],[2]
+	 * Cycles:     4 [1],[4]
 	 *
 	 *     adc addr,X
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
-	 * [2]: Add 1 cycle if adding index crosses a page boundary or x=0 (16-bit index registers)
-	 *
-	 * FIXME: Implement [2]
 	 */
-	export function $7D() : void {
+	export function $7D() : bool {
 		adc(addr_absoluteIndexedX());
 	
 		// Count 4 cycles for the instruction
-		countCycles(4);
+		cpuThread.countCycles(4);
+
+		return false;
 	}
 	
 	/**
@@ -392,14 +363,14 @@ export namespace adc {
 	 *     adc long,X
 	 *
 	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 *
-	 * [1]: Add 1 cycle if M = 0
 	 */
-	export function $7F() : void {
+	export function $7F() : bool {
 		adc(addr_absoluteLongIndexedX());
 	
 		// Count 5 cycles for the instruction
-		countCycles(5);
+		cpuThread.countCycles(5);
+
+		return false;
 	}
 	
 	
@@ -599,6 +570,6 @@ export namespace adc {
 		}
 
 		// Count 1 extra cycle for 16-bit mode
-		countCycles(1);
+		cpuThread.countCycles(1);
 	}
 }
