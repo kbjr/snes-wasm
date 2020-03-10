@@ -5,6 +5,8 @@
 
 The 65816 is a 16-bit processor. It uses a 24-bit address bus, allowing for it to map up to 16MB of memory. It also has a 6502 Emulation Mode, that causes it to operate like the 8-bit processor with a 16-bit address bus.
 
+Addresses in these documents are generally written in the form `$AB:$CDEF`, where `AB` is the hex value of the bank, and `CDEF` is the hex value for the address within that bank.
+
 
 
 
