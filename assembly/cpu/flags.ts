@@ -22,161 +22,161 @@ class Flags {
 	/** Carry */
 	// @ts-ignore: decorator
 	@inline public get C() : u8 {
-		return registers.P & Flag.C;
+		return registers.P & <u8>Flag.C;
 	}
 
 	// @ts-ignore: decorator
 	@inline public C_set() : void {
-		registers.P |= Flag.C;
+		registers.P |= <u8>Flag.C;
 	}
 
 	// @ts-ignore: decorator
 	@inline public C_clear() : void {
-		registers.P &= Flag.C ^ 0xff;
+		registers.P &= <u8>Flag.C ^ 0xff;
 	}
 
 	/** Zero */
 	// @ts-ignore: decorator
 	@inline public get Z() : u8 {
-		return registers.P & Flag.Z;
+		return registers.P & <u8>Flag.Z;
 	}
 
 	// @ts-ignore: decorator
 	@inline public Z_set() : void {
-		registers.P |= Flag.Z;
+		registers.P |= <u8>Flag.Z;
 	}
 
 	// @ts-ignore: decorator
 	@inline public Z_clear() : void {
-		registers.P &= Flag.Z ^ 0xff;
+		registers.P &= <u8>Flag.Z ^ 0xff;
 	}
 
 	/** IRQ disable */
 	// @ts-ignore: decorator
 	@inline public get I() : u8 {
-		return registers.P & Flag.I;
+		return registers.P & <u8>Flag.I;
 	}
 
 	// @ts-ignore: decorator
 	@inline public I_set() : void {
-		registers.P |= Flag.I;
+		registers.P |= <u8>Flag.I;
 	}
 
 	// @ts-ignore: decorator
 	@inline public I_clear() : void {
-		registers.P &= Flag.I ^ 0xff;
+		registers.P &= <u8>Flag.I ^ 0xff;
 	}
 
 	/** Decimal mode */
 	// @ts-ignore: decorator
 	@inline public get D() : u8 {
-		return registers.P & Flag.D;
+		return registers.P & <u8>Flag.D;
 	}
 
 	// @ts-ignore: decorator
 	@inline public D_set() : void {
-		registers.P |= Flag.D;
+		registers.P |= <u8>Flag.D;
 	}
 
 	// @ts-ignore: decorator
 	@inline public D_clear() : void {
-		registers.P &= Flag.D ^ 0xff;
+		registers.P &= <u8>Flag.D ^ 0xff;
 	}
 
 	/** Index register size (1 = 8-bit, 0 = 16-bit) */
 	// @ts-ignore: decorator
 	@inline public get X() : u8 {
-		return registers.P & Flag.X;
+		return registers.P & <u8>Flag.X;
 	}
 
 	// @ts-ignore: decorator
 	@inline public X_set() : void {
-		registers.P |= Flag.X;
+		registers.P |= <u8>Flag.X;
 	}
 
 	// @ts-ignore: decorator
 	@inline public X_clear() : void {
-		registers.P &= Flag.X ^ 0xff;
+		registers.P &= <u8>Flag.X ^ 0xff;
 	}
 
 	/** Break */
 	// @ts-ignore: decorator
 	@inline public get B() : u8 {
-		return registers.P & Flag.B;
+		return registers.P & <u8>Flag.B;
 	}
 
 	// @ts-ignore: decorator
 	@inline public B_set() : void {
-		registers.P |= Flag.B;
+		registers.P |= <u8>Flag.B;
 	}
 
 	// @ts-ignore: decorator
 	@inline public B_clear() : void {
-		registers.P &= Flag.B ^ 0xff;
+		registers.P &= <u8>Flag.B ^ 0xff;
 	}
 
 	/** Accumulator/memory size (1 = 8-bit, 0 = 16-bit) */
 	// @ts-ignore: decorator
 	@inline public get M() : u8 {
-		return registers.P & Flag.M;
+		return registers.P & <u8>Flag.M;
 	}
 
 	// @ts-ignore: decorator
 	@inline public M_set() : void {
-		registers.P |= Flag.M;
+		registers.P |= <u8>Flag.M;
 	}
 
 	// @ts-ignore: decorator
 	@inline public M_clear() : void {
-		registers.P &= Flag.M ^ 0xff;
+		registers.P &= <u8>Flag.M ^ 0xff;
 	}
 
 	/** Overflow */
 	// @ts-ignore: decorator
 	@inline public get V() : u8 {
-		return registers.P & Flag.V;
+		return registers.P & <u8>Flag.V;
 	}
 
 	// @ts-ignore: decorator
 	@inline public V_set() : void {
-		registers.P |= Flag.V;
+		registers.P |= <u8>Flag.V;
 	}
 
 	// @ts-ignore: decorator
 	@inline public V_clear() : void {
-		registers.P &= Flag.V ^ 0xff;
+		registers.P &= <u8>Flag.V ^ 0xff;
 	}
 
 	/** Negative */
 	// @ts-ignore: decorator
 	@inline public get N() : u8 {
-		return registers.P & Flag.N;
+		return registers.P & <u8>Flag.N;
 	}
 
 	// @ts-ignore: decorator
 	@inline public N_set() : void {
-		registers.P |= Flag.N;
+		registers.P |= <u8>Flag.N;
 	}
 
 	// @ts-ignore: decorator
 	@inline public N_clear() : void {
-		registers.P &= Flag.N ^ 0xff;
+		registers.P &= <u8>Flag.N ^ 0xff;
 	}
 
 	/** Emulation mode */
 	// @ts-ignore: decorator
 	@inline public get E() : u8 {
-		return registers.P2 & Flag.E;
+		return registers.P2 & <u8>Flag.E;
 	}
 
 	// @ts-ignore: decorator
 	@inline public E_set() : void {
-		registers.P2 |= Flag.E;
+		registers.P2 |= <u8>Flag.E;
 	}
 
 	// @ts-ignore: decorator
 	@inline public E_clear() : void {
-		registers.P2 &= Flag.E ^ 0xff;
+		registers.P2 &= <u8>Flag.E ^ 0xff;
 	}
 }
 

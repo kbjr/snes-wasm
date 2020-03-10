@@ -31,15 +31,15 @@ class Regsiters {
 	 *
 	 * Emulation Mode (E = 1) / 8-Bit Mode (M = 1):
 	 *
-	 *   f e d c b a 9 8   7 6 5 4 3 2 1 0
-	 *   - - - - - - - -   a a a a a a a a
+	 *     f e d c b a 9 8   7 6 5 4 3 2 1 0
+	 *     - - - - - - - -   a a a a a a a a
 	 *
 	 * 16-bit Mode (M = 0):
 	 *
-	 *   f e d c b a 9 8   7 6 5 4 3 2 1 0
-	 *   a a a a a a a a   a a a a a a a a
-	 *
-	 *   a = Accumulator A
+	 *     f e d c b a 9 8   7 6 5 4 3 2 1 0
+	 *     a a a a a a a a   a a a a a a a a
+	 *  
+	 *     a = Accumulator A
 	 *
 	 * The accumulator. This is the math register. It stores one of two operands
 	 * or the result of most arithmetic and logical operations.
@@ -65,10 +65,10 @@ class Regsiters {
 	 * Read: mixed, any time
 	 * Write: N/A
 	 *
-	 *   f e d c b a 9 8   7 6 5 4 3 2 1 0
-	 *   b b b b b b b b   - - - - - - - -
-	 *
-	 *   b = Accumulator B
+	 *     f e d c b a 9 8   7 6 5 4 3 2 1 0
+	 *     b b b b b b b b   - - - - - - - -
+	 *  
+	 *     b = Accumulator B
 	 *
 	 * The accumulator. This is the math register. It stores one of two operands
 	 * or the result of most arithmetic and logical operations.
@@ -92,10 +92,10 @@ class Regsiters {
 	 * Read: mixed, any time
 	 * Write: N/A
 	 *
-	 *   f e d c b a 9 8   7 6 5 4 3 2 1 0
-	 *   c c c c c c c c   c c c c c c c c
-	 *
-	 *   c = Accumulator C
+	 *     f e d c b a 9 8   7 6 5 4 3 2 1 0
+	 *     c c c c c c c c   c c c c c c c c
+	 *  
+	 *     c = Accumulator C
 	 *
 	 * The accumulator. This is the math register. It stores one of two operands
 	 * or the result of most arithmetic and logical operations.
@@ -119,11 +119,11 @@ class Regsiters {
 	 * Read: mixed, any time
 	 * Write: mixed, any time
 	 *
-	 *   f e d c b a 9 8  7 6 5 4 3 2 1 0
-	 *   x x x x x x x x  x x x x x x x x    <-- Native Mode
-	 *   - - - - - - - -  x x x x x x x x    <-- Emulation Mode / 8-bit Index Mode
-	 *   
-	 *   x = X index register data
+	 *     f e d c b a 9 8  7 6 5 4 3 2 1 0
+	 *     x x x x x x x x  x x x x x x x x    <-- Native Mode
+	 *     - - - - - - - -  x x x x x x x x    <-- Emulation Mode / 8-bit Index Mode
+	 *     
+	 *     x = X index register data
 	 *
 	 * Register intended for generic use by the programmer. 8-bits if the X flag is set
 	 * in the Processor Status register, or in emulation mode. Otherwise, the register is
@@ -156,11 +156,11 @@ class Regsiters {
 	 * Read: mixed, any time
 	 * Write: mixed, any time
 	 *
-	 *   f e d c b a 9 8  7 6 5 4 3 2 1 0
-	 *   y y y y y y y y  y y y y y y y y    <-- Native Mode
-	 *   - - - - - - - -  y y y y y y y y    <-- Emulation Mode / 8-bit Index Mode
-	 *   
-	 *   y = Y index register data
+	 *     f e d c b a 9 8  7 6 5 4 3 2 1 0
+	 *     y y y y y y y y  y y y y y y y y    <-- Native Mode
+	 *     - - - - - - - -  y y y y y y y y    <-- Emulation Mode / 8-bit Index Mode
+	 *     
+	 *     y = Y index register data
 	 *
 	 * Register intended for generic use by the programmer. 8-bits if the X flag is set
 	 * in the Processor Status register, or in emulation mode. Otherwise, the register is
@@ -306,19 +306,19 @@ class Regsiters {
 	 * Read: byte, any time
 	 * Write: byte, any time
 	 *
-	 *   7 6 5 4 3 2 1 0
-	 *   n v m x d i z c    <-- Native Mode
-	 *   n v - b d i z c    <-- Emulation Mode
-	 *   
-	 *   n = Negative                   native/emulation  1 = Negative
-	 *   v = Overflow                   native/emulation  1 = Overflow
-	 *   m = Accumulator register size  native            1 = 8-bit           0 = 16-bit
-	 *   x = Index register size        native            1 = 8-bit           0 = 16-bit
-	 *   b = Break                             emulation  1 = BRK caused IRQ
-	 *   d = Decimal mode               native/emulation  1 = Decimal mode    0 = Binary mode
-	 *   i = IRQ disable                native/emulation  1 = Disabled
-	 *   z = Zero                       native/emulation  1 = Result Zero
-	 *   c = Carry                      native/emulation  1 = Carry
+	 *     7 6 5 4 3 2 1 0
+	 *     n v m x d i z c    <-- Native Mode
+	 *     n v - b d i z c    <-- Emulation Mode
+	 *     
+	 *     n = Negative                   native/emulation  1 = Negative
+	 *     v = Overflow                   native/emulation  1 = Overflow
+	 *     m = Accumulator register size  native            1 = 8-bit           0 = 16-bit
+	 *     x = Index register size        native            1 = 8-bit           0 = 16-bit
+	 *     b = Break                             emulation  1 = BRK caused IRQ
+	 *     d = Decimal mode               native/emulation  1 = Decimal mode    0 = Binary mode
+	 *     i = IRQ disable                native/emulation  1 = Disabled
+	 *     z = Zero                       native/emulation  1 = Result Zero
+	 *     c = Carry                      native/emulation  1 = Carry
 	 *
 	 * Contains a number of processor status flags containing information about the current
 	 * state of the processor. Some of the stored flags are different depending on whether or

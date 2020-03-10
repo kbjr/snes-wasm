@@ -21,7 +21,7 @@ export function onRD() : void {
 
 	// Banks $00-$3F and $80-$BF
 	if (bank < 0x40 || bank >= 0x80 && bank < 0xc0) {
-		const addr: u8 = getAddrBusA_addr();
+		const addr: u16 = getAddrBusA_addr();
 
 		// Addresses $4218-$421F map to registers
 		switch (addr) {

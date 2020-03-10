@@ -12,6 +12,7 @@ In immediate addressing, the effective address is the Program Counter (`PC`). A 
 | Syntax      | Addressing Method    | Operand | Effective Address |
 |-------------|----------------------|---------|-------------------|
 | `op #const` | `addr_immediate_u8`  | 1 Byte  | `$PBR:$(PC++)`    |
+| `op #const` | `addr_immediate_u16` | 2 Bytes | `$PBR:$(PC+=2)`   |
 
 
 

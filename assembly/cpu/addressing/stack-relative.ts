@@ -52,7 +52,7 @@ export function addr_stackRelativeIndirectIndexedX() : u32 {
  * the effective address.
  */
 export function addr_stackRelativeIndirectIndexedY() : u32 {
-	const indirectAddr = addr_stackRelative();
+	const indirectAddr = <u16>addr_stackRelative();
 
 	const bank = <u32>registers.DBR << 16;
 	const addr = <u32>read_u16(0x00, indirectAddr);

@@ -2,6 +2,7 @@
 export { CPU } from './cpu/namespace';
 export { SystemBus } from './system-bus/namespace';
 export { Joypad } from './joypad/namespace';
+export { Scheduler } from './scheduler/namespace';
 
 export function read(index: u32) : u8 {
 	return load<u8>(index);

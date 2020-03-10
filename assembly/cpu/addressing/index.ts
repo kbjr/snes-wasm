@@ -22,3 +22,6 @@ export {
 export { addr_programCounterRelative, addr_programCounterRelativeLong } from './program-counter-relative';
 
 export { addr_stackRelative, addr_stackRelativeIndirectIndexedX, addr_stackRelativeIndirectIndexedY } from './stack-relative';
+
+// TODO: Do address modes actually impart deterministic cycle cost increases? Can
+// the be moved into these files?

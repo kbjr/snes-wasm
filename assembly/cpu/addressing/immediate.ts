@@ -47,7 +47,7 @@ import { read_u8, read_u16, read_u24 } from '../../system-bus';
  * Returns the 24 bits stored in the operand.
  */
 // @ts-ignore: decorator
-@inline export function addr_immediate_u24() : u24 {
+@inline export function addr_immediate_u24() : u32 {
 	const result = read_u24(registers.PBR, registers.PC);
 
 	registers.PC += 3;
