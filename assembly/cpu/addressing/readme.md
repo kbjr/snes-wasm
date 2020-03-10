@@ -109,7 +109,7 @@ Block move addressing is used by block move instructions (`mvn` and `mvp`). In t
 
 ### Operand Order
 
-Despite the assembler instrution sytax list the source bank before the destination bank, the compiled machine code actually lists the operands in the other order, with the destination bank preceeding the source bank.
+Despite the assembler instrution syntax listing the source bank before the destination bank, the compiled machine code actually lists the operands in the other order, with the destination bank preceeding the source bank.
 
 ### Addresses
 
