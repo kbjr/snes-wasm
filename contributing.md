@@ -128,5 +128,5 @@ Pull Requests are welcome. Once the list of things to be done is written up, the
 
 #### General Points
 
-- Tabs (not spaces) in source code files, please
+- Commits to be merged should pass all checks (should build, pass tests/checks/lint)
 - Comments. Many comments. Technical documentation is hard to find, so please document information here thouroughly (code comments, readme files, links, whatever documentation can be added)
