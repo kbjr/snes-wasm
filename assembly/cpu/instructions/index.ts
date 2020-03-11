@@ -3,11 +3,24 @@ import { Instruction } from '../../scheduler';
 import { addr_immediate_u8 } from '../addressing';
 
 import { adc } from './adc';
+// import { and } from './and';
+// import { asl } from './asl';
+// import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './branch';
+// import { bit } from './bit';
+// import { brk } from './brk';
+import { clc, cld, cli, clv } from './cl_';
+// import { cmp } from './cmp';
+// import { cpx, cpy } from './cp_';
+// import { dec, dex, dey } from './de_';
+import { xce } from './xce';
 
 export function getNextInstruction() : Instruction {
 	const opcode: u8 = addr_immediate_u8();
 
 	switch (opcode) {
+		// TODO: Remove this once everything is uncommented
+		/* eslint-disable @typescript-eslint/indent */
+
 		case 0x61: return adc.$61;  // adc (dp,X)
 		case 0x63: return adc.$63;  // adc sr,s
 		case 0x65: return adc.$65;  // adc dp
@@ -67,10 +80,10 @@ export function getNextInstruction() : Instruction {
 		// case 0x50: return bvc.$50;  // bvc nearlabel
 		// case 0x70: return bvs.$70;  // bvs nearlabel
 		
-		// case 0x18: return clc.$18;  // clc
-		// case 0xd8: return cld.$D8;  // cld
-		// case 0x58: return cli.$58;  // cli
-		// case 0xb8: return clv.$B8;  // clv
+		case 0x18: return clc.$18;  // clc
+		case 0xd8: return cld.$D8;  // cld
+		case 0x58: return cli.$58;  // cli
+		case 0xb8: return clv.$B8;  // clv
 
 		// case 0xc1: return cmp.$C1;  // cmp (dp,X)
 		// case 0xc3: return cmp.$C3;  // cmp sr,S
@@ -306,7 +319,7 @@ export function getNextInstruction() : Instruction {
 		// case 0x42: return wdm.$42;  // wdm
 
 		// case 0xeb: return xba.$EB;  // xba
-		// case 0xfb: return xce.$FB;  // xce
+		case 0xfb: return xce.$FB;  // xce
 	}
 
 	unreachable();

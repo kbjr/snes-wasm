@@ -1,0 +1,7 @@
+
+import { ppu1Thread } from '../../scheduler';
+
+export function main() : void {
+	// We don't want to do anything yet...
+	ppu1Thread.countCycles(10);
+}

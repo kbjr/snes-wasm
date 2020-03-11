@@ -1,7 +1,7 @@
 
-import { ppu2Thread } from '../../scheduler';
+import { apuThread } from '../../scheduler';
 
 export function main() : void {
 	// We don't want to do anything yet...
-	ppu2Thread.countCycles(10);
+	apuThread.countCycles(10);
 }

@@ -9,3 +9,6 @@ export namespace cpu_freq {
 	@inline export const NTSC: f64 = 21477270;
 }
 
+/** The clock frequency of the APU in Hz (24.576MHz) */
+// @ts-ignore: decorator
+@inline export const apu_freq: f64 = 24576000;

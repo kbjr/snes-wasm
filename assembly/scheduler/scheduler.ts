@@ -2,7 +2,9 @@
 import { Interrupt } from './interrupts';
 import { Thread, Callback } from './thread';
 
-const threads: Array<Thread> = [ ];
+export const systemThreads: Array<Thread> = [ ];
+
+export const externalThreads: Array<Thread> = [ ];
 
 /** The amount of drift between a thread clock and the master clock that is ignorable (in seconds). */
 // TODO: What should this value be?
@@ -19,7 +21,7 @@ let clock_start: f64 = 0;
 export let activeInterrupt: u8 = Interrupt.NONE;
 
 /**
- * Registers a new thread with the scheduler
+ * Registers a new external thread with the scheduler
  * 
  * @param frequency The frequency (cycles per second) that this thread should run at
  * @param mainLoop The main loop function that is called for the thread
@@ -28,7 +30,7 @@ export let activeInterrupt: u8 = Interrupt.NONE;
 export function createThread(frequency: f64, mainLoop: Callback, onDestroy: Callback) : Thread {
 	const thread = new Thread(frequency, mainLoop, onDestroy);
 
-	threads.push(thread);
+	systemThreads.push(thread);
 
 	return thread;
 }
@@ -49,8 +51,8 @@ export function handleInterrupt() : void {
 	// If an interrupt has been raised, but not handled, handle it
 	if (activeInterrupt !== Interrupt.NONE) {
 		// We raise the interrupt on each thread so they can each handle it as they see fit
-		for (let i = 0; i < threads.length; i++) {
-			threads[i].interrupt(activeInterrupt);
+		for (let i = 0; i < systemThreads.length; i++) {
+			systemThreads[i].interrupt(activeInterrupt);
 		}
 
 		// Clear the interrupt once it has propagated to each thread
@@ -70,9 +72,6 @@ export function handleInterrupt() : void {
  * back to the scheduler.
  */
 export function sync_fast() : void {
-	let thread: Thread | null = null;
-	let thread_clock: f64 = clock;
-
 	// Continue running until either each thread catches up to the master clock,
 	// or until an interrupt is raised
 	while (true) {
@@ -83,20 +82,12 @@ export function sync_fast() : void {
 
 		// Update the master clock, and reset out temp variables
 		syncClock();
-		thread_clock = clock;
-		thread = null;
 
-		// Go through the threads, looking for the one that is the furthest behind
-		// the master clock
-		for (let i = 0; i < threads.length; i++) {
-			if (threads[i].clock < thread_clock) {
-				thread_clock = threads[i].clock;
-				thread = threads[i];
-			}
-		}
+		// Find the thread that is the furthest behind so we can catch it up
+		const thread = findSlowestThread();
 
 		// If we found a thread that is suitibly far behind, run it until its synchronized
-		if (thread !== null && thread_clock + SYNC_THRESHOLD < clock) {
+		if (thread !== null && thread.clock + SYNC_THRESHOLD < clock) {
 			thread.sync();
 
 			// When this thread is synchronized, loop again
@@ -118,9 +109,6 @@ export function sync_fast() : void {
  * downside is that much more time is spent in the scheduler itself, adding performance overhead.
  */
 export function sync_accurate() : void {
-	let thread: Thread | null = null;
-	let thread_clock: f64 = clock;
-
 	// Continue running until either each thread catches up to the master clock,
 	// or until an interrupt is raised
 	while (true) {
@@ -130,21 +118,13 @@ export function sync_accurate() : void {
 		}
 
 		// Update the master clock, and reset out temp variables
-		syncClock()
-		thread_clock = clock;
-		thread = null;
+		syncClock();
 
-		// Go through the threads, looking for the one that is the furthest behind
-		// the master clock
-		for (let i = 0; i < threads.length; i++) {
-			if (threads[i].clock < thread_clock) {
-				thread_clock = threads[i].clock;
-				thread = threads[i];
-			}
-		}
+		// Find the thread that is the furthest behind so we can catch it up
+		const thread = findSlowestThread();
 
 		// If we found a thread that is suitibly far behind, run the next step for that thread
-		if (thread !== null && thread_clock + SYNC_THRESHOLD < clock) {
+		if (thread !== null && thread.clock + SYNC_THRESHOLD < clock) {
 			thread.step();
 
 			// Loop again
@@ -178,4 +158,26 @@ export function reset() : void {
 /** Get the current system time, in seconds (millisecond resolution) */
 function now() : f64 {
 	return <f64>Date.now() / 1000.0;
+}
+
+/** Find the thread that is the furthest behind */
+function findSlowestThread() : Thread | null {
+	let threadClock: f64 = clock;
+	let thread: Thread | null = null;
+	
+	for (let i = 0; i < systemThreads.length; i++) {
+		if (systemThreads[i].clock < threadClock) {
+			threadClock = systemThreads[i].clock;
+			thread = systemThreads[i];
+		}
+	}
+
+	for (let i = 0; i < externalThreads.length; i++) {
+		if (externalThreads[i].clock < threadClock) {
+			threadClock = externalThreads[i].clock;
+			thread = externalThreads[i];
+		}
+	}
+
+	return thread;
 }
