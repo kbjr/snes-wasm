@@ -309,5 +309,5 @@ export function getNextInstruction() : Instruction {
 		// case 0xfb: return xce.$FB;  // xce
 	}
 
-	throw new Error(`We fell through the CPU get next instruction method somehow. Opcode: ${opcode}`);
+	unreachable();
 }
