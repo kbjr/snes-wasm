@@ -103,7 +103,6 @@ Build JavaScript:
 ```bash
 $ npm run build:lib
 ```
-**TODO:** Do we need more here?
 
 
 
@@ -123,8 +122,6 @@ N/A for the time being.
 ### Contributing Code
 
 Pull Requests are welcome. Once the list of things to be done is written up, there will be a maintained list in the GitHub issues list. If you find one that sounds like something you want to work on, leave a comment to let me know you're looking at it, and feel free to ask questions, and send a Pull Request when you're done.
-
-**TODO:** Update this once CI is setup with build / lint checks.
 
 #### General Points
 
