@@ -77,7 +77,7 @@ At some point, once this project is more underway, a new project can be started 
 	- `./assembly/mem.ts` contains the code for managing memory inside the wasm instance.
 	- `./assembly/index.ts` contains the exported methods called by JavaScript.
 - `./lib`: Contains all of the TypeScript for the API library that loads the WebAssembly and provides an interface into the emulator. Builds to `./build/lib/*`.
-- `./scripts`: Build scripts and the like; Things developers on the project might call
+- `./scripts`: Build scripts and the like; Things developers of the project might call
 - `./tests`: Nothing yet... >_> will eventually have unit tests
 
 
