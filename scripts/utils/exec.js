@@ -11,3 +11,7 @@ exports.exec = (command, args, opts) => {
 		proc.on('exit', resolve);
 	});
 };
+
+exports.env = (env) => {
+	return Object.assign({ }, process.env, env);
+};
