@@ -3,13 +3,13 @@ import { Instruction } from '../../scheduler';
 import { addr_immediate_u8 } from '../addressing';
 
 import { adc } from './adc';
-// import { and } from './and';
-// import { asl } from './asl';
-// import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './branch';
-// import { bit } from './bit';
-// import { brk } from './brk';
+import { and } from './and';
+import { asl } from './asl';
+import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './branch';
+import { bit } from './bit';
+import { brk } from './brk';
 import { clc, cld, cli, clv } from './cl_';
-// import { cmp } from './cmp';
+import { cmp } from './cmp';
 // import { cpx, cpy } from './cp_';
 // import { dec, dex, dey } from './de_';
 import { xce } from './xce';
@@ -37,69 +37,69 @@ export function getNextInstruction() : Instruction {
 		case 0x7d: return adc.$7D;  // adc addr,X
 		case 0x7f: return adc.$7F;  // adc long,X
 
-		// case 0x21: return and.$21;  // and (dp,X)
-		// case 0x23: return and.$23;  // and sr,S
-		// case 0x25: return and.$25;  // and dp
-		// case 0x27: return and.$27;  // and [dp]
-		// case 0x29: return and.$29;  // and #const
-		// case 0x2d: return and.$2D;  // and addr
-		// case 0x2f: return and.$2F;  // and long
-		// case 0x31: return and.$31;  // and (dp),Y
-		// case 0x32: return and.$32;  // and (dp)
-		// case 0x33: return and.$33;  // and (sr,S),Y
-		// case 0x35: return and.$35;  // and dp,X
-		// case 0x37: return and.$37;  // and [dp],Y
-		// case 0x39: return and.$39;  // and addr,Y
-		// case 0x3d: return and.$3D;  // and addr,X
-		// case 0x3f: return and.$3F;  // and long,X
+		case 0x21: return and.$21;  // and (dp,X)
+		case 0x23: return and.$23;  // and sr,S
+		case 0x25: return and.$25;  // and dp
+		case 0x27: return and.$27;  // and [dp]
+		case 0x29: return and.$29;  // and #const
+		case 0x2d: return and.$2D;  // and addr
+		case 0x2f: return and.$2F;  // and long
+		case 0x31: return and.$31;  // and (dp),Y
+		case 0x32: return and.$32;  // and (dp)
+		case 0x33: return and.$33;  // and (sr,S),Y
+		case 0x35: return and.$35;  // and dp,X
+		case 0x37: return and.$37;  // and [dp],Y
+		case 0x39: return and.$39;  // and addr,Y
+		case 0x3d: return and.$3D;  // and addr,X
+		case 0x3f: return and.$3F;  // and long,X
 
-		// case 0x06: return asl.$06;  // asl dp
-		// case 0x0a: return asl.$0A;  // asl A
-		// case 0x0e: return asl.$0E;  // asl addr
-		// case 0x16: return asl.$16;  // asl dp,X
-		// case 0x1e: return asl.$1E;  // asl addr,X
+		case 0x06: return asl.$06;  // asl dp
+		case 0x0a: return asl.$0A;  // asl A
+		case 0x0e: return asl.$0E;  // asl addr
+		case 0x16: return asl.$16;  // asl dp,X
+		case 0x1e: return asl.$1E;  // asl addr,X
 
-		// case 0x90: return bcc.$90;  // bcc nearlabel
-		// case 0xb0: return bcs.$B0;  // bcs nearlabel
-		// case 0xf0: return beq.$F0;  // beq nearlabel
+		case 0x90: return bcc.$90;  // bcc nearlabel
+		case 0xb0: return bcs.$B0;  // bcs nearlabel
+		case 0xf0: return beq.$F0;  // beq nearlabel
 
-		// case 0x24: return bit.$24;  // bit dp
-		// case 0x2c: return bit.$2C;  // bit addr
-		// case 0x34: return bit.$34;  // bit dp,X
-		// case 0x3c: return bit.$3C;  // bit addr,X
-		// case 0x89: return bit.$89;  // bit #const
+		case 0x24: return bit.$24;  // bit dp
+		case 0x2c: return bit.$2C;  // bit addr
+		case 0x34: return bit.$34;  // bit dp,X
+		case 0x3c: return bit.$3C;  // bit addr,X
+		case 0x89: return bit.$89;  // bit #const
 
-		// case 0x30: return bmi.$30;  // bmi nearlabel
-		// case 0xd0: return bne.$D0;  // bne nearlabel
-		// case 0x10: return bpl.$10;  // bpl nearlabel
-		// case 0x80: return bra.$80;  // bra nearlabel
+		case 0x30: return bmi.$30;  // bmi nearlabel
+		case 0xd0: return bne.$D0;  // bne nearlabel
+		case 0x10: return bpl.$10;  // bpl nearlabel
+		case 0x80: return bra.$80;  // bra nearlabel
 
-		// case 0x00: return brk.$00;  // brk
+		case 0x00: return brk.$00;  // brk
 
-		// case 0x82: return brl.$82;  // brl label
-		// case 0x50: return bvc.$50;  // bvc nearlabel
-		// case 0x70: return bvs.$70;  // bvs nearlabel
+		case 0x82: return brl.$82;  // brl label
+		case 0x50: return bvc.$50;  // bvc nearlabel
+		case 0x70: return bvs.$70;  // bvs nearlabel
 		
 		case 0x18: return clc.$18;  // clc
 		case 0xd8: return cld.$D8;  // cld
 		case 0x58: return cli.$58;  // cli
 		case 0xb8: return clv.$B8;  // clv
 
-		// case 0xc1: return cmp.$C1;  // cmp (dp,X)
-		// case 0xc3: return cmp.$C3;  // cmp sr,S
-		// case 0xc5: return cmp.$C5;  // cmp dp
-		// case 0xc7: return cmp.$C7;  // cmp [dp]
-		// case 0xc9: return cmp.$C9;  // cmp #const
-		// case 0xcd: return cmp.$CD;  // cmp addr
-		// case 0xcf: return cmp.$CF;  // cmp long
-		// case 0xd1: return cmp.$D1;  // cmp (dp),Y
-		// case 0xd2: return cmp.$D2;  // cmp (dp)
-		// case 0xd3: return cmp.$D3;  // cmp (sr,S),Y
-		// case 0xd5: return cmp.$D5;  // cmp dp,X
-		// case 0xd7: return cmp.$D7;  // cmp [dp],Y
-		// case 0xd9: return cmp.$D9;  // cmp addr,Y
-		// case 0xdd: return cmp.$DD;  // cmp addr,X
-		// case 0xdf: return cmp.$DF;  // cmp long,X
+		case 0xc1: return cmp.$C1;  // cmp (dp,X)
+		case 0xc3: return cmp.$C3;  // cmp sr,S
+		case 0xc5: return cmp.$C5;  // cmp dp
+		case 0xc7: return cmp.$C7;  // cmp [dp]
+		case 0xc9: return cmp.$C9;  // cmp #const
+		case 0xcd: return cmp.$CD;  // cmp addr
+		case 0xcf: return cmp.$CF;  // cmp long
+		case 0xd1: return cmp.$D1;  // cmp (dp),Y
+		case 0xd2: return cmp.$D2;  // cmp (dp)
+		case 0xd3: return cmp.$D3;  // cmp (sr,S),Y
+		case 0xd5: return cmp.$D5;  // cmp dp,X
+		case 0xd7: return cmp.$D7;  // cmp [dp],Y
+		case 0xd9: return cmp.$D9;  // cmp addr,Y
+		case 0xdd: return cmp.$DD;  // cmp addr,X
+		case 0xdf: return cmp.$DF;  // cmp long,X
 
 		// case 0x02: return cop.$02;  // cop const
 
