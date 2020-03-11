@@ -24,15 +24,26 @@ import { lsr } from './lsr';
 import { mvn, mvp } from './mv_';
 import { nop } from './nop';
 import { ora } from './ora';
+import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
+import { pla, plb, pld, plp, plx, ply } from './pl_';
+import { rep } from './rep';
+import { rol } from './rol';
+import { ror } from './ror';
+import { rti, rtl, rts } from './rt_';
+import { sbc } from './sbc';
+import { sec, sed, sei, sep } from './se_';
+import { sta } from './sta';
+import { stp, stx, sty, stz } from './st_';
+import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
+import { wai } from './wai';
+import { wdm } from './wdm';
+import { xba } from './xba';
 import { xce } from './xce';
 
 export function getNextInstruction() : Instruction {
 	const opcode: u8 = addr_immediate_u8();
 
 	switch (opcode) {
-		// TODO: Remove this once everything is uncommented
-		/* eslint-disable @typescript-eslint/indent */
-
 		case 0x61: return adc.$61;  // adc (dp,X)
 		case 0x63: return adc.$63;  // adc sr,s
 		case 0x65: return adc.$65;  // adc dp
@@ -219,118 +230,118 @@ export function getNextInstruction() : Instruction {
 		case 0x1d: return ora.$1D;  // ora addr,X
 		case 0x1f: return ora.$1F;  // ora long,X
 
-		// case 0xf4: return pea.$F4;  // pea addr
-		// case 0xd4: return pei.$D4;  // pei (dp)
-		// case 0x62: return per.$62;  // per label
+		case 0xf4: return pea.$F4;  // pea addr
+		case 0xd4: return pei.$D4;  // pei (dp)
+		case 0x62: return per.$62;  // per label
 		
-		// case 0x48: return pha.$48;  // pha
-		// case 0x8b: return phb.$8B;  // phb
-		// case 0x0b: return phd.$0B;  // phd
-		// case 0x4b: return phk.$4B;  // phk
-		// case 0x08: return php.$08;  // php
-		// case 0xda: return phx.$DA;  // phx
-		// case 0x5a: return phy.$5A;  // phy
+		case 0x48: return pha.$48;  // pha
+		case 0x8b: return phb.$8B;  // phb
+		case 0x0b: return phd.$0B;  // phd
+		case 0x4b: return phk.$4B;  // phk
+		case 0x08: return php.$08;  // php
+		case 0xda: return phx.$DA;  // phx
+		case 0x5a: return phy.$5A;  // phy
 
-		// case 0x68: return pla.$68;  // pla
-		// case 0xab: return plb.$AB;  // plb
-		// case 0x2b: return pld.$2B;  // pld
-		// case 0x28: return plp.$28;  // plp
-		// case 0xfa: return plx.$FA;  // plx
-		// case 0x7a: return ply.$7A;  // ply
+		case 0x68: return pla.$68;  // pla
+		case 0xab: return plb.$AB;  // plb
+		case 0x2b: return pld.$2B;  // pld
+		case 0x28: return plp.$28;  // plp
+		case 0xfa: return plx.$FA;  // plx
+		case 0x7a: return ply.$7A;  // ply
 
-		// case 0xc2: return rep.$C2;  // rep #const
+		case 0xc2: return rep.$C2;  // rep #const
 
-		// case 0x2a: return rol.$2A;  // rol A
-		// case 0x2e: return rol.$2E;  // rol addr
-		// case 0x26: return rol.$26;  // rol dp
-		// case 0x3e: return rol.$3E;  // rol addr,X
-		// case 0x36: return rol.$36;  // rol dp,X
+		case 0x2a: return rol.$2A;  // rol A
+		case 0x2e: return rol.$2E;  // rol addr
+		case 0x26: return rol.$26;  // rol dp
+		case 0x3e: return rol.$3E;  // rol addr,X
+		case 0x36: return rol.$36;  // rol dp,X
 
-		// case 0x6a: return ror.$6A;  // ror A
-		// case 0x6e: return ror.$6E;  // ror addr
-		// case 0x66: return ror.$66;  // ror dp
-		// case 0x7e: return ror.$7E;  // ror addr,X
-		// case 0x76: return ror.$76;  // ror dp,X
+		case 0x6a: return ror.$6A;  // ror A
+		case 0x6e: return ror.$6E;  // ror addr
+		case 0x66: return ror.$66;  // ror dp
+		case 0x7e: return ror.$7E;  // ror addr,X
+		case 0x76: return ror.$76;  // ror dp,X
 		
-		// case 0x40: return rti.$40;  // rti
-		// case 0x6b: return rtl.$6B;  // rtl
-		// case 0x60: return rts.$60;  // rts
+		case 0x40: return rti.$40;  // rti
+		case 0x6b: return rtl.$6B;  // rtl
+		case 0x60: return rts.$60;  // rts
 
-		// case 0xe1: return sbc.$E1;  // sbc (dp,X)
-		// case 0xe3: return sbc.$E3;  // sbc sr,S
-		// case 0xe5: return sbc.$E5;  // sbc dp
-		// case 0xe7: return sbc.$E7;  // sbc [dp]
-		// case 0xe9: return sbc.$E9;  // sbc #const
-		// case 0xed: return sbc.$ED;  // sbc addr
-		// case 0xef: return sbc.$EF;  // sbc long
-		// case 0xf1: return sbc.$F1;  // sbc (dp),Y
-		// case 0xf2: return sbc.$F2;  // sbc (dp)
-		// case 0xf3: return sbc.$F3;  // sbc (sr,S),Y
-		// case 0xf5: return sbc.$F5;  // sbc dp,X
-		// case 0xf7: return sbc.$F7;  // sbc [dp],Y
-		// case 0xf9: return sbc.$F9;  // sbc addr,Y
-		// case 0xfd: return sbc.$FD;  // sbc addr,X
-		// case 0xff: return sbc.$FF;  // sbc long,X
+		case 0xe1: return sbc.$E1;  // sbc (dp,X)
+		case 0xe3: return sbc.$E3;  // sbc sr,S
+		case 0xe5: return sbc.$E5;  // sbc dp
+		case 0xe7: return sbc.$E7;  // sbc [dp]
+		case 0xe9: return sbc.$E9;  // sbc #const
+		case 0xed: return sbc.$ED;  // sbc addr
+		case 0xef: return sbc.$EF;  // sbc long
+		case 0xf1: return sbc.$F1;  // sbc (dp),Y
+		case 0xf2: return sbc.$F2;  // sbc (dp)
+		case 0xf3: return sbc.$F3;  // sbc (sr,S),Y
+		case 0xf5: return sbc.$F5;  // sbc dp,X
+		case 0xf7: return sbc.$F7;  // sbc [dp],Y
+		case 0xf9: return sbc.$F9;  // sbc addr,Y
+		case 0xfd: return sbc.$FD;  // sbc addr,X
+		case 0xff: return sbc.$FF;  // sbc long,X
 
-		// case 0x38: return sec.$38;  // sec
-		// case 0xf8: return sed.$F8;  // sed
-		// case 0x78: return sei.$78;  // sei
+		case 0x38: return sec.$38;  // sec
+		case 0xf8: return sed.$F8;  // sed
+		case 0x78: return sei.$78;  // sei
 
-		// case 0xe2: return sep.$E2;  // sep #const 
+		case 0xe2: return sep.$E2;  // sep #const 
 
-		// case 0x81: return sta.$81;  // sta (dp,X)
-		// case 0x83: return sta.$83;  // sta sr,S
-		// case 0x85: return sta.$85;  // sta dp
-		// case 0x87: return sta.$87;  // sta [dp]
-		// case 0x8d: return sta.$8D;  // sta addr
-		// case 0x8f: return sta.$8F;  // sta long
-		// case 0x91: return sta.$91;  // sta (dp),Y
-		// case 0x92: return sta.$92;  // sta (dp)
-		// case 0x93: return sta.$93;  // sta (sr,S),Y
-		// case 0x95: return sta.$95;  // sta _dp_X
-		// case 0x97: return sta.$97;  // sta [dp],Y
-		// case 0x99: return sta.$99;  // sta addr,Y
-		// case 0x9d: return sta.$9D;  // sta addr,X
-		// case 0x9f: return sta.$9F;  // sta  long,X
+		case 0x81: return sta.$81;  // sta (dp,X)
+		case 0x83: return sta.$83;  // sta sr,S
+		case 0x85: return sta.$85;  // sta dp
+		case 0x87: return sta.$87;  // sta [dp]
+		case 0x8d: return sta.$8D;  // sta addr
+		case 0x8f: return sta.$8F;  // sta long
+		case 0x91: return sta.$91;  // sta (dp),Y
+		case 0x92: return sta.$92;  // sta (dp)
+		case 0x93: return sta.$93;  // sta (sr,S),Y
+		case 0x95: return sta.$95;  // sta _dp_X
+		case 0x97: return sta.$97;  // sta [dp],Y
+		case 0x99: return sta.$99;  // sta addr,Y
+		case 0x9d: return sta.$9D;  // sta addr,X
+		case 0x9f: return sta.$9F;  // sta  long,X
 
-		// case 0xdb: return stp.$DB;  // stp
+		case 0xdb: return stp.$DB;  // stp
 
-		// case 0x86: return stx.$86;  // stx dp
-		// case 0x8e: return stx.$8E;  // stx addr
-		// case 0x96: return stx.$96;  // stx dp,Y
-		// case 0x84: return sty.$84;  // sty dp
-		// case 0x8c: return sty.$8C;  // sty addr
-		// case 0x94: return sty.$94;  // sty dp,X
+		case 0x86: return stx.$86;  // stx dp
+		case 0x8e: return stx.$8E;  // stx addr
+		case 0x96: return stx.$96;  // stx dp,Y
+		case 0x84: return sty.$84;  // sty dp
+		case 0x8c: return sty.$8C;  // sty addr
+		case 0x94: return sty.$94;  // sty dp,X
 
-		// case 0x64: return stz.$64;  // stz dp
-		// case 0x74: return stz.$74;  // stz dp,X
-		// case 0x9c: return stz.$9C;  // stz addr
-		// case 0x9e: return stz.$9E;  // stz addr,X
+		case 0x64: return stz.$64;  // stz dp
+		case 0x74: return stz.$74;  // stz dp,X
+		case 0x9c: return stz.$9C;  // stz addr
+		case 0x9e: return stz.$9E;  // stz addr,X
 
-		// case 0xaa: return tax.$AA;  // tax
-		// case 0xa8: return tay.$A8;  // tay
-		// case 0x5b: return tcd.$5B;  // tcd
-		// case 0x1b: return tcs.$1B;  // tcs
-		// case 0x7b: return tdc.$7B;  // tdc
+		case 0xaa: return tax.$AA;  // tax
+		case 0xa8: return tay.$A8;  // tay
+		case 0x5b: return tcd.$5B;  // tcd
+		case 0x1b: return tcs.$1B;  // tcs
+		case 0x7b: return tdc.$7B;  // tdc
 
-		// case 0x14: return trb.$14;  // trb dp
-		// case 0x1c: return trb.$1C;  // trb addr
-		// case 0x04: return tsb.$04;  // tsb dp
-		// case 0x0c: return tsb.$0C;  // tsb addr
+		case 0x14: return trb.$14;  // trb dp
+		case 0x1c: return trb.$1C;  // trb addr
+		case 0x04: return tsb.$04;  // tsb dp
+		case 0x0c: return tsb.$0C;  // tsb addr
 
-		// case 0x3b: return tsc.$3B;  // tsc
-		// case 0xba: return tsx.$BA;  // tsx
-		// case 0x8a: return txa.$8A;  // txa
-		// case 0x9a: return txs.$9A;  // txs
-		// case 0x9b: return txy.$9B;  // txy
-		// case 0x98: return tya.$98;  // tya
-		// case 0xbb: return tyx.$BB;  // tyx
+		case 0x3b: return tsc.$3B;  // tsc
+		case 0xba: return tsx.$BA;  // tsx
+		case 0x8a: return txa.$8A;  // txa
+		case 0x9a: return txs.$9A;  // txs
+		case 0x9b: return txy.$9B;  // txy
+		case 0x98: return tya.$98;  // tya
+		case 0xbb: return tyx.$BB;  // tyx
 		
-		// case 0xcb: return wai.$CB;  // wai
+		case 0xcb: return wai.$CB;  // wai
 
-		// case 0x42: return wdm.$42;  // wdm
+		case 0x42: return wdm.$42;  // wdm
 
-		// case 0xeb: return xba.$EB;  // xba
+		case 0xeb: return xba.$EB;  // xba
 		case 0xfb: return xce.$FB;  // xce
 	}
 

@@ -441,40 +441,16 @@ export namespace adc {
 		registers.A = <u8>(result & 0xff);
 	
 		// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-		if (overflow) {
-			flags.V_set();
-		}
-	
-		else {
-			flags.V_clear();
-		}
+		flags.V_assign(overflow);
 	
 		// Set/clear the Negative (N) flag depending on if the high bit is set
-		if (result & 0x80) {
-			flags.N_set();
-		}
-	
-		else {
-			flags.N_clear();
-		}
+		flags.N_assign(result & 0x80);
 	
 		// Set/clear the Zero (Z) flag depending on if the value is zero
-		if ((result & 0xff) === 0x00) {
-			flags.Z_set();
-		}
-	
-		else {
-			flags.Z_clear();
-		}
+		flags.Z_assign((result & 0xff) === 0x00);
 	
 		// Set/clear the Carry (C) flag depending on if an unsigned overflow occured
-		if (result > 0xff) {
-			flags.C_set();
-		}
-	
-		else {
-			flags.C_clear();
-		}
+		flags.C_assign(result > 0xff);
 	}
 	
 	/** 16-bit Mode */
@@ -534,40 +510,16 @@ export namespace adc {
 		registers.C = <u16>(result & 0xffff);
 	
 		// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-		if (overflow) {
-			flags.V_set();
-		}
-	
-		else {
-			flags.V_clear();
-		}
+		flags.V_assign(overflow);
 	
 		// Set/clear the Negative (N) flag depending on if the high bit is set
-		if (result & 0x8000) {
-			flags.N_set();
-		}
-	
-		else {
-			flags.N_clear();
-		}
+		flags.N_assign(result & 0x8000);
 	
 		// Set/clear the Zero (Z) flag depending on if the value is zero
-		if ((result & 0xffff) === 0x0000) {
-			flags.Z_set();
-		}
-	
-		else {
-			flags.Z_clear();
-		}
+		flags.Z_assign((result & 0xffff) === 0x0000);
 	
 		// Set/clear the Carry (C) flag depending on if an unsigned overflow occured
-		if (result > 0xffff) {
-			flags.C_set();
-		}
-	
-		else {
-			flags.C_clear();
-		}
+		flags.C_assign(result > 0xffff);
 
 		// Count 1 extra cycle for 16-bit mode
 		cpuThread.countCycles(1);

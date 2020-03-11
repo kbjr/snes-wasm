@@ -35,6 +35,17 @@ class Flags {
 		registers.P &= <u8>Flag.C ^ 0xff;
 	}
 
+	// @ts-ignore: decorator
+	@inline public C_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.C;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.C ^ 0xff;
+		}
+	}
+
 	/** Zero */
 	// @ts-ignore: decorator
 	@inline public get Z() : u8 {
@@ -49,6 +60,17 @@ class Flags {
 	// @ts-ignore: decorator
 	@inline public Z_clear() : void {
 		registers.P &= <u8>Flag.Z ^ 0xff;
+	}
+
+	// @ts-ignore: decorator
+	@inline public Z_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.Z;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.Z ^ 0xff;
+		}
 	}
 
 	/** IRQ disable */
@@ -67,6 +89,17 @@ class Flags {
 		registers.P &= <u8>Flag.I ^ 0xff;
 	}
 
+	// @ts-ignore: decorator
+	@inline public I_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.I;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.I ^ 0xff;
+		}
+	}
+
 	/** Decimal mode */
 	// @ts-ignore: decorator
 	@inline public get D() : u8 {
@@ -81,6 +114,17 @@ class Flags {
 	// @ts-ignore: decorator
 	@inline public D_clear() : void {
 		registers.P &= <u8>Flag.D ^ 0xff;
+	}
+
+	// @ts-ignore: decorator
+	@inline public D_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.D;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.D ^ 0xff;
+		}
 	}
 
 	/** Index register size (1 = 8-bit, 0 = 16-bit) */
@@ -99,6 +143,17 @@ class Flags {
 		registers.P &= <u8>Flag.X ^ 0xff;
 	}
 
+	// @ts-ignore: decorator
+	@inline public X_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.X;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.X ^ 0xff;
+		}
+	}
+
 	/** Break */
 	// @ts-ignore: decorator
 	@inline public get B() : u8 {
@@ -113,6 +168,17 @@ class Flags {
 	// @ts-ignore: decorator
 	@inline public B_clear() : void {
 		registers.P &= <u8>Flag.B ^ 0xff;
+	}
+
+	// @ts-ignore: decorator
+	@inline public B_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.B;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.B ^ 0xff;
+		}
 	}
 
 	/** Accumulator/memory size (1 = 8-bit, 0 = 16-bit) */
@@ -131,6 +197,17 @@ class Flags {
 		registers.P &= <u8>Flag.M ^ 0xff;
 	}
 
+	// @ts-ignore: decorator
+	@inline public M_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.M;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.M ^ 0xff;
+		}
+	}
+
 	/** Overflow */
 	// @ts-ignore: decorator
 	@inline public get V() : u8 {
@@ -145,6 +222,17 @@ class Flags {
 	// @ts-ignore: decorator
 	@inline public V_clear() : void {
 		registers.P &= <u8>Flag.V ^ 0xff;
+	}
+
+	// @ts-ignore: decorator
+	@inline public V_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.V;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.V ^ 0xff;
+		}
 	}
 
 	/** Negative */
@@ -163,6 +251,17 @@ class Flags {
 		registers.P &= <u8>Flag.N ^ 0xff;
 	}
 
+	// @ts-ignore: decorator
+	@inline public N_assign(value: bool) : void {
+		if (value) {
+			registers.P |= <u8>Flag.N;
+		}
+		
+		else {
+			registers.P &= <u8>Flag.N ^ 0xff;
+		}
+	}
+
 	/** Emulation mode */
 	// @ts-ignore: decorator
 	@inline public get E() : u8 {
@@ -177,6 +276,17 @@ class Flags {
 	// @ts-ignore: decorator
 	@inline public E_clear() : void {
 		registers.P2 &= <u8>Flag.E ^ 0xff;
+	}
+
+	// @ts-ignore: decorator
+	@inline public E_assign(value: bool) : void {
+		if (value) {
+			registers.P2 |= <u8>Flag.E;
+		}
+		
+		else {
+			registers.P2 &= <u8>Flag.E ^ 0xff;
+		}
 	}
 }
 
