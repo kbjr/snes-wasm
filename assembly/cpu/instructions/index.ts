@@ -10,8 +10,20 @@ import { bit } from './bit';
 import { brk } from './brk';
 import { clc, cld, cli, clv } from './cl_';
 import { cmp } from './cmp';
-// import { cpx, cpy } from './cp_';
-// import { dec, dex, dey } from './de_';
+import { cop } from './cop';
+import { cpx, cpy } from './cp_';
+import { dec, dex, dey } from './de_';
+import { eor } from './eor';
+import { inc, inx, iny } from './in_';
+import { jmp } from './jmp';
+import { jsr } from './jsr';
+import { lda } from './lda';
+import { ldx } from './ldx';
+import { ldy } from './ldy';
+import { lsr } from './lsr';
+import { mvn, mvp } from './mv_';
+import { nop } from './nop';
+import { ora } from './ora';
 import { xce } from './xce';
 
 export function getNextInstruction() : Instruction {
@@ -101,111 +113,111 @@ export function getNextInstruction() : Instruction {
 		case 0xdd: return cmp.$DD;  // cmp addr,X
 		case 0xdf: return cmp.$DF;  // cmp long,X
 
-		// case 0x02: return cop.$02;  // cop const
+		case 0x02: return cop.$02;  // cop const
 
-		// case 0xe0: return cpx.$E0;  // cpx #const
-		// case 0xe4: return cpx.$E4;  // cpx dp
-		// case 0xec: return cpx.$EC;  // cpx addr
-		// case 0xc0: return cpy.$C0;  // cpy #const
-		// case 0xc4: return cpy.$C4;  // cpy dp
-		// case 0xcc: return cpy.$CC;  // cpy addr
+		case 0xe0: return cpx.$E0;  // cpx #const
+		case 0xe4: return cpx.$E4;  // cpx dp
+		case 0xec: return cpx.$EC;  // cpx addr
+		case 0xc0: return cpy.$C0;  // cpy #const
+		case 0xc4: return cpy.$C4;  // cpy dp
+		case 0xcc: return cpy.$CC;  // cpy addr
 
-		// case 0x3a: return dec.$3A;  // dec A
-		// case 0xc6: return dec.$C6;  // dec dp
-		// case 0xce: return dec.$CE;  // dec addr
-		// case 0xd6: return dec.$D6;  // dec dp,X
-		// case 0xde: return dec.$DE;  // dec addr,X
-		// case 0xca: return dex.$CA;  // dex
-		// case 0x88: return dey.$88;  // dey
+		case 0x3a: return dec.$3A;  // dec A
+		case 0xc6: return dec.$C6;  // dec dp
+		case 0xce: return dec.$CE;  // dec addr
+		case 0xd6: return dec.$D6;  // dec dp,X
+		case 0xde: return dec.$DE;  // dec addr,X
+		case 0xca: return dex.$CA;  // dex
+		case 0x88: return dey.$88;  // dey
 
-		// case 0x41: return eor.$41;  // eor (dp,X)
-		// case 0x43: return eor.$43;  // eor sr,S
-		// case 0x45: return eor.$45;  // eor dp
-		// case 0x47: return eor.$47;  // eor [dp]
-		// case 0x49: return eor.$49;  // eor #const
-		// case 0x4d: return eor.$4D;  // eor addr
-		// case 0x4f: return eor.$4F;  // eor long
-		// case 0x51: return eor.$51;  // eor (dp),Y
-		// case 0x52: return eor.$52;  // eor (dp)
-		// case 0x53: return eor.$53;  // eor (sr,S),Y
-		// case 0x55: return eor.$55;  // eor dp,X
-		// case 0x57: return eor.$57;  // eor [dp],Y
-		// case 0x59: return eor.$59;  // eor addr,Y
-		// case 0x5d: return eor.$5D;  // eor addr,X
-		// case 0x5f: return eor.$5F;  // eor long,X
+		case 0x41: return eor.$41;  // eor (dp,X)
+		case 0x43: return eor.$43;  // eor sr,S
+		case 0x45: return eor.$45;  // eor dp
+		case 0x47: return eor.$47;  // eor [dp]
+		case 0x49: return eor.$49;  // eor #const
+		case 0x4d: return eor.$4D;  // eor addr
+		case 0x4f: return eor.$4F;  // eor long
+		case 0x51: return eor.$51;  // eor (dp),Y
+		case 0x52: return eor.$52;  // eor (dp)
+		case 0x53: return eor.$53;  // eor (sr,S),Y
+		case 0x55: return eor.$55;  // eor dp,X
+		case 0x57: return eor.$57;  // eor [dp],Y
+		case 0x59: return eor.$59;  // eor addr,Y
+		case 0x5d: return eor.$5D;  // eor addr,X
+		case 0x5f: return eor.$5F;  // eor long,X
 
-		// case 0x1a: return inc.$1A;  // inc A
-		// case 0xe6: return inc.$E6;  // inc dp
-		// case 0xee: return inc.$EE;  // inc addr
-		// case 0xf6: return inc.$F6;  // inc dp,X
-		// case 0xfe: return inc.$FE;  // inc addr,X
-		// case 0xe8: return inx.$E8;  // inx
-		// case 0xc8: return iny.$C8;  // iny
+		case 0x1a: return inc.$1A;  // inc A
+		case 0xe6: return inc.$E6;  // inc dp
+		case 0xee: return inc.$EE;  // inc addr
+		case 0xf6: return inc.$F6;  // inc dp,X
+		case 0xfe: return inc.$FE;  // inc addr,X
+		case 0xe8: return inx.$E8;  // inx
+		case 0xc8: return iny.$C8;  // iny
 
-		// case 0x4c: return jmp.$4C;  // jmp addr
-		// case 0x5c: return jmp.$5C;  // jmp long
-		// case 0x6c: return jmp.$6C;  // jmp (addr)
-		// case 0x7c: return jmp.$7C;  // jmp (addr,X)
-		// case 0xdc: return jmp.$DC;  // jmp [addr]
+		case 0x4c: return jmp.$4C;  // jmp addr
+		case 0x5c: return jmp.$5C;  // jmp long
+		case 0x6c: return jmp.$6C;  // jmp (addr)
+		case 0x7c: return jmp.$7C;  // jmp (addr,X)
+		case 0xdc: return jmp.$DC;  // jmp [addr]
 
-		// case 0x20: return jsr.$20;  // jsr addr
-		// case 0x22: return jsr.$22;  // jsr long
-		// case 0xfc: return jsr.$FC;  // jsr (addr,X))
+		case 0x20: return jsr.$20;  // jsr addr
+		case 0x22: return jsr.$22;  // jsr long
+		case 0xfc: return jsr.$FC;  // jsr (addr,X))
 
-		// case 0xa1: return lda.$A1;  // lda (dp,X)
-		// case 0xa3: return lda.$A3;  // lda sr,S
-		// case 0xa5: return lda.$A5;  // lda dp
-		// case 0xa7: return lda.$A7;  // lda [dp]
-		// case 0xa9: return lda.$A9;  // lda #const
-		// case 0xad: return lda.$AD;  // lda addr
-		// case 0xaf: return lda.$AF;  // lda long
-		// case 0xb1: return lda.$B1;  // lda (dp),Y
-		// case 0xb2: return lda.$B2;  // lda (dp)
-		// case 0xb3: return lda.$B3;  // lda (sr,S),Y
-		// case 0xb5: return lda.$B5;  // lda dp,X
-		// case 0xb7: return lda.$B7;  // lda [dp],Y
-		// case 0xb9: return lda.$B9;  // lda addr,Y
-		// case 0xbd: return lda.$BD;  // lda addr,X
-		// case 0xbf: return lda.$BF;  // lda long,X
+		case 0xa1: return lda.$A1;  // lda (dp,X)
+		case 0xa3: return lda.$A3;  // lda sr,S
+		case 0xa5: return lda.$A5;  // lda dp
+		case 0xa7: return lda.$A7;  // lda [dp]
+		case 0xa9: return lda.$A9;  // lda #const
+		case 0xad: return lda.$AD;  // lda addr
+		case 0xaf: return lda.$AF;  // lda long
+		case 0xb1: return lda.$B1;  // lda (dp),Y
+		case 0xb2: return lda.$B2;  // lda (dp)
+		case 0xb3: return lda.$B3;  // lda (sr,S),Y
+		case 0xb5: return lda.$B5;  // lda dp,X
+		case 0xb7: return lda.$B7;  // lda [dp],Y
+		case 0xb9: return lda.$B9;  // lda addr,Y
+		case 0xbd: return lda.$BD;  // lda addr,X
+		case 0xbf: return lda.$BF;  // lda long,X
 
-		// case 0xa2: return ldx.$A2;  // ldx #const
-		// case 0xa6: return ldx.$A6;  // ldx dp
-		// case 0xae: return ldx.$AE;  // ldx addr
-		// case 0xb6: return ldx.$B6;  // ldx dp,Y
-		// case 0xbe: return ldx.$BE;  // ldx addr,Y
+		case 0xa2: return ldx.$A2;  // ldx #const
+		case 0xa6: return ldx.$A6;  // ldx dp
+		case 0xae: return ldx.$AE;  // ldx addr
+		case 0xb6: return ldx.$B6;  // ldx dp,Y
+		case 0xbe: return ldx.$BE;  // ldx addr,Y
 
-		// case 0xa0: return ldy.$A0;  // ldy #const
-		// case 0xa4: return ldy.$A4;  // ldy dp
-		// case 0xac: return ldy.$AC;  // ldy addr
-		// case 0xb4: return ldy.$B4;  // ldy dp,X
-		// case 0xbc: return ldy.$BC;  // ldy addr,X
+		case 0xa0: return ldy.$A0;  // ldy #const
+		case 0xa4: return ldy.$A4;  // ldy dp
+		case 0xac: return ldy.$AC;  // ldy addr
+		case 0xb4: return ldy.$B4;  // ldy dp,X
+		case 0xbc: return ldy.$BC;  // ldy addr,X
 
-		// case 0x46: return lsr.$46;  // lsr dp
-		// case 0x4a: return lsr.$4A;  // lsr A
-		// case 0x4e: return lsr.$4E;  // lsr addr
-		// case 0x56: return lsr.$56;  // lsr dp,X
-		// case 0x5e: return lsr.$5E;  // lsr addr,X
+		case 0x46: return lsr.$46;  // lsr dp
+		case 0x4a: return lsr.$4A;  // lsr A
+		case 0x4e: return lsr.$4E;  // lsr addr
+		case 0x56: return lsr.$56;  // lsr dp,X
+		case 0x5e: return lsr.$5E;  // lsr addr,X
 
-		// case 0x54: return mvn.$54;  // mvn srcbk,destbk
-		// case 0x44: return mvp.$44;  // mvp srcbk,destbk
+		case 0x54: return mvn.$54;  // mvn srcbk,destbk
+		case 0x44: return mvp.$44;  // mvp srcbk,destbk
 
-		// case 0xea: return nop.$EA;  // nop
+		case 0xea: return nop.$EA;  // nop
 
-		// case 0x01: return ora.$01;  // ora (dp,X)
-		// case 0x03: return ora.$03;  // ora sr,S
-		// case 0x05: return ora.$05;  // ora dp
-		// case 0x07: return ora.$07;  // ora [dp]
-		// case 0x09: return ora.$09;  // ora #const
-		// case 0x0d: return ora.$0D;  // ora addr
-		// case 0x0f: return ora.$0F;  // ora long
-		// case 0x11: return ora.$11;  // ora (dp),Y
-		// case 0x12: return ora.$12;  // ora (dp)
-		// case 0x13: return ora.$13;  // ora (sr,S),Y
-		// case 0x15: return ora.$15;  // ora dp,X
-		// case 0x17: return ora.$17;  // ora [dp],Y
-		// case 0x19: return ora.$19;  // ora addr,Y
-		// case 0x1d: return ora.$1D;  // ora addr,X
-		// case 0x1f: return ora.$1F;  // ora long,X
+		case 0x01: return ora.$01;  // ora (dp,X)
+		case 0x03: return ora.$03;  // ora sr,S
+		case 0x05: return ora.$05;  // ora dp
+		case 0x07: return ora.$07;  // ora [dp]
+		case 0x09: return ora.$09;  // ora #const
+		case 0x0d: return ora.$0D;  // ora addr
+		case 0x0f: return ora.$0F;  // ora long
+		case 0x11: return ora.$11;  // ora (dp),Y
+		case 0x12: return ora.$12;  // ora (dp)
+		case 0x13: return ora.$13;  // ora (sr,S),Y
+		case 0x15: return ora.$15;  // ora dp,X
+		case 0x17: return ora.$17;  // ora [dp],Y
+		case 0x19: return ora.$19;  // ora addr,Y
+		case 0x1d: return ora.$1D;  // ora addr,X
+		case 0x1f: return ora.$1F;  // ora long,X
 
 		// case 0xf4: return pea.$F4;  // pea addr
 		// case 0xd4: return pei.$D4;  // pei (dp)

@@ -14,7 +14,7 @@ import { cpuThread } from '../../scheduler';
  *
  *     clc
  *
- * Clears the carry bit of the Processor Status (P1) Register, setting it to 0
+ * Clears the carry bit of the Processor Status (P) Register, setting it to 0
  */
 export namespace clc {
 	export function $18() : bool {
@@ -40,7 +40,7 @@ export namespace clc {
  *
  *     cld
  *
- * Clears the decimal bit of the Processor Status (P1) Register, setting it to 0
+ * Clears the decimal bit of the Processor Status (P) Register, setting it to 0
  */
 export namespace cld {
 	export function $D8() : bool {
