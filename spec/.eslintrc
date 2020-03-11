@@ -1,6 +1,6 @@
 {
 	"extends": "../.eslintrc",
 	"parserOptions": {
-		"project": "tsconfig.json"
+		"project": "spec/tsconfig.json"
 	}
 }

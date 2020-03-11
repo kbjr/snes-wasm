@@ -15,8 +15,8 @@
         "./node_modules/@types/"
     ],
     "include": [
+        "./**/*.ts",
         "src/**/*.ts",
-        "spec/**/*.ts"
     ],
     "exclude": [
         "node_modules"

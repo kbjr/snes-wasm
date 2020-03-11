@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { SNES } from '../../lib';
 
 describe('SNES', () => {
-    it('should exist', () => {
-        expect(typeof SNES).to.eq('function');
-    });
+	it('should exist', () => {
+		expect(typeof SNES).to.eq('function');
+	});
 });
