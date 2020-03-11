@@ -20,7 +20,11 @@ jobs:
       run: npm ci
       env:
         CI: true
-    - name: Lint
-      run: npm run lint
+    - name: Lint (wasm)
+      run: npm run lint:wasm:ci
+    - name: Lint (lib)
+      run: npm run lint:lib:ci
+    - name: Lint (spec)
+      run: npm run lint:spec:ci
     - name: Unit Tests
       run: npm test
