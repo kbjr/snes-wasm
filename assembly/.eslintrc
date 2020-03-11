@@ -1,0 +1,12 @@
+{
+	"extends": "../.eslintrc",
+	"parserOptions": {
+		"project": "assembly/tsconfig.json"
+	},
+	"rules": {
+		"@typescript-eslint/camelcase": 0,
+		"@typescript-eslint/ban-ts-ignore": 0,
+		"@typescript-eslint/consistent-type-assertions": 0,
+		"@typescript-eslint/no-namespace": 0
+	}
+}

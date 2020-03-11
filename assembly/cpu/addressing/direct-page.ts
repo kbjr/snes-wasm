@@ -130,23 +130,23 @@ import { cpuThread } from '../../scheduler/threads';
 	}
 
 	// Read the operand byte and add it to D to get the first address
-   const operand: u8 = addr_immediate_u8();
-   let indirectAddr: u16 = registers.D + operand;
+	const operand: u8 = addr_immediate_u8();
+	let indirectAddr: u16 = registers.D + operand;
 
-   // If in emulation mode, or 8-bit index register mode, we only use the low byte of X
-   if (flags.E || flags.X) {
+	// If in emulation mode, or 8-bit index register mode, we only use the low byte of X
+	if (flags.E || flags.X) {
 	   indirectAddr += registers.X_low;
-   }
+	}
 
-   // Otherwise, we use the full 16 bits of X
-   else {
+	// Otherwise, we use the full 16 bits of X
+	else {
 	   indirectAddr += registers.X;
-   }
+	}
 
-   // Read the 16-bit address stored at that address in bank $00
-   const effectiveAddr: u16 = read_u16(0x00, indirectAddr);
+	// Read the 16-bit address stored at that address in bank $00
+	const effectiveAddr: u16 = read_u16(0x00, indirectAddr);
 
-   return <u32>effectiveAddr | <u32>(registers.DBR << 16);
+	return <u32>effectiveAddr | <u32>(registers.DBR << 16);
 }
 
 /**
@@ -165,23 +165,23 @@ import { cpuThread } from '../../scheduler/threads';
 	}
 
 	// Read the operand byte and add it to D to get the first address
-   const operand: u8 = addr_immediate_u8();
-   const indirectAddr: u16 = registers.D + operand;
+	const operand: u8 = addr_immediate_u8();
+	const indirectAddr: u16 = registers.D + operand;
 
-   // Read the 16-bit address stored at that address in bank $00
-   let effectiveAddr: u16 = read_u16(0x00, indirectAddr);
+	// Read the 16-bit address stored at that address in bank $00
+	let effectiveAddr: u16 = read_u16(0x00, indirectAddr);
 
-   // If in emulation mode, or 8-bit index register mode, we only use the low byte of Y
-   if (flags.E || flags.X) {
+	// If in emulation mode, or 8-bit index register mode, we only use the low byte of Y
+	if (flags.E || flags.X) {
 	   effectiveAddr += registers.Y_low;
-   }
+	}
 
-   // Otherwise, we use the full 16 bits of Y
-   else {
+	// Otherwise, we use the full 16 bits of Y
+	else {
 	   effectiveAddr += registers.Y;
-   }
+	}
 
-   return (<u32>registers.DBR << 16) + <u32>effectiveAddr;
+	return (<u32>registers.DBR << 16) + <u32>effectiveAddr;
 }
 
 /**
@@ -200,14 +200,14 @@ import { cpuThread } from '../../scheduler/threads';
 	}
 
 	// Read the operand byte and add it to D to get the first address
-   const operand: u8 = addr_immediate_u8();
-   const indirectAddr: u16 = registers.D + operand;
+	const operand: u8 = addr_immediate_u8();
+	const indirectAddr: u16 = registers.D + operand;
 
-   // Read the 24-bit address stored at $00:${dp + operand}
-   const addr = <u32>read_u16(0x00, indirectAddr);
-   const bank = <u32>read_u8(0x00, indirectAddr + 2);
+	// Read the 24-bit address stored at $00:${dp + operand}
+	const addr = <u32>read_u16(0x00, indirectAddr);
+	const bank = <u32>read_u8(0x00, indirectAddr + 2);
 
-   return (bank << 16) | addr;
+	return (bank << 16) | addr;
 }
 
 /**

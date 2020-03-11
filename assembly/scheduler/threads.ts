@@ -10,4 +10,8 @@ let cpuFrequency: f64 = cpu_freq.NTSC;
 /** The CPU thread */
 export const cpuThread = new Thread(cpuFrequency, cpu, noop);
 
+export function setCPUFrequency(frequency: f64) : void {
+	cpuFrequency = frequency;
+}
+
 // TODO: Other "main" (non-cartridge) threads

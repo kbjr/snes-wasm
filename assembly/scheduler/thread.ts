@@ -101,6 +101,7 @@ export class Thread {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop() : void { }
 
 export const NullThread = new Thread(0, noop, noop);

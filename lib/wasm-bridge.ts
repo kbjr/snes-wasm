@@ -21,6 +21,7 @@ export async function createSNES() {
 	if (! wasm) {
 		// If we're running in node, read the wasm file and create our module
 		if (isNode) {
+			/* eslint-disable @typescript-eslint/no-var-requires */
 			const { resolve } = require('path');
 			const { readFileSync } = require('fs');
 			

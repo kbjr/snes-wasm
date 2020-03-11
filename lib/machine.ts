@@ -16,6 +16,6 @@ export interface Machine {
 	};
 	read(pointer: u24) : u8;
 	write(pointer: u24, value: u8) : void;
-	load_u24(pointer: u24) : u24;
-	store_u24(pointer: u24, value: u24) : void;
+	// load_u24(pointer: u24) : u24;
+	// store_u24(pointer: u24, value: u24) : void;
 }

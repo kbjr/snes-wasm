@@ -1,7 +1,7 @@
 
 import { p, alloc } from '../mem';
 
-export const addr = alloc(8);
+export const addr: p = alloc(8);
 
 export function readJoypad1() : u16 {
 	return load<u16>(addr);
