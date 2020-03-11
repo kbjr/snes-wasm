@@ -24,7 +24,7 @@ jobs:
     
     - name: Lint (wasm)
       run: npm run lint:wasm:ci
-    - uses: actions/actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
       if: failure()
       with:
         name: lint-wasm
@@ -32,7 +32,7 @@ jobs:
     
     - name: Lint (lib)
       run: npm run lint:lib:ci
-    - uses: actions/actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
       if: failure()
       with:
         name: lint-lib
@@ -40,7 +40,7 @@ jobs:
     
     - name: Lint (spec)
       run: npm run lint:spec:ci
-    - uses: actions/actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
       if: failure()
       with:
         name: lint-spec
