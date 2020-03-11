@@ -3,7 +3,7 @@
 
 To emulate the SNES, we need to emulate several different pieces of hardware, each of which should be running in parallel. But, we only have one thread in WASM to work with. We also need to make sure that these pieces of emulated hardware run at the correct speed.
 
-The scheduler is what deals with both of these problems. Each piece of emulated hardware has a `Thread` instance for it that counts the number of cycles have been executed. The scheduler handles sharing time between each of these "threads", trying to keep them in sync with one another, while also not allowing them to run to far ahead of real time.
+The scheduler is what deals with both of these problems. Each piece of emulated hardware has a `Thread` instance for it that counts the number of cycles that have passed. The scheduler handles sharing time between each of these "threads", trying to keep them in sync with one another, while also not allowing them to run too far ahead of real-time.
 
 Each `Thread` has a "main loop" function that is called when that thread is being given time by the scheduler. It will then delegate control to an `Instruction` function by calling `thread.runInstruction(instruction)`. Here's an example of what the basic pieces look like:
 
