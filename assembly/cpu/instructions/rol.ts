@@ -155,3 +155,62 @@ export namespace rol {
 		// Count 6 cycles for the instruction
 		cpuThread.countCycles(6);
 	}
+
+
+
+	
+	// /**
+	//  * 8-bit mode implementation of rol$__
+	//  *
+	//  * Rotate the contents of the Carry flag + the value left one bit.
+	//  */
+	// protected rol$___ui8(operand: ui8) : ui8 {
+	// 	// Shift one bit to the left and shift the carry flag into bit 0
+	// 	const shifted = cast_ui8((operand << 1) | this.flag_C);
+
+	// 	// Set/clear the C, N, and Z flags as needed
+	// 	this.registers.assignFlag(FLAG.C, operand & 0x80);
+	// 	this.registers.assignFlag(FLAG.N, shifted & 0x80);
+	// 	this.registers.assignFlag(FLAG.Z, shifted === 0x00);
+
+	// 	return shifted;
+	// }
+
+	// /**
+	//  * 16-bit mode implementation of rol$__
+	//  *
+	//  * Rotate the contents of the Carry flag + the value left one bit.
+	//  */
+	// protected rol$___ui16(operand: ui16) : ui16 {
+	// 	// Shift one bit to the left and shift the carry flag into bit 0
+	// 	const shifted = cast_ui16((operand << 1) | this.flag_C);
+
+	// 	// Set/clear the C, N, and Z flags as needed
+	// 	this.registers.assignFlag(FLAG.C, operand & 0x8000);
+	// 	this.registers.assignFlag(FLAG.N, shifted & 0x8000);
+	// 	this.registers.assignFlag(FLAG.Z, shifted === 0x0000);
+
+	// 	return shifted;
+	// }
+
+	// /** Underlying implementation of the rol instruction  */
+	// protected rol$__(bank: ui8, addr: ui16) {
+	// 	if (this.flag_E || this.flag_M) {
+	// 		const operand = this.snes.bus.read_ui8(bank, addr);
+	// 		const shifted = this.rol$___ui8(operand);
+
+	// 		this.snes.bus.write_ui8(bank, addr, shifted);
+	// 	}
+
+	// 	else {
+	// 		const operand = this.snes.bus.read_ui16_le(bank, addr);
+	// 		const shifted = this.rol$___ui16(operand);
+
+	// 		this.snes.bus.write_ui16_le(bank, addr, shifted);
+
+	// 		// Count 2 extra cycles for 16-bit mode
+	// 		this.cycles += 2;
+	// 	}
+	// }
+
+}

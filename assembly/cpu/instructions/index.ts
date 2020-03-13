@@ -5,7 +5,7 @@ import { addr_immediate_u8 } from '../addressing';
 import { adc } from './adc';
 import { and } from './and';
 import { asl } from './asl';
-import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './branch';
+import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 import { bit } from './bit';
 import { brk } from './brk';
 import { clc, cld, cli, clv } from './cl_';
