@@ -1,4 +1,10 @@
 
+import { flags } from '../flags';
+import { registers } from '../registers';
+import { cpuThread } from '../../scheduler';
+import { addr_absolute, addr_directPage, addr_absoluteIndexedX, addr_directPageIndexedX } from '../addressing';
+import { read_u8, write_u8, read_u16, write_u16 } from '../../system-bus';
+
 /**
  * ror
  * Rotate Memory or Accumulator Right Instruction
@@ -27,16 +33,18 @@ export namespace ror {
 	 * end up in bit 16 (or 8)
 	 */
 	export function $6A() : bool {
-		if (this.flag_E || this.flag_M) {
-			this.registers.C = this.ror$___ui8(this.registers.A);
+		if (flags.E || flags.M) {
+			registers.C = ror_u8(registers.A);
 		}
 
 		else {
-			this.registers.C = this.ror$___ui16(this.registers.C);
+			registers.C = ror_u16(registers.C);
 		}
 
 		// Add 2 cycles for the instruction
-		this.cycles += 2;
+		cpuThread.countCycles(2);
+
+		return false;
 	}
 
 	/**
@@ -59,12 +67,12 @@ export namespace ror {
 	 * [1]: Add 2 cycles if M = 0 (16-bit memory/accumulator)
 	 */
 	export function $6E() : bool {
-		const [ bank, addr ] = this.addr.absolute_map();
-
-		this.ror$__(bank, addr);
+		ror(addr_absolute());
 
 		// Count 6 cycles for the instruction
-		this.cycles += 6;
+		cpuThread.countCycles(6);
+
+		return false;
 	}
 
 	/**
@@ -88,17 +96,12 @@ export namespace ror {
 	 * [2]: Add 1 cycle if low byte of Direct Page register is other than 0
 	 */
 	export function $66() : bool {
-		const [ bank, addr ] = this.addr.directPage_map();
-
-		this.ror$__(bank, addr);
+		ror(addr_directPage());
 
 		// Count 5 cycles for the instruction
-		this.cycles += 5;
+		cpuThread.countCycles(5);
 
-		// If the low byte of the Direct Page Register (D) is non-zero, count one extra cycle
-		if (this.registers.D & 0xff) {
-			this.cycles++;
-		}
+		return false;
 	}
 
 	/**
@@ -121,12 +124,12 @@ export namespace ror {
 	 * [1]: Add 2 cycles if M = 0 (16-bit memory/accumulator)
 	 */
 	export function $7E() : bool {
-		const [ bank, addr ] = this.addr.absoluteIndexedX_map();
-
-		this.ror$__(bank, addr);
+		ror(addr_absoluteIndexedX());
 
 		// Count 7 cycles for the instruction
-		this.cycles += 7;
+		cpuThread.countCycles(7);
+
+		return false;
 	}
 
 	/**
@@ -150,76 +153,68 @@ export namespace ror {
 	 * [2]: Add 1 cycle if low byte of Direct Page register is other than 0
 	 */
 	export function $76() : bool {
-		const [ bank, addr ] = this.addr.directPageIndexedX_map();
-
-		this.ror$__(bank, addr);
+		ror(addr_directPageIndexedX());
 
 		// Count 6 cycles for the instruction
-		this.cycles += 6;
+		cpuThread.countCycles(6);
 
-		// If the low byte of the Direct Page Register (D) is non-zero, count one extra cycle
-		if (this.registers.D & 0xff) {
-			this.cycles++;
-		}
+		return false;
 	}
 
+	/**
+	 * 8-bit mode implementation of ror
+	 *
+	 * Rotates the given value + the Carry flag one bit to the right.
+	 */
+	function ror_u8(operand: u8) : u8 {
+		// Shift one bit to the right and shift bit 0 into the carry flag
+		const shifted = (flags.C << 7) | (operand >> 1);
 
+		// Set/clear the C, N, and Z flags as needed
+		flags.C_assign(operand & 0x01);
+		flags.N_assign(shifted & 0x80);
+		flags.Z_assign(shifted === 0x00);
 
+		return shifted;
+	}
 
+	/**
+	 * 16-bit mode implementation of ror
+	 *
+	 * Rotates the given value + the Carry flag one bit to the right.
+	 */
+	function ror_u16(operand: u16) : u16 {
+		// Shift one bit to the left and shift the carry flag into bit 0
+		const shifted = (flags.C << 15) | (operand >> 1);
 
-	// /**
-	//  * 8-bit mode implementation of ror$__
-	//  *
-	//  * Rotates the given value + the Carry flag one bit to the right.
-	//  */
-	// protected ror$___ui8(operand: ui8) : ui8 {
-	// 	// Shift one bit to the right and shift bit 0 into the carry flag
-	// 	const shifted = (this.flag_C << 7) | (operand >> 1);
+		// Set/clear the C, N, and Z flags as needed
+		flags.C_assign(operand & 0x0001);
+		flags.N_assign(shifted & 0x8000);
+		flags.Z_assign(shifted === 0x0000);
 
-	// 	// Set/clear the C, N, and Z flags as needed
-	// 	this.registers.assignFlag(FLAG.C, operand & 0x01);
-	// 	this.registers.assignFlag(FLAG.N, shifted & 0x80);
-	// 	this.registers.assignFlag(FLAG.Z, shifted === 0x00);
+		return shifted;
+	}
 
-	// 	return shifted;
-	// }
+	/** Underlying implementation of the ror instruction  */
+	function ror(pointer: u32) {
+		const bank = <u8>(pointer >> 16);
+		const addr = <u16>(pointer & 0xffff);
 
-	// /**
-	//  * 16-bit mode implementation of ror$__
-	//  *
-	//  * Rotates the given value + the Carry flag one bit to the right.
-	//  */
-	// protected ror$___ui16(operand: ui16) : ui16 {
-	// 	// Shift one bit to the left and shift the carry flag into bit 0
-	// 	const shifted = (this.flag_C << 15) | (operand >> 1);
+		if (flags.E || flags.M) {
+			const operand = read_u8(bank, addr);
+			const shifted = ror_u8(operand);
 
-	// 	// Set/clear the C, N, and Z flags as needed
-	// 	this.registers.assignFlag(FLAG.C, operand & 0x0001);
-	// 	this.registers.assignFlag(FLAG.N, shifted & 0x8000);
-	// 	this.registers.assignFlag(FLAG.Z, shifted === 0x0000);
+			write_u8(bank, addr, shifted);
+		}
 
-	// 	return shifted;
-	// }
+		else {
+			const operand = read_u16(bank, addr);
+			const shifted = ror_u16(operand);
 
-	// /** Underlying implementation of the ror instruction  */
-	// protected ror$__(bank: ui8, addr: ui16) {
-	// 	if (this.flag_E || this.flag_M) {
-	// 		const operand = this.snes.bus.read_ui8(bank, addr);
-	// 		const shifted = this.ror$___ui8(operand);
+			write_u16(bank, addr, shifted);
 
-	// 		this.snes.bus.write_ui8(bank, addr, shifted);
-	// 	}
-
-	// 	else {
-	// 		const operand = this.snes.bus.read_ui16_le(bank, addr);
-	// 		const shifted = this.ror$___ui16(operand);
-
-	// 		this.snes.bus.write_ui16_le(bank, addr, shifted);
-
-	// 		// Count 2 extra cycles for 16-bit mode
-	// 		this.cycles += 2;
-	// 	}
-	// }
-
-
+			// Count 2 extra cycles for 16-bit mode
+			cpuThread.countCycles(2);
+		}
+	}
 }

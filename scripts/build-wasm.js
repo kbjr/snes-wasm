@@ -3,7 +3,7 @@ const { exec } = require('./utils/exec');
 
 const flags = process.argv.slice(2);
 
-// Allocate ourselves a 24-bit address space
+// Allocate ourselves a 24-bit address space (16MB)
 const BASE_MEMORY = 2 ** 24;
 
 const args = [

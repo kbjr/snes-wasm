@@ -1,3 +1,6 @@
+import { flags } from '../flags';
+import { registers } from '../registers';
+import { cpuThread } from '../../scheduler';
 
 export namespace tax {
 	export function $AA() : bool {
@@ -110,29 +113,32 @@ export namespace tya {
  * Bytes:      1
  * Cycles:     2
  *
- *   tyx
+ *     tyx
  *
  * Transfer the value in index register Y to index register X.
  */
 export namespace tyx {
 	export function $BB() : bool {
-		if (this.flag_X) {
-			return false;
-			this.registers.mem_X[0] = this.registers.mem_Y[0];
+		if (flags.X) {
+			const Y = registers.Y_low;
 
-			this.registers.assignFlag(FLAG.N, this.registers.mem_X[0] & 0x80);
-			this.registers.assignFlag(FLAG.Z, this.registers.mem_X[0] === 0x00);
+			registers.X_low = Y;
+
+			flags.N_assign(Y & 0x80);
+			flags.Z_assign(Y === 0);
 		}
 
 		else {
-			this.registers.X = this.registers.Y;
+			const Y = registers.Y;
 
-			this.registers.assignFlag(FLAG.N, this.registers.X & 0x8000);
-			this.registers.assignFlag(FLAG.Z, this.registers.X === 0x0000);
+			registers.X = Y;
+
+			flags.N_assign(Y & 0x8000);
+			flags.Z_assign(Y === 0x0000);
 		}
 
 		// Count 2 cycles for the instruction
-		this.cycles += 2;
+		cpuThread.countCycles(2);
 
 		return false;
 	}
