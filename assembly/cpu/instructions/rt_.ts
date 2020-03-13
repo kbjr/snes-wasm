@@ -1,4 +1,10 @@
 
+import { stack_pull } from '../stack';
+import { registers } from '../registers';
+import { u16_from_u8 } from '../../types/u16';
+import { cpuThread } from '../../scheduler';
+import { flags } from '../flags';
+
 /**
  * rti
  * Return from Interupt Instruction
@@ -21,27 +27,29 @@
 export namespace rti {
 	export function $40() : bool {
 		// The first two bytes pulled are the PC low/high bytes
-		const addrLow = this.stackPull();
-		const addrHigh = this.stackPull();
+		const addrLow = stack_pull();
+		const addrHigh = stack_pull();
 
-		this.registers.PC = ui8_to_ui16(addrLow, addrHigh);
+		registers.PC = u16_from_u8(addrLow, addrHigh);
 
 		// In emulation mode, we do not pull a bank, so the status flags are next
-		if (this.flag_E) {
-			this.registers.P = this.stackPull();
+		if (flags.E) {
+			registers.P = stack_pull();
 		}
 
 		// In native mode, the bank is stored next, before the status flags
 		else {
-			this.registers.PBR = this.stackPull();
-			this.registers.P = this.stackPull();
+			registers.PBR = stack_pull();
+			registers.P = stack_pull();
 
 			// Count 1 extra cycle for native mode
-			this.cycles++;
+			cpuThread.countCycles(1);
 		}
 
 		// Count 6 cycles for the instruction
-		this.cycles += 6;
+		cpuThread.countCycles(6);
+
+		return false;
 	}
 }
 
@@ -62,14 +70,16 @@ export namespace rti {
  */
 export namespace rtl {
 	export function $6B() : bool {
-		const addrLow = this.stackPull();
-		const addrHigh = this.stackPull();
+		const addrLow = stack_pull();
+		const addrHigh = stack_pull();
 
-		this.registers.PC = ui8_to_ui16(addrLow, addrHigh) + 1;
-		this.registers.PBR = this.stackPull();
+		registers.PC = u16_from_u8(addrLow, addrHigh) + 1;
+		registers.PBR = stack_pull();
 
 		// Count 6 cycles for the instruction
-		this.cycles += 6;
+		cpuThread.countCycles(6);
+
+		return false;
 	}
 }
 
@@ -89,12 +99,14 @@ export namespace rtl {
  */
 export namespace rts {
 	export function $60() : bool {
-		const addrLow = this.stackPull();
-		const addrHigh = this.stackPull();
+		const addrLow = stack_pull();
+		const addrHigh = stack_pull();
 
-		this.registers.PC = ui8_to_ui16(addrLow, addrHigh) + 1;
+		registers.PC = u16_from_u8(addrLow, addrHigh) + 1;
 
 		// Count 6 cycles for the instruction
-		this.cycles += 6;
+		cpuThread.countCycles(6);
+
+		return false;
 	}
 }
