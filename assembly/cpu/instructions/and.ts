@@ -1,4 +1,5 @@
 
+import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { cpuThread } from '../../scheduler';
@@ -57,50 +58,22 @@ import {
 export namespace and {
 	/** 0x21 - DP Indexed Indirect, X */
 	export function $21() : bool {
-		const pointer = addr_directPageIndexedIndirectX();
-
-		and(pointer);
-
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(and, addr_directPageIndexedIndirectX, 6);
 	}
 
 	/** 0x23 - Stack Relative */
 	export function $23() : bool {
-		const pointer = addr_stackRelative();
-
-		and(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(and, addr_stackRelative, 4);
 	}
 
 	/** 0x25 - Direct Page */
 	export function $25() : bool {
-		const pointer = addr_directPage();
-
-		and(pointer);
-
-		// Count 3 cycles for the instruction
-		cpuThread.countCycles(3);
-
-		return false;
+		return exec(and, addr_directPage, 3);
 	}
 
 	/** 0x27 - DP Indirect Long */
 	export function $27() : bool {
-		const pointer = addr_directPageIndirectLong();
-
-		and(pointer);
-
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(and, addr_directPageIndirectLong, 6);
 	}
 
 	/** 0x29 - Immediate */
@@ -121,122 +94,52 @@ export namespace and {
 
 	/** 0x2D - Absolute */
 	export function $2D() : bool {
-		const pointer = addr_absolute();
-
-		and(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(and, addr_absolute, 4);
 	}
 
 	/** 0x2F - Absolute Long */
 	export function $2F() : bool {
-		const pointer = addr_absoluteLong();
-
-		and(pointer);
-
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(and, addr_absoluteLong, 5);
 	}
 
 	/** 0x31 - DP Indirect Indexed, Y */
 	export function $31() : bool {
-		const pointer = addr_directPageIndirectIndexedY();
-
-		and(pointer);
-
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(and, addr_directPageIndirectIndexedY, 5);
 	}
 
 	/** 0x32 - DP Indirect */
 	export function $32() : bool {
-		const pointer = addr_directPageIndirect();
-
-		and(pointer);
-
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(and, addr_directPageIndirect, 5);
 	}
 
 	/** 0x33 - SR Indirect Indexed, Y */
 	export function $33() : bool {
-		const pointer = addr_stackRelativeIndirectIndexedY();
-
-		and(pointer);
-
-		// Count 7 cycles for the instruction
-		cpuThread.countCycles(7);
-
-		return false;
+		return exec(and, addr_stackRelativeIndirectIndexedY, 7);
 	}
 
 	/** 0x35 - DP Indexed, X */
 	export function $35() : bool {
-		const pointer = addr_directPageIndexedX();
-
-		and(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(and, addr_directPageIndexedX, 4);
 	}
 
 	/** 0x37 - DP Indirect Long Indexed, Y */
 	export function $37() : bool {
-		const pointer = addr_directPageIndirectLongIndexedY();
-
-		and(pointer);
-
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(and, addr_directPageIndirectLongIndexedY, 6);
 	}
 
 	/** 0x39 - Absolute Indexed,Y */
 	export function $39() : bool {
-		const pointer = addr_absoluteIndexedY();
-
-		and(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(and, addr_absoluteIndexedY, 4);
 	}
 
 	/** 0x3D - Absolute Indexed, X */
 	export function $3D() : bool {
-		const pointer = addr_absoluteIndexedX();
-
-		and(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(and, addr_absoluteIndexedX, 4);
 	}
 
 	/** 0x3F - Absolute Long Indexed, X */
 	export function $3F() : bool {
-		const pointer = addr_absoluteLongIndexedX();
-
-		and(pointer);
-
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(and, addr_absoluteLongIndexedX, 5);
 	}
 
 

@@ -1,4 +1,5 @@
 
+import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { cpuThread } from '../../scheduler/threads';
@@ -26,118 +27,54 @@ import {
  * Add With Carry Instruction (`adc`)
  *
  * Adds operand to the Accumulator; adds an additional 1 if `C` is set
- *
- * Opcode references:
  * 
- *     [1]: Add 1 cycle if M = 0
- *     [2]: Add 1 cycle if low byte of D is non-zero
- *     [3]: Add 1 byte if M = 0
- *     [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
+ *     | OpCode | Syntax       | Addressing                        | Flags     | Bytes | Cycle         |
+ *     |--------|--------------|-----------------------------------|-----------|-------|---------------|
+ *     | 0x61   | and (dp,X)   | Direct Page Indirect Indexed,X    | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x63   | and sr,S     | Stack Relative                    | NV----ZC- | 2     | 4 [1]         |
+ *     | 0x65   | and dp       | Direct Page                       | NV----ZC- | 2     | 3 [1],[2]     |
+ *     | 0x67   | and [dp]     | Direct Page Indirect Long         | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x69   | and #const   | Immediate                         | NV----ZC- | 2 [3] | 2 [1]         |
+ *     | 0x6D   | and addr     | Absolute                          | NV----ZC- | 3     | 4 [1]         |
+ *     | 0x6F   | and long     | Absolute Long                     | NV----ZC- | 4     | 5 [1]         |
+ *     | 0x71   | and (dp),Y   | Direct Page Indirect Indexed,Y    | NV----ZC- | 2     | 5 [1],[2],[4] |
+ *     | 0x72   | and (dp)     | Direct Page Indirect              | NV----ZC- | 2     | 5 [1],[2]     |
+ *     | 0x73   | and (sr,S),Y | Stack Relative Indirect Indexed,Y | NV----ZC- | 2     | 7 [1]         |
+ *     | 0x75   | and dp,X     | Direct Page Indexed,X             | NV----ZC- | 2     | 4 [1],[2]     |
+ *     | 0x77   | and [dp],Y   | Direct Indirect Long Indexed,Y    | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x79   | and addr,Y   | Absolute Indexed,Y                | NV----ZC- | 3     | 4 [1],[4]     |
+ *     | 0x7D   | and addr,X   | Absolute Indexed,X                | NV----ZC- | 3     | 4 [1],[4]     |
+ *     | 0x7F   | and long,X   | Absolute Long Indexed,X           | NV----ZC- | 4     | 5 [1]         |
+ *
+ * [1]: Add 1 cycle if M = 0
+ * [2]: Add 1 cycle if low byte of D is non-zero
+ * [3]: Add 1 byte if M = 0
+ * [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
  *
  * FIXME: Implement [4]
  */
 export namespace adc {
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x61
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page Indirect Indexed,X
-	 * Bytes:      2
-	 * Cycles:     6 [1],[2]
-	 *
-	 *     adc (dp,X)
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if `C` is set
-	 */
+	/** 0x61 - Direct Page Indirect Indexed,X */
 	export function $61() : bool {
-		adc(addr_directPageIndexedIndirectX());
-		
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(adc, addr_directPageIndexedIndirectX, 6);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x63
-	 * Flags:      nv----zc-
-	 * Addressing: Stack Relative
-	 * Bytes:      2
-	 * Cycles:     4 [1]
-	 *
-	 *     adc sr,S
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if `C` is set
-	 */
+	/** 0x63 - Stack Relative */
 	export function $63() : bool {
-		adc(addr_stackRelative());
-		
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(adc, addr_stackRelative, 4);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x65
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page
-	 * Bytes:      2
-	 * Cycles:     3 [1],[2]
-	 *
-	 *     adc dp
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x65 - Direct Page */
 	export function $65() : bool {
-		adc(addr_directPage());
-		
-		// Count 3 cycles for the instruction
-		cpuThread.countCycles(3);
-
-		return false;
+		return exec(adc, addr_directPage, 3);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x67
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page Indirect Long
-	 * Bytes:      2
-	 * Cycles:     6 [1],[2]
-	 *
-	 *     adc [dp]
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x67 - Direct Page Indirect Long */
 	export function $67() : bool {
-		adc(addr_directPageIndirectLong());
-	
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(adc, addr_directPageIndirectLong, 6);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x69
-	 * Flags:      nv----zc-
-	 * Addressing: Immediate
-	 * Bytes:      2 [3]
-	 * Cycles:     2 [1]
-	 *
-	 *     adc #const
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C = 1
-	 */
+	/** 0x69 - Immediate */
 	export function $69() : bool {
 		if (flags.E || flags.M) {
 			adc_u8(addr_immediate_u8());
@@ -153,224 +90,54 @@ export namespace adc {
 		return false;
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x6D
-	 * Flags:      nv----zc-
-	 * Addressing: Absolute
-	 * Bytes:      3
-	 * Cycles:     4 [1]
-	 *
-	 *     adc addr
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x6D - Absolute */
 	export function $6D() : bool {
-		adc(addr_absolute());
-	
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(adc, addr_absolute, 4);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x6F
-	 * Flags:      nv----zc-
-	 * Addressing: Absolute Long
-	 * Bytes:      4
-	 * Cycles:     5 [1]
-	 *
-	 *     adc long
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x6F - Absolute Long */
 	export function $6F() : bool {
-		adc(addr_absoluteLong());
-	
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(adc, addr_absoluteLong, 5);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x71
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page Indirect Indexed,Y
-	 * Bytes:      2
-	 * Cycles:     5 [1],[2],[4]
-	 *
-	 *     adc (dp),Y
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x71 - Direct Page Indirect Indexed,Y */
 	export function $71() : bool {
-		adc(addr_directPageIndirectIndexedY());
-	
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(adc, addr_directPageIndirectIndexedY, 5);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x72
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page Indirect
-	 * Bytes:      2
-	 * Cycles:     5 [1],[2]
-	 *
-	 *     adc (dp)
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x72 - Direct Page Indirect */
 	export function $72() : bool {
-		adc(addr_directPageIndirect());
-	
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(adc, addr_directPageIndirect, 5);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x73
-	 * Flags:      nv----zc-
-	 * Addressing: Stack Relative Indirect Indexed,Y
-	 * Bytes:      2
-	 * Cycles:     7 [1]
-	 *
-	 *     adc (sr,S),Y
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x73 - Stack Relative Indirect Indexed,Y */
 	export function $73() : bool {
-		adc(addr_stackRelativeIndirectIndexedY());
-	
-		// Count 7 cycles for the instruction
-		cpuThread.countCycles(7);
-
-		return false;
+		return exec(adc, addr_stackRelativeIndirectIndexedY, 7);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x75
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Page Indexed,X
-	 * Bytes:      2
-	 * Cycles:     4 [1],[2]
-	 *
-	 *     adc dp,X
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x75 - Direct Page Indexed,X */
 	export function $75() : bool {
-		adc(addr_directPageIndexedX());
-	
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(adc, addr_directPageIndexedX, 4);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x77
-	 * Flags:      nv----zc-
-	 * Addressing: Direct Indirect Long Indexed,Y
-	 * Bytes:      2
-	 * Cycles:     6 [1],[2]
-	 *
-	 *     adc [dp],Y
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x77 - Direct Indirect Long Indexed,Y */
 	export function $77() : bool {
-		adc(addr_directPageIndirectLongIndexedY());
-	
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(adc, addr_directPageIndirectLongIndexedY, 6);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x79
-	 * Flags:      nv----zc-
-	 * Addressing: Absolute Indexed,Y
-	 * Bytes:      3
-	 * Cycles:     4 [1],[4]
-	 *
-	 *     adc addr,Y
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x79 - Absolute Indexed,Y */
 	export function $79() : bool {
-		adc(addr_absoluteIndexedY());
-	
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(adc, addr_absoluteIndexedY, 4);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x7D
-	 * Flags:      nv----zc-
-	 * Addressing: Absolute Indexed,X
-	 * Bytes:      3
-	 * Cycles:     4 [1],[4]
-	 *
-	 *     adc addr,X
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x7D - Absolute Indexed,X */
 	export function $7D() : bool {
-		adc(addr_absoluteIndexedX());
-	
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(adc, addr_absoluteIndexedX, 4);
 	}
 	
-	/**
-	 * Add With Carry Instruction (`adc`)
-	 *
-	 * Opcode:     0x7F
-	 * Flags:      nv----zc-
-	 * Addressing: Absolute Long Indexed,X
-	 * Bytes:      4
-	 * Cycles:     5 [1]
-	 *
-	 *     adc long,X
-	 *
-	 * Adds operand to the Accumulator; adds an additional 1 if C=1
-	 */
+	/** 0x7F - Absolute Long Indexed,X */
 	export function $7F() : bool {
-		adc(addr_absoluteLongIndexedX());
-	
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(adc, addr_absoluteLongIndexedX, 5);
 	}
 	
 	

@@ -1,9 +1,11 @@
+
+import { exec } from '../utils';
+import { flags } from '../flags';
+import { registers } from '../registers';
 import { cpuThread } from '../../scheduler';
 import { u24_high_u8, u24_low_u16 } from '../../types/u24';
-import { flags } from '../flags';
 import { read_u8, write_u8, read_u16, write_u16 } from '../../system-bus';
 import { addr_directPage, addr_absolute, addr_directPageIndexedX, addr_absoluteIndexedX } from '../addressing';
-import { registers } from '../registers';
 
 /**
  * #### Shift Memory or Accumulator Left Instruction (`asl`)
@@ -23,16 +25,9 @@ import { registers } from '../registers';
  * [2]: Add 1 cycle if low byte of Direct Page register is not zero
  */
 export namespace asl {
-	/** Direct Page */
+	/** 0x06 - Direct Page */
 	export function $06() : bool {
-		const pointer = addr_directPage();
-
-		asl(pointer);
-
-		// Count 5 cycles for the instruction
-		cpuThread.countCycles(5);
-
-		return false;
+		return exec(asl, addr_directPage, 5);
 	}
 
 	/** 0x0A - Accumulator */
@@ -53,38 +48,17 @@ export namespace asl {
 
 	/** 0x0E - Absolute */
 	export function $0E() : bool {
-		const pointer = addr_absolute();
-
-		asl(pointer);
-
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(asl, addr_absolute, 6);
 	}
 
 	/** 0x16 - DP Indexed, X */
 	export function $16() : bool {
-		const pointer = addr_directPageIndexedX();
-
-		asl(pointer);
-
-		// Count 6 cycles for the instruction
-		cpuThread.countCycles(6);
-
-		return false;
+		return exec(asl, addr_directPageIndexedX, 6);
 	}
 
 	/** 0x1E - Absolute Indexed, X */
 	export function $1E() : bool {
-		const pointer = addr_absoluteIndexedX();
-
-		asl(pointer);
-
-		// Count 4 cycles for the instruction
-		cpuThread.countCycles(4);
-
-		return false;
+		return exec(asl, addr_absoluteIndexedX, 4);
 	}
 
 

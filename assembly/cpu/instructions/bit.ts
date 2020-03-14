@@ -1,7 +1,8 @@
 
 import { exec } from '../utils';
 import { cpuThread } from '../../scheduler';
-import { addr_directPage } from '../addressing';
+import { addr_directPage, addr_absolute, addr_directPageIndexedX, addr_absoluteIndexedX, addr_immediate_u8, addr_immediate_u16 } from '../addressing';
+import { flags } from '../flags';
 
 /**
  * #### Test Memory Bits Against Accumulator Instruction (`bit`)
@@ -30,40 +31,28 @@ export namespace bit {
 	}
 
 	export function $2C() : bool {
-		// const pointer = null;
-
-		// bit(pointer);
-
-		// // Count 4 cycles for the instruction
-		// cpuThread.countCycles(4);
-
-		return false;
+		return exec(bit, addr_absolute, 4);
 	}
 
 	export function $34() : bool {
-		// const pointer = null;
-
-		// bit(pointer);
-
-		// // Count 4 cycles for the instruction
-		// cpuThread.countCycles(4);
-
-		return false;
+		return exec(bit, addr_directPageIndexedX, 4);
 	}
 
 	export function $3C() : bool {
-		// const pointer = null;
-
-		// bit(pointer);
-
-		// // Count 4 cycles for the instruction
-		// cpuThread.countCycles(4);
-
-		return false;
+		return exec(bit, addr_absoluteIndexedX, 4);
 	}
 
 	export function $89() : bool {
-		// TODO: bit #const
+		if (flags.E || flags.M) {
+			bit_u8(addr_immediate_u8());
+		}
+		
+		else {
+			bit_u16(addr_immediate_u16());
+		}
+		
+		cpuThread.countCycles(2);
+
 		return false;
 	}
 
