@@ -11,7 +11,9 @@
 
 
 
-## Add With Carry (`adc`)
+## `adc`
+
+**Add With Carry**
 
 Adds operand to the Accumulator; adds an additional 1 if `C` is set
 
@@ -50,7 +52,9 @@ NV----ZC-
 
 
 
-## And Accumulator with Memory Instruction (`and`)
+## `and`
+
+**And Accumulator with Memory**
 
 Perform a bitwise logical AND of the contents at the effective address against the
 Accumulator. In 8-bit mode (M = 1) or Emulation mode (E = 1), the data from the
@@ -93,7 +97,9 @@ N-----Z--
 
 
 
-## Shift Memory or Accumulator Left Instruction (`asl`)
+## `asl`
+
+**Shift Memory or Accumulator Left**
 
 Shift the memory or accumulator reference by the operand left 1 bit. In 8-bit mode (M = 1)
 or Emulation mode (E = 1), the data shifted is 1 byte. Otherwise, the data is 16-bit.
@@ -121,7 +127,9 @@ N-----ZC-
 
 
 
-## Branch if Carry Clear Instruction (`bcc`)
+## `bcc`
+
+**Branch if Carry Clear**
 
 Takes a branch if the Carry (`C`) Processor Status flag is clear. Otherwise, continues
 with normal execution of the next instruction.
