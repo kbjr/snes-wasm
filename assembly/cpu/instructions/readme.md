@@ -1,10 +1,10 @@
 
 # CPU Instructions
 
-- [Add With Carry (`adc`)](#add-with-carry-adc)
-- [And Accumulator with Memory Instruction (`and`)](#and-accumulator-with-memory-instruction-and)
-- [Shift Memory or Accumulator Left Instruction (`asl`)](#shift-memory-or-accumulator-left-instruction-asl)
-- [Branch if Carry Clear Instruction (`bcc`)](#branch-if-carry-clear-instruction-bcc)
+- [Add With Carry (`adc`)](#adc)
+- [And Accumulator with Memory (`and`)](#and)
+- [Shift Memory or Accumulator Left (`asl`)](#asl)
+- [Branch if Carry Clear (`bcc`)](#bcc)
 
 
 
