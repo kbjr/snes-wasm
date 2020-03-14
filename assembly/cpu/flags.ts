@@ -2,7 +2,7 @@
 import { registers } from './registers';
 
 /** The locations of the various Processor Status Register flags */
-const enum Flag {
+export const enum Flag {
 	// P1
 	C = 0x01 << 0,
 	Z = 0x01 << 1,

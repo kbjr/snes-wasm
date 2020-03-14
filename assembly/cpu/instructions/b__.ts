@@ -110,7 +110,7 @@ export namespace bne {
 }
 
 /**
- * #### Branch if Plus Instruction (`bmi`)
+ * #### Branch if Plus Instruction (`bpl`)
  *
  * Takes a branch if the Negative (`N`) Processor Status flag is clear. Otherwise, continues
  * with normal execution of the next instruction.
@@ -156,7 +156,7 @@ export namespace bra {
  * 
  *     | OpCode | Syntax        | Addressing                    | Flags     | Bytes | Cycle      |
  *     |--------|---------------|-------------------------------|-----------|-------|------------|
- *     | 0x82   | bra nearlabel | Program Counter Relative Long | --------- | 3     | 4 [1]      |
+ *     | 0x82   | brl nearlabel | Program Counter Relative Long | --------- | 3     | 4 [1]      |
  */
 export namespace brl {
 	export function $82() : bool {
@@ -186,7 +186,7 @@ export namespace bvc {
 }
 
 /**
- * #### Branch if Overflow Set Instruction (`bvc`)
+ * #### Branch if Overflow Set Instruction (`bvs`)
  *
  * Takes a branch if the Overflow (`V`) Processor Status flag is set. Otherwise, continues
  * with normal execution of the next instruction.

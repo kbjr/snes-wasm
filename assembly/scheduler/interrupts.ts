@@ -7,4 +7,7 @@ export namespace Interrupt {
 	
 	// @ts-ignore: decorator
 	@inline export const RESET: u8 = 0x01;
+
+	// @ts-ignore: decorator
+	@inline export const BRK: u8 = 0x02;
 }
