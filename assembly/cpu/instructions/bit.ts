@@ -3,6 +3,9 @@ import { exec } from '../utils';
 import { cpuThread } from '../../scheduler';
 import { addr_directPage, addr_absolute, addr_directPageIndexedX, addr_absoluteIndexedX, addr_immediate_u8, addr_immediate_u16 } from '../addressing';
 import { flags } from '../flags';
+import { read_u8, read_u16 } from '../../system-bus';
+import { u24_high_u8, u24_low_u16 } from '../../types/u24';
+import { registers } from '../registers';
 
 /**
  * #### Test Memory Bits Against Accumulator Instruction (`bit`)
@@ -63,14 +66,32 @@ export namespace bit {
 	// ===== Actual Implementation
 
 	function bit(pointer: u32) : void {
-		// 
+		const bank = u24_high_u8(pointer);
+		const addr = u24_low_u16(pointer);
+
+		if (flags.E || flags.M) {
+			bit_u8(read_u8(bank, addr));
+		}
+
+		else {
+			bit_u16(read_u16(bank, addr));
+		}
 	}
 
-	function bit_u8(operand: u8) : void {
-		// 
+	// @ts-ignore: decorator
+	@inline function bit_u8(operand: u8) : void {
+		flags.N_assign(operand & 0x80);
+		flags.V_assign(operand & 0x40);
+		flags.Z_assign((operand & registers.A) === 0x00);
 	}
 
-	function bit_u16(operand: u16) : void {
-		// 
+	// @ts-ignore: decorator
+	@inline function bit_u16(operand: u16) : void {
+		flags.N_assign(operand & 0x8000);
+		flags.V_assign(operand & 0x4000);
+		flags.Z_assign((operand & registers.C) === 0x0000);
+
+		// Count 1 extra cycle for 16-bit mode
+		cpuThread.countCycles(1);
 	}
 }
