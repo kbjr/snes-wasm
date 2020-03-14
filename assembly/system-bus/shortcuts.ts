@@ -1,13 +1,12 @@
 
-import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, setRD, setWR } from './index';
+import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, RD, WR } from './index';
 
 // @ts-ignore: decorator
 @inline export function read_u8(bank: u8, addr: u16) : u8 {
 	setAddrBusA_bank(bank);
 	setAddrBusA_addr(addr);
 
-	setRD(true);
-	setRD(false);
+	RD.fire();
 
 	return getDataBus();
 }
@@ -35,8 +34,7 @@ import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, setRD, setW
 	setAddrBusA_addr(addr);
 	setDataBus(value);
 
-	setWR(true);
-	setWR(false);
+	WR.fire();
 }
 
 // @ts-ignore: decorator

@@ -1,6 +1,8 @@
 
-import { getAddrBusA_addr, getAddrBusA_bank, setDataBus } from '../system-bus';
+import { RD, getAddrBusA_addr, getAddrBusA_bank, setDataBus } from '../system-bus';
 import { getJOY1L, getJOY1H, getJOY2L, getJOY2H, getJOY3L, getJOY3H, getJOY4L, getJOY4H } from './registers';
+
+RD.addSystemCallback(onRD);
 
 /**
  * The JoyPad ports respond to the /RD line on Address Bus A
@@ -16,7 +18,7 @@ import { getJOY1L, getJOY1H, getJOY2L, getJOY2H, getJOY3L, getJOY3H, getJOY4L, g
  *     $421E = JOY4L Register
  *     $421F = JOY4H Register
  */
-export function onRD() : void {
+function onRD() : void {
 	const bank: u8 = getAddrBusA_bank();
 
 	// Banks $00-$3F and $80-$BF

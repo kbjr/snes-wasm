@@ -1,7 +1,10 @@
 
 import { lowBank, extBank } from './wram';
-import { getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../system-bus';
+import { RD, WR, getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../system-bus';
 import { getWMDATA, setWMADDH, setWMADDL, setWMADDM, setWMDATA } from './registers';
+
+RD.addSystemCallback(onRD);
+WR.addSystemCallback(onWR);
 
 /**
  * WRAM responds to the /RD line on Address Bus A
@@ -20,7 +23,7 @@ import { getWMDATA, setWMADDH, setWMADDL, setWMADDM, setWMDATA } from './registe
  * 
  *     $0000-$FFFF = Extended ROM
  */
-export function onRD() : void {
+function onRD() : void {
 	const bank: u8 = getAddrBusA_bank();
 
 	// Banks $00-$3F
@@ -75,7 +78,7 @@ export function onRD() : void {
  * 
  *     $0000-$FFFF = Extended ROM
  */
-export function onWR() : void {
+function onWR() : void {
 	const bank: u8 = getAddrBusA_bank();
 
 	// Banks $00-$3F

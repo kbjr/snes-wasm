@@ -1,6 +1,9 @@
 
 import { getOAMDATAREAD, setOAMADDRL, setOAMADDRH, setOAMDATA } from './registers';
-import { getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../../system-bus';
+import { RD, WR, getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../../system-bus';
+
+RD.addSystemCallback(onRD);
+WR.addSystemCallback(onWR);
 
 /**
  * OAM responds to the /RD line on Address Bus A
@@ -11,7 +14,7 @@ import { getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../.
  *     $2103 = OAMADDRH Register
  *     $2138 = OAMDATAREAD Register
  */
-export function onRD() : void {
+function onRD() : void {
 	const bank = getAddrBusA_bank();
 
 	// Banks $00-$3F and $80-$BF
@@ -45,7 +48,7 @@ export function onRD() : void {
  * 
  *     $2104 = OAMDATA Register
  */
-export function onWR() : void {
+function onWR() : void {
 	const bank = getAddrBusA_bank();
 
 	// Banks $00-$3F and $80-$BF
