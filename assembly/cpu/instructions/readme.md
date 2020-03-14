@@ -177,9 +177,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0xB0   | bcs nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0xB0` | `bcs nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -199,9 +199,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0xF0   | beq nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0xF0` | `beq nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -221,9 +221,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0x30   | bmi nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0x30` | `bmi nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -243,9 +243,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0xD0   | bne nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0xD0` | `bne nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -265,9 +265,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0x10   | bpl nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0x10` | `bpl nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -286,9 +286,9 @@ Takes a branch.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0x80   | bra nearlabel | Program Counter Relative | 2     | 3 [1]      |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0x80` | `bra nearlabel` | Program Counter Relative | 2     | 3 [1]      |
 
 
 
@@ -307,9 +307,9 @@ Takes a branch with a 2-byte operand.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing                    | Bytes | Cycles     |
-|--------|---------------|-------------------------------|-------|------------|
-| 0x82   | brl nearlabel | Program Counter Relative Long | 3     | 4 [1]      |
+| OpCode | Syntax          | Addressing                    | Bytes | Cycles     |
+|--------|-----------------|-------------------------------|-------|------------|
+| `0x82` | `brl nearlabel` | Program Counter Relative Long | 3     | 4 [1]      |
 
 
 
@@ -329,9 +329,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0x50   | bvc nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0x50` | `bvc nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
@@ -351,9 +351,9 @@ with normal execution of the next instruction.
 
 #### Modes
 
-| OpCode | Syntax        | Addressing               | Bytes | Cycles     |
-|--------|---------------|--------------------------|-------|------------|
-| 0x70   | bvs nearlabel | Program Counter Relative | 2     | 2 [1],[2]  |
+| OpCode | Syntax          | Addressing               | Bytes | Cycles     |
+|--------|-----------------|--------------------------|-------|------------|
+| `0x70` | `bvs nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
 
 
