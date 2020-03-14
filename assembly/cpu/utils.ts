@@ -6,7 +6,9 @@ type Implementation = (pointer: u32) => void;
 type AddressingMode = () => u32;
 
 /**
- * Simple shorthand utility that 
+ * Simple shorthand utility that resolves an effective address, passes that
+ * pointer to the implementation, and counts the given number of cycles. Always
+ * returns false.
  * 
  * @param implementation The actual instruction implementation
  * @param addr The function that handles the addressing
