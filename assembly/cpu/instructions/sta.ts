@@ -66,7 +66,7 @@ export namespace sta {
 	}
 
 	export function $9F() : bool {
-		// TODO: sta  long,X
+		// TODO: sta long,X
 		return false;
 	}
 }

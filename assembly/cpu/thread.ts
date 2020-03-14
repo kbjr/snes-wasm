@@ -8,6 +8,8 @@ let idle: bool = false;
 export function main() : void {
 	// First, check to see if there is an interrupt to handle
 	switch (cpuThread.activeInterrupt) {
+		// TODO: "The decimal mode is now reset to binary after a hardware reset or an interrupt."
+
 		case Interrupt.RESET:
 			// TODO: RESET interupt
 			break;

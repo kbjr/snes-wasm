@@ -302,7 +302,7 @@ export function getNextInstruction() : Instruction {
 		case 0x97: return sta.$97;  // sta [dp],Y
 		case 0x99: return sta.$99;  // sta addr,Y
 		case 0x9d: return sta.$9D;  // sta addr,X
-		case 0x9f: return sta.$9F;  // sta  long,X
+		case 0x9f: return sta.$9F;  // sta long,X
 
 		case 0xdb: return stp.$DB;  // stp
 
