@@ -2,7 +2,8 @@
 import { registers } from '../registers';
 import { addr_immediate_u8 } from '../addressing';
 import { read_u8, write_u8 } from '../../system-bus';
-import { cpuThread } from '../../scheduler';
+import { Instruction } from '../../scheduler';
+import { scheduler } from '../../system';
 
 /**
  * mvn
@@ -19,35 +20,46 @@ import { cpuThread } from '../../scheduler';
  * Moves (copies) a block of memory to a new location.
  */
 export namespace mvn {
-	export function $54() : bool {
-		const dest: u8 = addr_immediate_u8();
-		const source: u8 = addr_immediate_u8();
+	export class $54 extends Instruction {
+		protected readonly dest: u8;
+		protected readonly source: u8;
 
-		// In this instruction, we don't actually care what step we're on, we just keep
-		// doing the same thing over and over until C = $FFFF (Essentially, each call into
-		// this instruction is one iteration of a for loop counting down C until overflow)
-		if (registers.C === 0xffff) {
-			// When mvn is complete, the DBR should be the destination bank
-			registers.DBR = dest;
+		constructor() {
+			super();
 
-			// Tell the scheduler we're done
-			return false;
+			// Need to read the destination and source banks once when we
+			// first start
+			this.dest = addr_immediate_u8();
+			this.source = addr_immediate_u8();
 		}
 
-		// Read one byte from ${srcbk}:${X}, and increment X
-		const byte: u8 = read_u8(source, registers.X++);
+		public step() : bool {
+			// In this instruction, we don't actually care what step we're on, we just keep
+			// doing the same thing over and over until C = $FFFF (Essentially, each call into
+			// this instruction is one iteration of a for loop counting down C until overflow)
+			if (registers.C === 0xffff) {
+				// When mvn is complete, the DBR should be the destination bank
+				registers.DBR = this.dest;
 
-		// Write the byte we read to ${destbk}:${Y}, and increment Y
-		write_u8(dest, registers.Y++, byte);
+				// Tell the scheduler we're done
+				return false;
+			}
 
-		// Decrement C
-		registers.C--;
+			// Read one byte from ${srcbk}:${X}, and increment X
+			const byte: u8 = read_u8(this.source, registers.X++);
 
-		// Count 7 cycles for the byte moved
-		cpuThread.countCycles(7);
-		
-		// Yield back to the scheduler, and get a callback next tick
-		return true;
+			// Write the byte we read to ${destbk}:${Y}, and increment Y
+			write_u8(this.dest, registers.Y++, byte);
+
+			// Decrement C
+			registers.C--;
+
+			// Count 7 cycles for the byte moved
+			scheduler!.cpu.countCycles(7);
+			
+			// Yield back to the scheduler, and get a callback next tick
+			return true;
+		}
 	}
 }
 
@@ -66,34 +78,45 @@ export namespace mvn {
  * Moves (copies) a block of memory to a new location.
  */
 export namespace mvp {
-	export function $44() : bool {
-		const dest: u8 = addr_immediate_u8();
-		const source: u8 = addr_immediate_u8();
+	export class $44 extends Instruction {
+		protected readonly dest: u8;
+		protected readonly source: u8;
 
-		// In this instruction, we don't actually care what step we're on, we just keep
-		// doing the same thing over and over until C = $FFFF (Essentially, each call into
-		// this instruction is one iteration of a for loop counting down C until overflow)
-		if (registers.C === 0xffff) {
-			// When mvn is complete, the DBR should be the destination bank
-			registers.DBR = dest;
+		constructor() {
+			super();
 
-			// Tell the scheduler we're done
-			return false;
+			// Need to read the destination and source banks once when we
+			// first start
+			this.dest = addr_immediate_u8();
+			this.source = addr_immediate_u8();
 		}
 
-		// Read one byte from ${srcbk}:${X}, and decrement X
-		const byte: u8 = read_u8(source, registers.X--);
+		public step() : bool {
+			// In this instruction, we don't actually care what step we're on, we just keep
+			// doing the same thing over and over until C = $FFFF (Essentially, each call into
+			// this instruction is one iteration of a for loop counting down C until overflow)
+			if (registers.C === 0xffff) {
+				// When mvn is complete, the DBR should be the destination bank
+				registers.DBR = this.dest;
 
-		// Write the byte we read to ${destbk}:${Y}, and decrement Y
-		write_u8(dest, registers.Y--, byte);
+				// Tell the scheduler we're done
+				return false;
+			}
 
-		// Decrement C
-		registers.C--;
+			// Read one byte from ${srcbk}:${X}, and decrement X
+			const byte: u8 = read_u8(this.source, registers.X--);
 
-		// Count 7 cycles for the byte moved
-		cpuThread.countCycles(7);
-		
-		// Yield back to the scheduler, and get a callback next tick
-		return true;
+			// Write the byte we read to ${destbk}:${Y}, and decrement Y
+			write_u8(this.dest, registers.Y--, byte);
+
+			// Decrement C
+			registers.C--;
+
+			// Count 7 cycles for the byte moved
+			scheduler!.cpu.countCycles(7);
+			
+			// Yield back to the scheduler, and get a callback next tick
+			return true;
+		}
 	}
 }

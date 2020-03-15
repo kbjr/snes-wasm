@@ -2,8 +2,8 @@
 export type Callback = () => void;
 
 class Event {
-	protected readonly systemCallbacks: Callback[] = [ ];
-	protected readonly cartridgeCallbacks: Callback[] = [ ];
+	protected readonly systemCallbacks: Callback[] = new Array(4);
+	protected readonly cartridgeCallbacks: Callback[] = new Array(4);
 
 	public addSystemCallback(callback: Callback) : void {
 		this.systemCallbacks.push(callback);

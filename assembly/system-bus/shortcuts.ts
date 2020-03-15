@@ -1,5 +1,5 @@
 
-import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, RD, WR } from './index';
+import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, RD, WR, getAddrBusA, setAddrBusA } from './index';
 
 // @ts-ignore: decorator
 @inline export function read_u8(bank: u8, addr: u16) : u8 {
@@ -9,6 +9,29 @@ import { setAddrBusA_bank, setAddrBusA_addr, setDataBus, getDataBus, RD, WR } fr
 	RD.fire();
 
 	return getDataBus();
+}
+
+/**
+ * Reads a u8 from the given address, but puts the previous address and data
+ * values back on the bus when its done to cause no side effects.
+ * 
+ * @param pointer The full 24-bit address to read from
+ */
+// @ts-ignore: decorator
+@inline export function read_u8_silent(pointer: u32) : u8 {
+	const prevAddr = getAddrBusA();
+	const prevData = getDataBus();
+
+	setAddrBusA(pointer);
+
+	RD.fire();
+
+	const data = getDataBus();
+
+	setAddrBusA(prevAddr);
+	setDataBus(prevData);
+
+	return data;
 }
 
 // @ts-ignore: decorator

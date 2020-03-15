@@ -1,5 +1,5 @@
 
-import { cpuThread } from '../scheduler';
+import { scheduler } from '../system';
 
 type Implementation = (pointer: u32) => void;
 
@@ -20,7 +20,7 @@ type AddressingMode = () => u32;
 
 	implementation(pointer);
 
-	cpuThread.countCycles(cycles);
+	scheduler!.cpu.countCycles(cycles);
 
 	return false;
 }

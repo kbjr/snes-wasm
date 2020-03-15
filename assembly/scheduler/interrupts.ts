@@ -1,7 +1,7 @@
 
 /** Contains all of the interrupts that can be raised */
 // TODO: What all needs to be in here?
-export namespace Interrupt {
+export namespace interrupt {
 	// @ts-ignore: decorator
 	@inline export const NONE: u8 = 0x00;
 	

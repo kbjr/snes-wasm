@@ -1,10 +1,10 @@
 
-import { Thread, noop } from './thread';
+import { Thread, noop } from './_thread';
 import { main as cpu } from '../cpu/thread';
 import { main as ppu1 } from '../ppu/ppu1/thread';
 import { main as ppu2 } from '../ppu/ppu2/thread';
 import { main as apu } from '../apu/apu/thread';
-import { systemThreads } from './scheduler';
+import { systemThreads } from './_scheduler';
 import { cpu_freq, apu_freq } from './frequencies';
 
 /** The current CPU frequency. System must be stopped to change frequency */

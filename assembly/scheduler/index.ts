@@ -1,6 +1,6 @@
 
-export { Thread, Callback, Instruction, noop, NullThread } from './thread';
-export { createThread, start, sync_fast, sync_accurate, interrupt } from './scheduler';
-export { cpu_freq } from './frequencies';
-export { cpuThread, ppu1Thread, ppu2Thread, apuThread } from './threads';
-export { Interrupt } from './interrupts';
+export { apu_freq, cpu_freq } from './frequencies';
+export { Instruction } from './instruction';
+export { interrupt } from './interrupts';
+export { Scheduler, Time } from './scheduler';
+export { Thread } from './thread';

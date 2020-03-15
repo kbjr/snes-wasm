@@ -1,16 +1,14 @@
 
-import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { cpuThread } from '../../scheduler/threads';
 import { read_u8, read_u16 } from '../../system-bus';
+import { SimpleCPUInstruction, ImmediateCPUInstruction } from '../instruction';
 import {
 	addr_directPageIndexedIndirectX,
 	addr_stackRelative,
 	addr_directPage,
 	addr_directPageIndirectLong,
-	addr_immediate_u8,
-	addr_immediate_u16,
 	addr_absolute,
 	addr_absoluteLong,
 	addr_directPageIndirectIndexedY,
@@ -55,89 +53,142 @@ import {
  */
 export namespace adc {
 	/** 0x61 - Direct Page Indirect Indexed,X */
-	export function $61() : bool {
-		return exec(adc, addr_directPageIndexedIndirectX, 6);
+	export class $61 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndexedIndirectX();
+		protected readonly cycles: u8 = 6;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x63 - Stack Relative */
-	export function $63() : bool {
-		return exec(adc, addr_stackRelative, 4);
+	export class $63 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_stackRelative();
+		protected readonly cycles: u8 = 4;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x65 - Direct Page */
-	export function $65() : bool {
-		return exec(adc, addr_directPage, 3);
+	export class $65 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPage();
+		protected readonly cycles: u8 = 3;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x67 - Direct Page Indirect Long */
-	export function $67() : bool {
-		return exec(adc, addr_directPageIndirectLong, 6);
+	export class $67 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndirectLong();
+		protected readonly cycles: u8 = 6;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x69 - Immediate */
-	export function $69() : bool {
-		if (flags.E || flags.M) {
-			adc_u8(addr_immediate_u8());
+	export class $69 extends ImmediateCPUInstruction {
+		protected readonly cycles: u8 = 2;
+
+		protected exec_u8(value: u8) : void {
+			adc_u8(value);
 		}
 
-		else {
-			adc_u16(addr_immediate_u16());
+		protected exec_u16(value: u16) : void {
+			adc_u16(value);
 		}
-	
-		// Count 2 cycles for the instruction
-		cpuThread.countCycles(2);
-
-		return false;
 	}
 	
 	/** 0x6D - Absolute */
-	export function $6D() : bool {
-		return exec(adc, addr_absolute, 4);
+	export class $6D extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_absolute();
+		protected readonly cycles: u8 = 4;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x6F - Absolute Long */
-	export function $6F() : bool {
-		return exec(adc, addr_absoluteLong, 5);
+	export class $6F extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_absoluteLong();
+		protected readonly cycles: u8 = 5;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x71 - Direct Page Indirect Indexed,Y */
-	export function $71() : bool {
-		return exec(adc, addr_directPageIndirectIndexedY, 5);
+	export class $71 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndirectIndexedY();
+		protected readonly cycles: u8 = 5;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x72 - Direct Page Indirect */
-	export function $72() : bool {
-		return exec(adc, addr_directPageIndirect, 5);
+	export class $72 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndirect();
+		protected readonly cycles: u8 = 5;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x73 - Stack Relative Indirect Indexed,Y */
-	export function $73() : bool {
-		return exec(adc, addr_stackRelativeIndirectIndexedY, 7);
+	export class $73 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_stackRelativeIndirectIndexedY();
+		protected readonly cycles: u8 = 7;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x75 - Direct Page Indexed,X */
-	export function $75() : bool {
-		return exec(adc, addr_directPageIndexedX, 4);
+	export class $75 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndexedX();
+		protected readonly cycles: u8 = 4;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x77 - Direct Indirect Long Indexed,Y */
-	export function $77() : bool {
-		return exec(adc, addr_directPageIndirectLongIndexedY, 6);
+	export class $77 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_directPageIndirectLongIndexedY();
+		protected readonly cycles: u8 = 6;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x79 - Absolute Indexed,Y */
-	export function $79() : bool {
-		return exec(adc, addr_absoluteIndexedY, 4);
+	export class $79 extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_absoluteIndexedY();
+		protected readonly cycles: u8 = 4;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x7D - Absolute Indexed,X */
-	export function $7D() : bool {
-		return exec(adc, addr_absoluteIndexedX, 4);
+	export class $7D extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_absoluteIndexedX();
+		protected readonly cycles: u8 = 4;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	/** 0x7F - Absolute Long Indexed,X */
-	export function $7F() : bool {
-		return exec(adc, addr_absoluteLongIndexedX, 5);
+	export class $7F extends SimpleCPUInstruction {
+		protected readonly addr: u32 = addr_absoluteLongIndexedX();
+		protected readonly cycles: u8 = 5;
+		protected exec() : void {
+			return adc(this.addr);
+		}
 	}
 	
 	
