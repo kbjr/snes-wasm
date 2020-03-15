@@ -1,4 +1,4 @@
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { registers } from '../registers';
 import { flags } from '../flags';
 import { read_u8, read_u16 } from '../../system-bus';

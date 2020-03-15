@@ -1,6 +1,6 @@
 
 import { waitForInterrupt } from '../thread';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 
 /**
  * wai

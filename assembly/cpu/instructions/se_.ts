@@ -1,6 +1,6 @@
 
 import { flags } from '../flags';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { addr_immediate_u8 } from '../addressing';
 import { registers } from '../registers';
 

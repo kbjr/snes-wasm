@@ -1,7 +1,7 @@
 
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { stack_pull } from '../stack';
 import { u16_from_u8 } from '../../types/u16';
 

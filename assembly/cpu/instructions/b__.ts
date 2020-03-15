@@ -1,7 +1,7 @@
 
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { addr_programCounterRelative, addr_programCounterRelativeLong } from '../addressing';
 
 /**

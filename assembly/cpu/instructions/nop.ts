@@ -1,5 +1,5 @@
 
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 
 /**
  * nop

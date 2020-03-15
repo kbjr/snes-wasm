@@ -1,6 +1,6 @@
 
 import { getNextInstruction } from './instructions';
-import { cpuThread, Interrupt } from '../scheduler';
+import { cpuThread, Interrupt } from '../_scheduler';
 
 let idle: bool = false;
 

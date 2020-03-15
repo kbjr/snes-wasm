@@ -2,7 +2,7 @@
 import { registers } from '../registers';
 import { addr_immediate_u8 } from '../addressing';
 import { read_u8, write_u8 } from '../../system-bus';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 
 /**
  * mvn

@@ -1,6 +1,6 @@
 
 import { flags } from '../flags';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { onNativeMode, onEmulationMode } from '../modes';
 
 /**

@@ -1,7 +1,7 @@
 
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { addr_absolute, addr_directPage, addr_absoluteIndexedX, addr_directPageIndexedX } from '../addressing';
 import { read_u8, write_u8, read_u16, write_u16 } from '../../system-bus';
 

@@ -1,17 +1,17 @@
 
 import { isNode } from './environment';
-import { Machine } from './machine';
-import { instantiate } from '@assemblyscript/loader';
+import { SNESInstance } from './wasm-types';
 
 let wasmLocation = '../wasm/snes.wasm';
 
-let wasm: Uint8Array | Promise<Response>;
+let wasm: Uint8Array | ArrayBuffer;
+let compiled: WebAssembly.Module;
 
 export function setWASMLocation(newLocation: string) {
 	wasmLocation = newLocation;
 }
 
-export async function createSNES() {
+export async function createSNES() : Promise<SNESInstance> {
 	// Allocate our new machine some memory
 	const memory = new WebAssembly.Memory({
 		initial: 260
@@ -30,11 +30,32 @@ export async function createSNES() {
 
 		// Otherwise, use the browser fetch API
 		else {
-			wasm = fetch(wasmLocation);
+			const res = await fetch(wasmLocation);
+
+			wasm = await res.arrayBuffer();
 		}
 	}
 
-	return instantiate<Machine>(wasm, {
-		env: { memory }
-	});
+	if (! compiled) {
+		compiled = await WebAssembly.compile(wasm);
+	}
+
+	// Create the actual WASM instance
+	return await WebAssembly.instantiate(compiled, {
+		env: {
+			memory,
+			abort,
+			trace
+		},
+		Date,
+		Math
+	} as any);
 }
+
+const abort = (message, file, line, col) => {
+	throw Error(`${message} file=${file} line=${line} colm=${col}`);
+};
+
+const trace = (message, n) => {
+	console.log(`${message} n=${n}`);
+};

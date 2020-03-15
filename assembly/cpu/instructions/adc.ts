@@ -2,7 +2,7 @@
 import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler/threads';
+import { cpuThread } from '../../_scheduler/threads';
 import { read_u8, read_u16 } from '../../system-bus';
 import {
 	addr_directPageIndexedIndirectX,

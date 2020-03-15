@@ -1,6 +1,6 @@
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 
 export namespace tax {
 	export function $AA() : bool {

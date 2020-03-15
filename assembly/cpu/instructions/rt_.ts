@@ -2,7 +2,7 @@
 import { stack_pull } from '../stack';
 import { registers } from '../registers';
 import { u16_from_u8 } from '../../types/u16';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { flags } from '../flags';
 
 /**

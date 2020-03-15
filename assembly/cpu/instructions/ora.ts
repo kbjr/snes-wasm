@@ -1,7 +1,7 @@
 
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { read_u8, read_u16 } from '../../system-bus';
 import { u24_high_u8, u24_low_u16 } from '../../types/u24';
 import { addr_directPageIndexedIndirectX, addr_stackRelative, addr_directPage, addr_directPageIndirectLong, addr_immediate_u8, addr_immediate_u16, addr_absolute, addr_absoluteLong, addr_directPageIndexedY, addr_directPageIndirect, addr_stackRelativeIndirectIndexedY, addr_directPageIndexedX, addr_directPageIndirectLongIndexedY, addr_absoluteIndexedY, addr_absoluteIndexedX, addr_absoluteLongIndexedX } from '../addressing';

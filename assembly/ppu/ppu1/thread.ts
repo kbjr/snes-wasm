@@ -1,5 +1,5 @@
 
-import { ppu1Thread } from '../../scheduler';
+import { ppu1Thread } from '../../_scheduler';
 
 export function main() : void {
 	// We don't want to do anything yet...

@@ -1,7 +1,7 @@
 
-import { Machine } from './machine';
 import { createSNES } from './wasm-bridge';
 import { Controller } from './controllers';
+import { SNESInstance, p } from './wasm-types';
 
 export enum MachineStatus {
 	Initializing = 0x00,
@@ -12,7 +12,7 @@ export enum MachineStatus {
 }
 
 export class SNES {
-	protected machine: Machine;
+	protected machine: SNESInstance;
 
 	protected _statusChange: Promise<void>;
 
@@ -28,8 +28,8 @@ export class SNES {
 	protected async init() {
 		this.machine = await createSNES();
 			
-		const $registers = this.machine.CPU.getRegisters();
-		const registers = new Uint8Array(this.machine.memory.buffer, $registers, 0x11);
+		// const $registers = this.machine.CPU.getRegisters();
+		// const registers = new Uint8Array(this.machine.memory.buffer, $registers, 0x11);
 
 		// 
 
@@ -62,29 +62,29 @@ export class SNES {
 
 	// Controllers
 
-	public connectController(controller: Controller, port: 1 | 2 | 3 | 4) {
-		let addr: u24;
+	// public connectController(controller: Controller, port: 1 | 2 | 3 | 4) {
+	// 	let addr: p;
 
-		switch (port) {
-			case 1:
-				addr = this.machine.Joypad.getPort1();
-				break;
-			case 2:
-				addr = this.machine.Joypad.getPort2();
-				break;
-			case 3:
-				addr = this.machine.Joypad.getPort3();
-				break;
-			case 4:
-				addr = this.machine.Joypad.getPort4();
-				break;
+	// 	switch (port) {
+	// 		case 1:
+	// 			addr = this.machine.Joypad.getPort1();
+	// 			break;
+	// 		case 2:
+	// 			addr = this.machine.Joypad.getPort2();
+	// 			break;
+	// 		case 3:
+	// 			addr = this.machine.Joypad.getPort3();
+	// 			break;
+	// 		case 4:
+	// 			addr = this.machine.Joypad.getPort4();
+	// 			break;
 
-			default:
-				throw new Error('Controller must be connected to a valid port (1, 2, 3, or 4)');
-		}
+	// 		default:
+	// 			throw new Error('Controller must be connected to a valid port (1, 2, 3, or 4)');
+	// 	}
 
-		const array = new Uint8Array(this.machine.memory.buffer, addr, 2);
+	// 	const array = new Uint8Array(this.machine.memory.buffer, addr, 2);
 
-		controller.connect(array);
-	}
+	// 	controller.connect(array);
+	// }
 }

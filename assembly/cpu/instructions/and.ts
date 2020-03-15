@@ -2,7 +2,7 @@
 import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { read_u8, read_u16 } from '../../system-bus';
 import { u24_high_u8, u24_low_u16 } from '../../types/u24';
 import {

@@ -1,6 +1,6 @@
 
 import { exec } from '../utils';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { addr_directPage, addr_absolute, addr_directPageIndexedX, addr_absoluteIndexedX, addr_immediate_u8, addr_immediate_u16 } from '../addressing';
 import { flags } from '../flags';
 import { read_u8, read_u16 } from '../../system-bus';

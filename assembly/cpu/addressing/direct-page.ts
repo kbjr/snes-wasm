@@ -3,7 +3,7 @@ import { flags } from '../flags';
 import { registers } from '../registers';
 import { addr_immediate_u8 } from './immediate';
 import { read_u16, read_u8 } from '../../system-bus';
-import { cpuThread } from '../../scheduler/threads';
+import { cpuThread } from '../../_scheduler/threads';
 
 /**
  * Direct Page Addressing

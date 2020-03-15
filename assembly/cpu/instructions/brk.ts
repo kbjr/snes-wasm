@@ -3,7 +3,7 @@ import { stack_push } from '../stack';
 import { flags, Flag } from '../flags';
 import { registers } from '../registers';
 import { u16_low, u16_high } from '../../types/u16';
-import { cpuThread, Interrupt, interrupt } from '../../scheduler';
+import { cpuThread, Interrupt, interrupt } from '../../_scheduler';
 
 /**
  * #### Software Break Instruction (`brk`)

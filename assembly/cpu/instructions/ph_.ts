@@ -1,6 +1,6 @@
 
 import { stack_push } from '../stack';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import {

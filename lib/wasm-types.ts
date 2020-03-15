@@ -1,22 +1,46 @@
 
-// 
-// These types are borrowed straight from assemblyscript, to allow
-// semantically referencing the specific types that go in and out of wasm
-// 
+/** Alias of boolean */
+export type bool = boolean;
 
-declare type bool = boolean;
-declare type i8 = number;
-declare type i16 = number;
-declare type i32 = number;
-declare type isize = number;
-declare type u8 = number;
-declare type u16 = number;
-declare type u32 = number;
-declare type usize = number;
-declare type f32 = number;
-declare type f64 = number;
+/** Alias of number; An 8-bit signed int */
+export type i8 = number;
 
+/** Alias of number; A 16-bit signed int */
+export type i16 = number;
 
+/** Alias of number; A 32-bit signed int */
+export type i32 = number;
 
-// This is just a 24-bit uint, used for pointers in the SNES
-declare type u24 = i32;
+/** Alias of number; A word-sized (32 or 64-bit) signed int */
+export type isize = number;
+
+/** Alias of number; An 8-bit unsigned int */
+export type u8 = number;
+
+/** Alias of number; A 16-bit unsigned int */
+export type u16 = number;
+
+/** Alias of number; A 32-bit unsigned int */
+export type u32 = number;
+
+/** Alias of number; A word-sized (32 or 64-bit) unsigned int */
+export type usize = number;
+
+/** Alias of number; A 32-bit binary float */
+export type f32 = number;
+
+/** Alias of number; A 64-bit binary float */
+export type f64 = number;
+
+/** Alias of i32; This is a pointer into machine memory */
+export type p = i32;
+
+/** The exported module for the WASM instance */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface SNESInstance extends WebAssembly.Instance {
+	// memory: WebAssembly.Memory;
+
+	// instance: {
+	// 	// 
+	// };
+}

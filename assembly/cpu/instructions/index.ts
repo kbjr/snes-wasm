@@ -1,5 +1,5 @@
 
-import { Instruction } from '../../scheduler';
+import { Instruction } from '../../_scheduler';
 import { addr_immediate_u8 } from '../addressing';
 
 import { adc } from './adc';

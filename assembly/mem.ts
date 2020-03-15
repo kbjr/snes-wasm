@@ -11,15 +11,8 @@ let cartOffset: i32 = 0;
 /** The maximum valid offset withing the cartridge memory segment */
 const maxCartridgeMemory: i32 = 0xffffff;
 
-/** Alias of i32; Used to semantically describe a pointer within reserved memory */
+/** Alias of i32; This is a pointer into reserved memory */
 export type p = i32;
-
-/** Simple enum alias for various word sizes used */
-export const enum size {
-	byte = 1,
-	word = 2,
-	long = 3
-}
 
 /**
  * Allocates a chunk of memory from the reserved system memory segment.

@@ -1,6 +1,6 @@
 
 import { registers } from '../registers';
-import { cpuThread } from '../../scheduler';
+import { cpuThread } from '../../_scheduler';
 
 /**
  * wdm
