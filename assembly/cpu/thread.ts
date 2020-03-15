@@ -1,12 +1,9 @@
 
 import { getNextInstruction } from './instructions';
-// import { cpuThread, Interrupt, Instruction } from '../scheduler';
-
-import { Thread } from '../scheduler/thread';
-import { CPUInstruction } from './instruction';
+import { Thread, Instruction } from '../scheduler';
 
 export class CPUThread extends Thread {
-	protected next() : CPUInstruction {
+	protected next() : Instruction {
 		return getNextInstruction();
 	}
 

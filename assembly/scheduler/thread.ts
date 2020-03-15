@@ -6,6 +6,10 @@ import { Scheduler } from './scheduler';
 export abstract class Thread {
 	protected cycles: u32 = 0;
 
+	/**
+	 * When this flag is set, the thread will just continue to do nothing, counting 1
+	 * cycle each time the thread steps
+	 */
 	protected idle: bool = false;
 
 	protected instruction: Instruction | null = null;
