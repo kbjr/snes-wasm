@@ -1,7 +1,18 @@
 
+import { u24 } from '../u24';
+
 export namespace instruction {
-	export type Step = () => void;
-	export type Exec = () => bool;
+	
+	export namespace callback {
+		export type step = () => void;
+		export type test = () => bool;
+		export type exec = () => bool;
+		export type u8_op = (value: u8) => bool;
+		export type u16_op = (value: u16) => bool;
+		export type u24_op = (value: u24.native) => bool;
+		export type block_move_op = (source: u8, dest: u8) => bool;
+	}
+
 
 	export abstract class Instruction {
 		/** Execute the instruction. Should return true if the instruction is complete */
@@ -9,13 +20,13 @@ export namespace instruction {
 	}
 
 	export class SingleStepInstruction extends Instruction {
-		constructor(public exec: Exec) {
+		constructor(public exec: callback.exec) {
 			super();
 		}
 	}
 
 	export class MultiStepInstruction extends Instruction {
-		constructor(protected readonly steps: Step[]) {
+		constructor(protected readonly steps: callback.step[]) {
 			super();
 		}
 
