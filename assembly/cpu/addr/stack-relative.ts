@@ -1,12 +1,10 @@
 
+import { u24 } from '../../u24';
+import { bus } from '../../bus';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { addr_immediate } from './immediate';
-import { bus } from '../../bus';
 import { instruction } from '../instruction';
-import { u24 } from '../../u24';
-
-
 
 /**
  * Stack Relative Addressing
