@@ -17,11 +17,11 @@ export namespace addr_immediate_u8 {
 	export let operand: u8 = 0;
 
 	export function step0() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		operand = bus.load_data();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
+	}
+
+	export function step1() : void {
+		operand = bus.read.fetch();
 	}
 }
 
@@ -43,20 +43,20 @@ export namespace addr_immediate_u16 {
 	/** The full 16-bit operand */
 	export let operand: u16 = 0;
 
+	/** Write the first address to the bus and wait for a response */
 	export function step0() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		$0 = bus.load_data();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
 	}
 
+	/** Grab the byte we read, and write the next address */
 	export function step1() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		$1 = bus.load_data();
+		$0 = bus.read.fetch();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
+	}
+
+	/** Grab the second byte, and clean up */
+	export function step2() : void {
+		$1 = bus.read.fetch();
 		operand = u16.from_u8($0, $1);
 	}
 }
@@ -82,28 +82,26 @@ export namespace addr_immediate_u24 {
 	/** The full 24-bit operand */
 	export let operand: u24.native = 0;
 
+	/** Write the first address to the bus and wait for a response */
 	export function step0() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		$0 = bus.load_data();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
 	}
 
+	/** Grab the byte we read, and write the next address */
 	export function step1() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		$1 = bus.load_data();
+		$0 = bus.read.fetch();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
 	}
 
+	/** Grab the second byte, and write the next address */
 	export function step2() : void {
-		bus.store_addrA_bank(registers.PBR);
-		bus.store_addrA_bank(registers.PC++);
-		bus.read();
-		
-		$2 = bus.load_data();
+		$1 = bus.read.fetch();
+		bus.read.setup(u24.from_bank_addr(registers.PBR, registers.PC++));
+	}
+
+	/** Grab the third byte, and clean up */
+	export function step3() : void {
+		$2 = bus.read.fetch();
 		operand = u24.from_u8($0, $1, $2);
 	}
 }

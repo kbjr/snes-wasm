@@ -1,6 +1,8 @@
 
 import { u24 } from '../u24';
 import { p, alloc } from '../mem';
+
+import { wram_poll } from '../wram/bus';
 import { cartridge_poll } from '../cartridge/bus';
 
 export namespace bus {
@@ -357,6 +359,7 @@ export namespace bus {
 
 	/** Polls each connected device to see if any of them want to respond */
 	function poll() : void {
+		wram_poll();
 		cartridge_poll();
 
 		// TODO: Poll other devices...

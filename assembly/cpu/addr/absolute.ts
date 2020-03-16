@@ -19,9 +19,10 @@ export namespace addr_absolute {
 	export let effective: bus.long = 0;
 
 	export const step0 = addr_immediate_u16.step0;
+	export const step1 = addr_immediate_u16.step1;
 
-	export function step1() : void {
-		addr_immediate_u16.step1();
+	export function step2() : void {
+		addr_immediate_u16.step2();
 
 		effective = u24.from_bank_addr(registers.DBR, addr_immediate_u16.operand);
 	}
@@ -40,9 +41,10 @@ export namespace addr_absoluteIndexedX {
 	export let effective: bus.long = 0;
 
 	export const step0 = addr_immediate_u16.step0;
+	export const step1 = addr_immediate_u16.step1;
 
-	export function step1() : void {
-		addr_immediate_u16.step1();
+	export function step2() : void {
+		addr_immediate_u16.step2();
 
 		let addr: bus.addr = addr_immediate_u16.operand;
 
@@ -71,9 +73,10 @@ export namespace addr_absoluteIndexedY {
 	export let effective: bus.long = 0;
 
 	export const step0 = addr_immediate_u16.step0;
+	export const step1 = addr_immediate_u16.step1;
 
-	export function step1() : void {
-		addr_immediate_u16.step1();
+	export function step2() : void {
+		addr_immediate_u16.step2();
 
 		let addr: bus.addr = addr_immediate_u16.operand;
 
@@ -103,8 +106,10 @@ export namespace addr_absoluteLong {
 
 	export const step0 = addr_immediate_u24.step0;
 	export const step1 = addr_immediate_u24.step1;
-	export function step2() : void {
-		addr_immediate_u24.step2();
+	export const step2 = addr_immediate_u24.step2;
+	export function step3() : void {
+		addr_immediate_u24.step3();
+
 		effective = addr_immediate_u24.operand;
 	}
 }
@@ -125,8 +130,9 @@ export namespace addr_absoluteLongIndexedX {
 
 	export const step0 = addr_immediate_u24.step0;
 	export const step1 = addr_immediate_u24.step1;
-	export function step2() : void {
-		addr_immediate_u24.step2();
+	export const step2 = addr_immediate_u24.step2;
+	export function step3() : void {
+		addr_immediate_u24.step3();
 
 		let addr: bus.addr = u16.from_u8(addr_immediate_u24.$0, addr_immediate_u24.$1);
 
@@ -158,8 +164,9 @@ export namespace addr_absoluteLongIndexedY {
 
 	export const step0 = addr_immediate_u24.step0;
 	export const step1 = addr_immediate_u24.step1;
-	export function step2() : void {
-		addr_immediate_u24.step2();
+	export const step2 = addr_immediate_u24.step2;
+	export function step3() : void {
+		addr_immediate_u24.step3();
 
 		let addr: bus.addr = u16.from_u8(addr_immediate_u24.$0, addr_immediate_u24.$1);
 

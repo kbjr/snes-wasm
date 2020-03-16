@@ -3,6 +3,7 @@ import { Thread, scheduler } from '../scheduler';
 import { interrupt } from '../constants';
 import { instruction } from './instruction';
 import { getNextInstruction } from './instructions';
+import { bus } from '../bus';
 
 export function createThread_cpu() : Thread {
 	return new Thread(main, onInterrupt);
@@ -23,8 +24,16 @@ function main() : void {
 
 	const finished = currentInstruction.exec();
 
+	// If the currently executing instruction is fully finished, remove the reference so we load
+	// the next instruction next loop
 	if (finished) {
 		currentInstruction = null;
+	}
+
+	// Count any cycles spent on the bus
+	if (bus.cycles) {
+		scheduler.scheduler.cpuThread.countCycles(bus.cycles);
+		bus.cycles = 0;
 	}
 }
 
