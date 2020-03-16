@@ -14,8 +14,6 @@ export class Thread {
 	public idle: bool = false;
 
 	constructor(
-		/** The frequency of the thread, in cycles per second */
-		protected readonly freq: f64,
 		/** The thread's main loop */
 		public readonly main: callback.main,
 		/** The thread's interrupt handler */

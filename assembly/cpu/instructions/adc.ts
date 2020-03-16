@@ -3,6 +3,7 @@ import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { cpuThread } from '../../_scheduler/threads';
+// import { instruction } from '../instruction';
 import { read_u8, read_u16 } from '../../system-bus';
 import {
 	addr_directPageIndexedIndirectX,
@@ -22,6 +23,7 @@ import {
 	addr_absoluteIndexedX,
 	addr_absoluteLongIndexedX
 } from '../addressing';
+// import { addr_absoluteIndexedX } from '../addr/absolute'
 
 /**
  * Add With Carry Instruction (`adc`)
@@ -54,6 +56,14 @@ import {
  * FIXME: Implement [4]
  */
 export namespace adc {
+	// export const $7D = new instruction.MultiStepInstruction([
+	// 	addr_absoluteIndexedX.step0,
+	// 	addr_absoluteIndexedX.step1,
+	// 	function adc$7D() : void {
+	// 		adc(addr_absoluteIndexedX.effective);
+	// 	}
+	// ]);
+
 	/** 0x61 - Direct Page Indirect Indexed,X */
 	export function $61() : bool {
 		return exec(adc, addr_directPageIndexedIndirectX, 6);
