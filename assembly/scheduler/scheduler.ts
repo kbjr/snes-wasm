@@ -3,6 +3,8 @@ import { Clock } from './clock';
 import { Thread } from './thread';
 import { interrupt, apu_freq, cpu_freq } from '../constants';
 
+import { createThread_cpu } from '../cpu';
+
 export class Scheduler {
 	protected masterClockFrequency: f64 = cpu_freq.NTSC;
 
@@ -21,7 +23,7 @@ export class Scheduler {
 
 
 	/** The CPU thread */
-	public readonly cpuThread: Thread;
+	public readonly cpuThread: Thread = createThread_cpu();
 
 	/** The PPU thread */
 	public readonly ppuThread: Thread;
@@ -43,7 +45,7 @@ export class Scheduler {
 
 
 	/** The last interrupt fired is stored here until delegated */
-	protected _interrupt: interrupt.type = interrupt.none;
+	protected _interrupt: u8 = interrupt.none;
 
 
 
@@ -117,7 +119,7 @@ export class Scheduler {
 
 
 	/** Raises an interrupt on all threads */
-	public interrupt(interrupt: interrupt.type) : void {
+	public interrupt(interrupt: u8) : void {
 		this.cpuThread.interrupt(interrupt);
 		this.ppuThread.interrupt(interrupt);
 		this.apuThread.interrupt(interrupt);

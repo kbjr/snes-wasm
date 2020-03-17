@@ -53,4 +53,5 @@ export namespace cpu_freq {
 @inline export const apu_freq: f64 = 24576000;
 
 /** The maximum amount of clock drift allowed between a thread and the master clock */
-export const thread_sync_threshold: f64 = 0.003;
+// @ts-ignore: decorator
+@inline export const thread_sync_threshold: f64 = 0.003;

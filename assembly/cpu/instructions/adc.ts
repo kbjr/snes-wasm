@@ -1,29 +1,15 @@
 
-import { exec } from '../utils';
 import { flags } from '../flags';
 import { registers } from '../registers';
 import { cpuThread } from '../../_scheduler/threads';
-// import { instruction } from '../instruction';
-import { read_u8, read_u16 } from '../../system-bus';
+import { instruction } from '../instruction';
 import {
-	addr_directPageIndexedIndirectX,
-	addr_stackRelative,
-	addr_directPage,
-	addr_directPageIndirectLong,
-	addr_immediate_u8,
-	addr_immediate_u16,
 	addr_absolute,
-	addr_absoluteLong,
-	addr_directPageIndirectIndexedY,
-	addr_directPageIndirect,
-	addr_stackRelativeIndirectIndexedY,
-	addr_directPageIndexedX,
-	addr_directPageIndirectLongIndexedY,
-	addr_absoluteIndexedY,
-	addr_absoluteIndexedX,
-	addr_absoluteLongIndexedX
+	addr_directPage,
+	addr_immediate,
+	addr_stackRelative
 } from '../addressing';
-// import { addr_absoluteIndexedX } from '../addr/absolute'
+import { bus } from '../../bus';
 
 /**
  * Add With Carry Instruction (`adc`)
@@ -54,101 +40,53 @@ import {
  * [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
  *
  * FIXME: Implement [4]
+ * FIXME: Where do we count all the cpu cycles?
  */
 export namespace adc {
-	// export const $7D = new instruction.MultiStepInstruction([
-	// 	addr_absoluteIndexedX.step0,
-	// 	addr_absoluteIndexedX.step1,
-	// 	function adc$7D() : void {
-	// 		adc(addr_absoluteIndexedX.effective);
-	// 	}
-	// ]);
-
 	/** 0x61 - Direct Page Indirect Indexed,X */
-	export function $61() : bool {
-		return exec(adc, addr_directPageIndexedIndirectX, 6);
-	}
-	
+	export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc);
+
 	/** 0x63 - Stack Relative */
-	export function $63() : bool {
-		return exec(adc, addr_stackRelative, 4);
-	}
+	export const $63 = new addr_stackRelative.Instruction(adc);
 	
 	/** 0x65 - Direct Page */
-	export function $65() : bool {
-		return exec(adc, addr_directPage, 3);
-	}
+	export const $65 = new addr_directPage.Instruction(adc);
 	
 	/** 0x67 - Direct Page Indirect Long */
-	export function $67() : bool {
-		return exec(adc, addr_directPageIndirectLong, 6);
-	}
+	export const $67 = new addr_directPage.indirect.long.Instruction(adc);
 	
 	/** 0x69 - Immediate */
-	export function $69() : bool {
-		if (flags.E || flags.M) {
-			adc_u8(addr_immediate_u8());
-		}
-
-		else {
-			adc_u16(addr_immediate_u16());
-		}
-	
-		// Count 2 cycles for the instruction
-		cpuThread.countCycles(2);
-
-		return false;
-	}
+	export const $69 = new addr_immediate.Instruction(adc_u8, adc_u16);
 	
 	/** 0x6D - Absolute */
-	export function $6D() : bool {
-		return exec(adc, addr_absolute, 4);
-	}
+	export const $6D = new addr_absolute.Instruction(adc);
 	
 	/** 0x6F - Absolute Long */
-	export function $6F() : bool {
-		return exec(adc, addr_absoluteLong, 5);
-	}
+	export const $6F = new addr_absolute.long.Instruction(adc);
 	
 	/** 0x71 - Direct Page Indirect Indexed,Y */
-	export function $71() : bool {
-		return exec(adc, addr_directPageIndirectIndexedY, 5);
-	}
+	export const $71 = new addr_directPage.indirect.indexedY.Instruction(adc);
 	
 	/** 0x72 - Direct Page Indirect */
-	export function $72() : bool {
-		return exec(adc, addr_directPageIndirect, 5);
-	}
+	export const $72 = new addr_directPage.indirect.Instruction(adc);
 	
 	/** 0x73 - Stack Relative Indirect Indexed,Y */
-	export function $73() : bool {
-		return exec(adc, addr_stackRelativeIndirectIndexedY, 7);
-	}
+	export const $73 = new addr_stackRelative.indirectIndexedY.Instruction(adc);
 	
 	/** 0x75 - Direct Page Indexed,X */
-	export function $75() : bool {
-		return exec(adc, addr_directPageIndexedX, 4);
-	}
+	export const $75 = new addr_directPage.indexedX.Instruction(adc);
 	
 	/** 0x77 - Direct Indirect Long Indexed,Y */
-	export function $77() : bool {
-		return exec(adc, addr_directPageIndirectLongIndexedY, 6);
-	}
+	export const $77 = new addr_directPage.indirect.long.indexedY.Instruction(adc);
 	
 	/** 0x79 - Absolute Indexed,Y */
-	export function $79() : bool {
-		return exec(adc, addr_absoluteIndexedY, 4);
-	}
+	export const $79 = new addr_absolute.indexedY.Instruction(adc);
 	
 	/** 0x7D - Absolute Indexed,X */
-	export function $7D() : bool {
-		return exec(adc, addr_absoluteIndexedX, 4);
-	}
+	export const $7D = new addr_absolute.indexedX.Instruction(adc);
 	
 	/** 0x7F - Absolute Long Indexed,X */
-	export function $7F() : bool {
-		return exec(adc, addr_absoluteLongIndexedX, 5);
-	}
+	export const $7F = new addr_absolute.long.indexedX.Instruction(adc);
 	
 	
 	
@@ -156,25 +94,52 @@ export namespace adc {
 	
 	// ===== Actual Add With Carry implementation
 	
+	let buffer: u8 = 0;
+	let is8Bit: bool = false;
+
 	/** Given a fully resolved effective address, performs the adc instruction */
-	function adc(long: u32) : void {
-		const bank = <u8>(long >> 16);
-		const addr = <u16>(long & 0xffff);
-	
-		// If we're in Emulation mode (E) or 8-bit mode (M), only read an 8-bit operand,
-		// and add to the accumulator
-		if (flags.E || flags.M) {
-			adc_u8(read_u8(bank, addr));
+	function adc(inst: instruction.Instruction, effective: u32) : bool {
+		switch (inst.step - instruction.firstStep) {
+			case 0:
+				// Check what mode we're running in (8-bit or 16-bit)
+				is8Bit = flags.E || flags.M;
+
+				// Prepare to read the first byte from the effective address
+				bus.read.setup(effective);
+				
+				return false;
+			
+			case 1:
+				// If we're in 8-bit mode, we just want the one byte, so we can finish up
+				if (is8Bit) {
+					return adc_u8(inst, bus.read.fetch());
+				}
+
+				// Otherwise, grab our one byte, and prepare to grab second
+				else {
+					buffer = bus.read.fetch();
+
+					bus.read.setup(effective + 1);
+
+					return false;
+				}
+			
+			case 2:
+				// If we're here on step 2, that can only mean we're in 16-bit mode.
+				// Read the next byte from the effective address to construct our operand
+				let operand = <u16>bus.read.fetch() << 8;
+
+				// Add on the byte we read last time to get the full u16
+				operand |= buffer;
+
+				return adc_u16(inst, operand);
 		}
-	
-		// Otherwise, read a 16-bit operand
-		else {
-			adc_u16(read_u16(bank, addr));
-		}
+
+		unreachable();
 	}
 	
 	/** 8-bit Mode */
-	function adc_u8(operand: u8) : void {
+	function adc_u8(inst: instruction.Instruction, operand: u8) : true {
 		const aLow: u8 = registers.A;
 		
 		let result: u16;
@@ -228,10 +193,12 @@ export namespace adc {
 	
 		// Set/clear the Carry (C) flag depending on if an unsigned overflow occured
 		flags.C_assign(result > 0xff);
+
+		return true;
 	}
 	
 	/** 16-bit Mode */
-	function adc_u16(operand: u16) : void {
+	function adc_u16(inst: instruction.Instruction, operand: u16) : true {
 		const aFull = registers.C;
 		
 		let result: u32;
@@ -300,5 +267,7 @@ export namespace adc {
 
 		// Count 1 extra cycle for 16-bit mode
 		cpuThread.countCycles(1);
+
+		return true;
 	}
 }

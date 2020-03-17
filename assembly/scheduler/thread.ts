@@ -3,7 +3,7 @@ import { interrupt } from '../constants';
 
 export namespace callback {
 	export type main = () => void;
-	export type interrupt = (interrupt: interrupt.type) => void;
+	export type interrupt = (interrupt: u8) => void;
 }
 
 export class Thread {

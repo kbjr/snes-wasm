@@ -33,8 +33,6 @@ export namespace addr_absolute {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		public exec() : bool {
 			switch (this.step) {
 				case 0:
@@ -49,11 +47,11 @@ export namespace addr_absolute {
 				
 				case 2:
 					addr_absolute.step2();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
-					const finished = this.instruction(addr_absolute.effective);
+					const finished = this.instruction(this, addr_absolute.effective);
 	
 					if (finished) {
 						this.step = 0;
@@ -106,8 +104,6 @@ export namespace addr_absolute {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -122,11 +118,11 @@ export namespace addr_absolute {
 					
 					case 2:
 						addr_absolute.indexedX.step2();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_absolute.indexedX.effective);
+						const finished = this.instruction(this, addr_absolute.indexedX.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -174,8 +170,6 @@ export namespace addr_absolute {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -190,11 +184,11 @@ export namespace addr_absolute {
 					
 					case 2:
 						addr_absolute.indexedY.step2();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_absolute.indexedY.effective);
+						const finished = this.instruction(this, addr_absolute.indexedY.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -233,8 +227,6 @@ export namespace addr_absolute {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -254,11 +246,11 @@ export namespace addr_absolute {
 					
 					case 3:
 						addr_absolute.long.step3();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_absolute.long.effective);
+						const finished = this.instruction(this, addr_absolute.long.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -308,8 +300,6 @@ export namespace addr_absolute {
 					super();
 				}
 			
-				public step: u8 = 0;
-			
 				public exec() : bool {
 					switch (this.step) {
 						case 0:
@@ -329,11 +319,11 @@ export namespace addr_absolute {
 						
 						case 3:
 							addr_absolute.long.indexedX.step3();
-							this.step++;
+							this.step = instruction.firstStep;
 							// fallthrough
 			
 						default:
-							const finished = this.instruction(addr_absolute.long.indexedX.effective);
+							const finished = this.instruction(this, addr_absolute.long.indexedX.effective);
 			
 							if (finished) {
 								this.step = 0;
@@ -384,8 +374,6 @@ export namespace addr_absolute {
 					super();
 				}
 			
-				public step: u8 = 0;
-			
 				public exec() : bool {
 					switch (this.step) {
 						case 0:
@@ -405,11 +393,11 @@ export namespace addr_absolute {
 						
 						case 3:
 							addr_absolute.long.indexedY.step3();
-							this.step++;
+							this.step = instruction.firstStep;
 							// fallthrough
 			
 						default:
-							const finished = this.instruction(addr_absolute.long.indexedY.effective);
+							const finished = this.instruction(this, addr_absolute.long.indexedY.effective);
 			
 							if (finished) {
 								this.step = 0;

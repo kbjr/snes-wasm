@@ -34,8 +34,6 @@ export namespace addr_blockMove {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		public exec() : bool {
 			switch (this.step) {
 				case 0:
@@ -50,11 +48,11 @@ export namespace addr_blockMove {
 				
 				case 2:
 					addr_blockMove.step2();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
-					const finished = this.instruction(addr_blockMove.source, addr_blockMove.dest);
+					const finished = this.instruction(this, addr_blockMove.source, addr_blockMove.dest);
 	
 					if (finished) {
 						this.step = 0;

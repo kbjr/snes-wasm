@@ -37,8 +37,6 @@ export namespace addr_directPage {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		public exec() : bool {
 			switch (this.step) {
 				case 0:
@@ -48,11 +46,11 @@ export namespace addr_directPage {
 				
 				case 1:
 					addr_directPage.step1();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
-					const finished = this.instruction(addr_directPage.effective);
+					const finished = this.instruction(this, addr_directPage.effective);
 	
 					if (finished) {
 						this.step = 0;
@@ -114,11 +112,11 @@ export namespace addr_directPage {
 					
 					case 1:
 						addr_directPage.indexedX.step1();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_directPage.indexedX.effective);
+						const finished = this.instruction(this, addr_directPage.indexedX.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -201,11 +199,11 @@ export namespace addr_directPage {
 						
 						case 3:
 							addr_directPage.indexedX.indirect.step3();
-							this.step++;
+							this.step = instruction.firstStep;
 							// fallthrough
 			
 						default:
-							const finished = this.instruction(addr_directPage.indexedX.indirect.effective);
+							const finished = this.instruction(this, addr_directPage.indexedX.indirect.effective);
 			
 							if (finished) {
 								this.step = 0;
@@ -256,8 +254,6 @@ export namespace addr_directPage {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -267,11 +263,11 @@ export namespace addr_directPage {
 					
 					case 1:
 						addr_directPage.indexedY.step1();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_directPage.indexedY.effective);
+						const finished = this.instruction(this, addr_directPage.indexedY.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -334,8 +330,6 @@ export namespace addr_directPage {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -355,11 +349,11 @@ export namespace addr_directPage {
 					
 					case 3:
 						addr_directPage.indirect.step3();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_directPage.indirect.effective);
+						const finished = this.instruction(this, addr_directPage.indirect.effective);
 		
 						if (finished) {
 							this.step = 0;
@@ -412,8 +406,6 @@ export namespace addr_directPage {
 					super();
 				}
 			
-				public step: u8 = 0;
-			
 				public exec() : bool {
 					switch (this.step) {
 						case 0:
@@ -433,11 +425,11 @@ export namespace addr_directPage {
 						
 						case 3:
 							addr_directPage.indirect.indexedY.step3();
-							this.step++;
+							this.step = instruction.firstStep;
 							// fallthrough
 			
 						default:
-							const finished = this.instruction(addr_directPage.indirect.indexedY.effective);
+							const finished = this.instruction(this, addr_directPage.indirect.indexedY.effective);
 			
 							if (finished) {
 								this.step = 0;
@@ -490,8 +482,6 @@ export namespace addr_directPage {
 					super();
 				}
 			
-				public step: u8 = 0;
-			
 				public exec() : bool {
 					switch (this.step) {
 						case 0:
@@ -516,11 +506,11 @@ export namespace addr_directPage {
 						
 						case 4:
 							addr_directPage.indirect.long.step4();
-							this.step++;
+							this.step = instruction.firstStep;
 							// fallthrough
 			
 						default:
-							const finished = this.instruction(addr_directPage.indirect.long.effective);
+							const finished = this.instruction(this, addr_directPage.indirect.long.effective);
 			
 							if (finished) {
 								this.step = 0;
@@ -573,8 +563,6 @@ export namespace addr_directPage {
 						super();
 					}
 				
-					public step: u8 = 0;
-				
 					public exec() : bool {
 						switch (this.step) {
 							case 0:
@@ -599,11 +587,11 @@ export namespace addr_directPage {
 							
 							case 4:
 								addr_directPage.indirect.long.indexedY.step4();
-								this.step++;
+								this.step = instruction.firstStep;
 								// fallthrough
 				
 							default:
-								const finished = this.instruction(addr_directPage.indirect.long.indexedY.effective);
+								const finished = this.instruction(this, addr_directPage.indirect.long.indexedY.effective);
 				
 								if (finished) {
 									this.step = 0;

@@ -32,8 +32,6 @@ export namespace addr_programCounterRelative {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		public exec() : bool {
 			switch (this.step) {
 				case 0:
@@ -43,11 +41,11 @@ export namespace addr_programCounterRelative {
 				
 				case 1:
 					addr_programCounterRelative.step1();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
-					const finished = this.instruction(addr_programCounterRelative.effective);
+					const finished = this.instruction(this, addr_programCounterRelative.effective);
 	
 					if (finished) {
 						this.step = 0;
@@ -93,8 +91,6 @@ export namespace addr_programCounterRelative {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -109,11 +105,11 @@ export namespace addr_programCounterRelative {
 					
 					case 2:
 						addr_programCounterRelative.long.step2();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_programCounterRelative.long.effective);
+						const finished = this.instruction(this, addr_programCounterRelative.long.effective);
 		
 						if (finished) {
 							this.step = 0;

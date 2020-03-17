@@ -120,8 +120,6 @@ export namespace addr_immediate {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		protected is8Bit: bool = false;
 	
 		public exec() : bool {
@@ -145,7 +143,7 @@ export namespace addr_immediate {
 				
 				case 1:
 					addr_immediate._u8.step1();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
@@ -173,7 +171,7 @@ export namespace addr_immediate {
 				
 				case 2:
 					addr_immediate._u16.step2();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:

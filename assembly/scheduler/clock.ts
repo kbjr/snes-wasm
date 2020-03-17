@@ -5,7 +5,7 @@ import { clock_status } from '../constants';
 export type Time = f64;
 
 export class Clock {
-	protected status: clock_status.type = clock_status.stopped;
+	protected status: u8 = clock_status.stopped;
 
 	protected startTime: Time = 0.0;
 

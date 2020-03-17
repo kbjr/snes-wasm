@@ -1,26 +1,42 @@
 
+import { bus } from '../bus';
 import { flags } from './flags';
 import { registers } from './registers';
-import { read_u8, write_u8 } from '../system-bus/shortcuts';
 
-// @ts-ignore: decorator
-@inline export function stack_push(byte: u8) : void {
-	if (flags.E) {
-		write_u8(0x00, <u16>registers.S_low--, byte);
+export namespace stack {
+	export namespace push {
+		// @ts-ignore: decorator
+		@inline export function step0(byte: u8) : void {
+			if (flags.E) {
+				bus.write.setup(<u32>(registers.S_low--), byte);
+			}
+
+			else {
+				bus.write.setup(<u32>(registers.S--), byte);
+			}
+		}
+		
+		// @ts-ignore: decorator
+		@inline export function step1() : void {
+			bus.write.exec();
+		}
 	}
-
-	else {
-		write_u8(0x00, registers.S--, byte);
-	}
-}
-
-// @ts-ignore: decorator
-@inline export function stack_pull() : u8 {
-	if (flags.E) {
-		return read_u8(0x00, <u16>++registers.S_low);
-	}
-
-	else {
-		return read_u8(0x00, ++registers.S);
+	
+	export namespace pull {
+		// @ts-ignore: decorator
+		@inline export function step0() : void {
+			if (flags.E) {
+				bus.read.setup(<u32>(++registers.S_low));
+			}
+			
+			else {
+				bus.read.setup(<u32>(++registers.S));
+			}
+		}
+		
+		// @ts-ignore: decorator
+		@inline export function step1() : u8 {
+			return bus.read.fetch();
+		}
 	}
 }

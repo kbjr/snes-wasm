@@ -31,8 +31,6 @@ export namespace addr_stackRelative {
 			super();
 		}
 	
-		public step: u8 = 0;
-	
 		public exec() : bool {
 			switch (this.step) {
 				case 0:
@@ -42,11 +40,11 @@ export namespace addr_stackRelative {
 				
 				case 1:
 					addr_stackRelative.step1();
-					this.step++;
+					this.step = instruction.firstStep;
 					// fallthrough
 	
 				default:
-					const finished = this.instruction(addr_stackRelative.effective);
+					const finished = this.instruction(this, addr_stackRelative.effective);
 	
 					if (finished) {
 						this.step = 0;
@@ -124,8 +122,6 @@ export namespace addr_stackRelative {
 				super();
 			}
 		
-			public step: u8 = 0;
-		
 			public exec() : bool {
 				switch (this.step) {
 					case 0:
@@ -145,11 +141,11 @@ export namespace addr_stackRelative {
 					
 					case 3:
 						addr_stackRelative.indirectIndexedY.step3();
-						this.step++;
+						this.step = instruction.firstStep;
 						// fallthrough
 		
 					default:
-						const finished = this.instruction(addr_stackRelative.indirectIndexedY.effective);
+						const finished = this.instruction(this, addr_stackRelative.indirectIndexedY.effective);
 		
 						if (finished) {
 							this.step = 0;

@@ -1,6 +1,6 @@
 
+import { u24 } from '../u24';
 import { p, alloc } from '../mem';
-import { load_u24, store_u24 } from '../types/u24';
 import { lowBank, extBank } from './wram';
 
 const addr: p = alloc(3);
@@ -63,12 +63,12 @@ export function setWMDATA(value: u8) : void {
  */
 // @ts-ignore: decorator
 @inline export function getWMADD() : u24 {
-	return load_u24(addr);
+	return u24._load(addr);
 }
 
 // @ts-ignore: decorator
 @inline export function setWMADD(value: u24) : void {
-	store_u24(addr, value);
+	u24._store(addr, value);
 }
 
 

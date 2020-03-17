@@ -1,15 +1,15 @@
 
-import { Thread, scheduler } from '../scheduler';
+import { bus } from '../bus';
 import { interrupt } from '../constants';
 import { instruction } from './instruction';
 import { getNextInstruction } from './instructions';
-import { bus } from '../bus';
+import { Thread, scheduler } from '../scheduler';
 
 export function createThread_cpu() : Thread {
 	return new Thread(main, onInterrupt);
 }
 
-let currentInterrupt: interrupt.type = interrupt.none;
+let currentInterrupt: u8 = interrupt.none;
 let currentInstruction: instruction.Instruction | null = null;
 
 function main() : void {
@@ -18,8 +18,7 @@ function main() : void {
 			onInterrupt(currentInterrupt);
 		}
 
-		// FIXME: getNextInstruction() should be returning Instructions
-		currentInstruction = getNextInstruction() as any as instruction.Instruction;
+		currentInstruction = getNextInstruction();
 	}
 
 	const finished = currentInstruction.exec();
@@ -37,7 +36,7 @@ function main() : void {
 	}
 }
 
-function onInterrupt(type: interrupt.type) : void {
+function onInterrupt(type: u8) : void {
 	// TODO: Under what circumstances do we do this?
 	scheduler.scheduler.cpuThread.idle = false;
 
