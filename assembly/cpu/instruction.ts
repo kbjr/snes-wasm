@@ -13,7 +13,13 @@ export namespace instruction {
 		export type block_move_op = (source: u8, dest: u8) => bool;
 	}
 
-
+	/**
+	 * A CPU instruction.
+	 * 
+	 * Functions similar to a generator function. `Instruction.exec()` will be called each
+	 * time the CPU is given time so long as the function continues returning false. Once the
+	 * exec method returns true, the instruction is considered "finished".
+	 */
 	export abstract class Instruction {
 		/** Execute the instruction. Should return true if the instruction is complete */
 		public abstract exec() : bool;
