@@ -12,6 +12,8 @@ export function createThread_cpu() : Thread {
 let currentInterrupt: u8 = interrupt.none;
 let currentInstruction: instruction.Instruction | null = null;
 
+
+
 function main() : void {
 	if (currentInstruction === null) {
 		if (currentInterrupt) {
@@ -35,6 +37,8 @@ function main() : void {
 		bus.cycles = 0;
 	}
 }
+
+
 
 function onInterrupt(type: u8) : void {
 	// TODO: Under what circumstances do we do this?

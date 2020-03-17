@@ -15,7 +15,9 @@ export namespace addr_programCounterRelative {
 	/** The effective address */
 	export let effective: u24.native = 0;
 
-	export const step0 = addr_immediate._u8.step0;
+	export function step0() : void {
+		addr_immediate._u8.step0();
+	}
 
 	export function step1() : void {
 		addr_immediate._u8.step1();
@@ -73,8 +75,13 @@ export namespace addr_programCounterRelative {
 		/** The effective address */
 		export let effective: u24.native = 0;
 
-		export const step0 = addr_immediate._u16.step0;
-		export const step1 = addr_immediate._u16.step1;
+		export function step0() : void {
+			addr_immediate._u16.step0();
+		}
+		
+		export function step1() : void {
+			addr_immediate._u16.step1();
+		}
 
 		export function step2() : void {
 			addr_immediate._u16.step2();

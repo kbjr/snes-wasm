@@ -26,8 +26,7 @@ export namespace bus {
 		// @ts-ignore: decorator
 		@inline export const xslow: u8 = 12;
 		/** ROM access speed. Set when a ROM is loaded, based on if the cart is FastROM */
-		// @ts-ignore: decorator
-		@inline export let rom: u8 = bus.speed.slow;
+		export let rom: u8 = bus.speed.slow;
 	}
 
 

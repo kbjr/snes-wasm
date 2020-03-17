@@ -17,7 +17,9 @@ import { u24 } from '../../u24';
 export namespace addr_directPage {
 	export let effective: u24.native = 0;
 
-	export const step0 = addr_immediate._u8.step0;
+	export function step0() : void {
+		addr_immediate._u8.step0();
+	}
 
 	export function step1() : void {
 		addr_immediate._u8.step1();
@@ -78,7 +80,9 @@ export namespace addr_directPage {
 	export namespace indexedX {
 		export let effective: u24.native = 0;
 
-		export const step0 = addr_directPage.step0;
+		export function step0() : void {
+			addr_directPage.step0();
+		}
 
 		export function step1() : void {
 			addr_directPage.step1();
@@ -143,7 +147,9 @@ export namespace addr_directPage {
 			export let indirect: u24.native = 0;
 			export let effective: u24.native = 0;
 		
-			export const step0 = addr_directPage.indexedX.step0;
+			export function step0() : void {
+				addr_directPage.indexedX.step0();
+			}
 	
 			export function step1() : void {
 				addr_directPage.indexedX.step1();
@@ -231,7 +237,9 @@ export namespace addr_directPage {
 	export namespace indexedY {
 		export let effective: u24.native = 0;
 
-		export const step0 = addr_directPage.step0;
+		export function step0() : void {
+			addr_directPage.step0();
+		}
 
 		export function step1() : void {
 			addr_directPage.step1();
@@ -295,7 +303,9 @@ export namespace addr_directPage {
 		export let indirect: u24.native = 0;
 		export let effective: u24.native = 0;
 	
-		export const step0 = addr_directPage.step0;
+		export function step0() : void {
+			addr_directPage.step0();
+		}
 
 		export function step1() : void {
 			addr_directPage.step1();
@@ -379,9 +389,17 @@ export namespace addr_directPage {
 		export namespace indexedY {
 			export let effective: u24.native = 0;
 		
-			export const step0 = addr_directPage.indirect.step0;
-			export const step1 = addr_directPage.indirect.step1;
-			export const step2 = addr_directPage.indirect.step2;
+			export function step0() : void {
+				addr_directPage.indirect.step0();
+			}
+
+			export function step1() : void {
+				addr_directPage.indirect.step1();
+			}
+
+			export function step2() : void {
+				addr_directPage.indirect.step2();
+			}
 	
 			export function step3() : void {
 				addr_directPage.indirect.step3();
@@ -457,9 +475,17 @@ export namespace addr_directPage {
 			export let indirect: u24.native = 0;
 			export let effective: u24.native = 0;
 		
-			export const step0 = addr_directPage.indirect.step0;
-			export const step1 = addr_directPage.indirect.step1;
-			export const step2 = addr_directPage.indirect.step2;
+			export function step0() : void {
+				addr_directPage.indirect.step0();
+			}
+
+			export function step1() : void {
+				addr_directPage.indirect.step1();
+			}
+
+			export function step2() : void {
+				addr_directPage.indirect.step2();
+			}
 	
 			export function step3() : void {
 				addr_directPage.indirect.step3();
@@ -538,10 +564,21 @@ export namespace addr_directPage {
 				export let indirect: u24.native = 0;
 				export let effective: u24.native = 0;
 			
-				export const step0 = addr_directPage.indirect.long.step0;
-				export const step1 = addr_directPage.indirect.long.step1;
-				export const step2 = addr_directPage.indirect.long.step2;
-				export const step3 = addr_directPage.indirect.long.step3;
+				export function step0() : void {
+					addr_directPage.indirect.long.step0();
+				}
+
+				export function step1() : void {
+					addr_directPage.indirect.long.step1();
+				}
+
+				export function step2() : void {
+					addr_directPage.indirect.long.step2();
+				}
+				
+				export function step3() : void {
+					addr_directPage.indirect.long.step3();
+				}
 	
 				export function step4() : void {
 					addr_directPage.indirect.long.step4();

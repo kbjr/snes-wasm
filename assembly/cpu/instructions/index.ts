@@ -22,7 +22,7 @@ import { adc } from './adc';
 // import { ldy } from './ldy';
 // import { lsr } from './lsr';
 // import { mvn, mvp } from './mv_';
-// import { nop } from './nop';
+import { nop } from './nop';
 // import { ora } from './ora';
 // import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 // import { pla, plb, pld, plp, plx, ply } from './pl_';
@@ -47,21 +47,21 @@ export function getNextInstruction() : instruction.Instruction {
 	const opcode: u8 = addr_immediate._u8.operand;
 
 	switch (opcode) {
-		case 0x61: return adc.$61;  // adc (dp,X)
-		case 0x63: return adc.$63;  // adc sr,s
-		case 0x65: return adc.$65;  // adc dp
-		case 0x67: return adc.$67;  // adc [dp]
-		case 0x69: return adc.$69;  // adc #const
-		case 0x6d: return adc.$6D;  // adc addr
-		case 0x6f: return adc.$6F;  // adc long
-		case 0x71: return adc.$71;  // adc (dp),Y
-		case 0x72: return adc.$72;  // adc (dp)
-		case 0x73: return adc.$73;  // adc (sr,S),Y
-		case 0x75: return adc.$75;  // adc dp,X
-		case 0x77: return adc.$77;  // adc [dp],Y
-		case 0x79: return adc.$79;  // adc addr,Y
-		case 0x7d: return adc.$7D;  // adc addr,X
-		case 0x7f: return adc.$7F;  // adc long,X
+		// case 0x61: return adc.$61;  // adc (dp,X)
+		// case 0x63: return adc.$63;  // adc sr,s
+		// case 0x65: return adc.$65;  // adc dp
+		// case 0x67: return adc.$67;  // adc [dp]
+		// case 0x69: return adc.$69;  // adc #const
+		// case 0x6d: return adc.$6D;  // adc addr
+		// case 0x6f: return adc.$6F;  // adc long
+		// case 0x71: return adc.$71;  // adc (dp),Y
+		// case 0x72: return adc.$72;  // adc (dp)
+		// case 0x73: return adc.$73;  // adc (sr,S),Y
+		// case 0x75: return adc.$75;  // adc dp,X
+		// case 0x77: return adc.$77;  // adc [dp],Y
+		// case 0x79: return adc.$79;  // adc addr,Y
+		// case 0x7d: return adc.$7D;  // adc addr,X
+		// case 0x7f: return adc.$7F;  // adc long,X
 
 		// case 0x21: return and.$21;  // and (dp,X)
 		// case 0x23: return and.$23;  // and sr,S
@@ -215,7 +215,7 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0x54: return mvn.$54;  // mvn srcbk,destbk
 		// case 0x44: return mvp.$44;  // mvp srcbk,destbk
 
-		// case 0xea: return nop.$EA;  // nop
+		case 0xea: return nop.$EA;  // nop
 
 		// case 0x01: return ora.$01;  // ora (dp,X)
 		// case 0x03: return ora.$03;  // ora sr,S
@@ -346,7 +346,8 @@ export function getNextInstruction() : instruction.Instruction {
 
 		// case 0xeb: return xba.$EB;  // xba
 		// case 0xfb: return xce.$FB;  // xce
-	}
 
-	unreachable();
+		// This should never happen, but at least nop should be safe....
+		default: return nop.$EA;
+	}
 }

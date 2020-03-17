@@ -1,6 +1,6 @@
 
 /** Various utilities for working with u16 int values */
-export namespace u16 {
+export namespace u16_util {
 	// @ts-ignore: decorator
 	@inline export function low(num: u16) : u8 {
 		return <u8>(num & 0xff);

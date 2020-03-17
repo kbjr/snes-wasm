@@ -1,7 +1,6 @@
 
 import { flags } from '../flags';
 import { registers } from '../registers';
-import { cpuThread } from '../../_scheduler/threads';
 import { instruction } from '../instruction';
 import {
 	addr_absolute,
@@ -10,6 +9,7 @@ import {
 	addr_stackRelative
 } from '../addressing';
 import { bus } from '../../bus';
+import { scheduler } from '../../scheduler';
 
 /**
  * Add With Carry Instruction (`adc`)
@@ -44,49 +44,49 @@ import { bus } from '../../bus';
  */
 export namespace adc {
 	/** 0x61 - Direct Page Indirect Indexed,X */
-	export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc);
+	export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc_);
 
 	/** 0x63 - Stack Relative */
-	export const $63 = new addr_stackRelative.Instruction(adc);
+	export const $63 = new addr_stackRelative.Instruction(adc_);
 	
 	/** 0x65 - Direct Page */
-	export const $65 = new addr_directPage.Instruction(adc);
+	export const $65 = new addr_directPage.Instruction(adc_);
 	
 	/** 0x67 - Direct Page Indirect Long */
-	export const $67 = new addr_directPage.indirect.long.Instruction(adc);
+	export const $67 = new addr_directPage.indirect.long.Instruction(adc_);
 	
 	/** 0x69 - Immediate */
 	export const $69 = new addr_immediate.Instruction(adc_u8, adc_u16);
 	
 	/** 0x6D - Absolute */
-	export const $6D = new addr_absolute.Instruction(adc);
+	export const $6D = new addr_absolute.Instruction(adc_);
 	
 	/** 0x6F - Absolute Long */
-	export const $6F = new addr_absolute.long.Instruction(adc);
+	export const $6F = new addr_absolute.long.Instruction(adc_);
 	
 	/** 0x71 - Direct Page Indirect Indexed,Y */
-	export const $71 = new addr_directPage.indirect.indexedY.Instruction(adc);
+	export const $71 = new addr_directPage.indirect.indexedY.Instruction(adc_);
 	
 	/** 0x72 - Direct Page Indirect */
-	export const $72 = new addr_directPage.indirect.Instruction(adc);
+	export const $72 = new addr_directPage.indirect.Instruction(adc_);
 	
 	/** 0x73 - Stack Relative Indirect Indexed,Y */
-	export const $73 = new addr_stackRelative.indirectIndexedY.Instruction(adc);
+	export const $73 = new addr_stackRelative.indirectIndexedY.Instruction(adc_);
 	
 	/** 0x75 - Direct Page Indexed,X */
-	export const $75 = new addr_directPage.indexedX.Instruction(adc);
+	export const $75 = new addr_directPage.indexedX.Instruction(adc_);
 	
 	/** 0x77 - Direct Indirect Long Indexed,Y */
-	export const $77 = new addr_directPage.indirect.long.indexedY.Instruction(adc);
+	export const $77 = new addr_directPage.indirect.long.indexedY.Instruction(adc_);
 	
 	/** 0x79 - Absolute Indexed,Y */
-	export const $79 = new addr_absolute.indexedY.Instruction(adc);
+	export const $79 = new addr_absolute.indexedY.Instruction(adc_);
 	
 	/** 0x7D - Absolute Indexed,X */
-	export const $7D = new addr_absolute.indexedX.Instruction(adc);
+	export const $7D = new addr_absolute.indexedX.Instruction(adc_);
 	
 	/** 0x7F - Absolute Long Indexed,X */
-	export const $7F = new addr_absolute.long.indexedX.Instruction(adc);
+	export const $7F = new addr_absolute.long.indexedX.Instruction(adc_);
 	
 	
 	
@@ -98,7 +98,7 @@ export namespace adc {
 	let is8Bit: bool = false;
 
 	/** Given a fully resolved effective address, performs the adc instruction */
-	function adc(inst: instruction.Instruction, effective: u32) : bool {
+	function adc_(inst: instruction.Instruction, effective: u32) : bool {
 		switch (inst.step - instruction.firstStep) {
 			case 0:
 				// Check what mode we're running in (8-bit or 16-bit)
@@ -133,9 +133,11 @@ export namespace adc {
 				operand |= buffer;
 
 				return adc_u16(inst, operand);
+			
+			// This should never happen
+			default:
+				return true;
 		}
-
-		unreachable();
 	}
 	
 	/** 8-bit Mode */
@@ -183,10 +185,10 @@ export namespace adc {
 		registers.A = <u8>(result & 0xff);
 	
 		// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-		flags.V_assign(overflow);
+		flags.V_assign(<bool>overflow);
 	
 		// Set/clear the Negative (N) flag depending on if the high bit is set
-		flags.N_assign(result & 0x80);
+		flags.N_assign(<bool>(result & 0x80));
 	
 		// Set/clear the Zero (Z) flag depending on if the value is zero
 		flags.Z_assign((result & 0xff) === 0x00);
@@ -254,10 +256,10 @@ export namespace adc {
 		registers.C = <u16>(result & 0xffff);
 	
 		// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-		flags.V_assign(overflow);
+		flags.V_assign(<bool>overflow);
 	
 		// Set/clear the Negative (N) flag depending on if the high bit is set
-		flags.N_assign(result & 0x8000);
+		flags.N_assign(<bool>(result & 0x8000));
 	
 		// Set/clear the Zero (Z) flag depending on if the value is zero
 		flags.Z_assign((result & 0xffff) === 0x0000);
@@ -266,7 +268,7 @@ export namespace adc {
 		flags.C_assign(result > 0xffff);
 
 		// Count 1 extra cycle for 16-bit mode
-		cpuThread.countCycles(1);
+		scheduler.scheduler.cpuThread.countCycles(1);
 
 		return true;
 	}

@@ -32,7 +32,7 @@ export namespace u24 {
 	}
 
 	// @ts-ignore: decorator
-	@inline export function low_u16(value: u24.native) : u8 {
+	@inline export function low_u16(value: u24.native) : u16 {
 		return <u16>(value & 0xffff);
 	}
 

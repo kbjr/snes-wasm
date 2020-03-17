@@ -1,5 +1,5 @@
 
-import { u16 } from '../../u16';
+import { u16_util } from '../../u16';
 import { u24 } from '../../u24';
 import { bus } from '../../bus';
 import { registers } from '../registers';
@@ -60,7 +60,7 @@ export namespace addr_immediate {
 		/** Grab the second byte, and clean up */
 		export function step2() : void {
 			$1 = bus.read.fetch();
-			operand = u16.from_u8($0, $1);
+			operand = u16_util.from_u8($0, $1);
 		}
 	}
 	
@@ -147,7 +147,7 @@ export namespace addr_immediate {
 					// fallthrough
 	
 				default:
-					const finished = this.u8_instruction(addr_immediate._u8.operand);
+					const finished = this.u8_instruction(this, addr_immediate._u8.operand);
 	
 					if (finished) {
 						this.step = 0;
@@ -175,7 +175,7 @@ export namespace addr_immediate {
 					// fallthrough
 	
 				default:
-					const finished = this.u16_instruction(addr_immediate._u16.operand);
+					const finished = this.u16_instruction(this, addr_immediate._u16.operand);
 	
 					if (finished) {
 						this.step = 0;

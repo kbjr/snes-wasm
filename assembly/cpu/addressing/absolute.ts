@@ -1,5 +1,5 @@
 
-import { u16 } from '../../u16';
+import { u16_util } from '../../u16';
 import { u24 } from '../../u24';
 import { bus } from '../../bus';
 import { flags } from '../flags';
@@ -19,8 +19,13 @@ export namespace addr_absolute {
 	/** The resolved, effective address */
 	export let effective: bus.long = 0;
 
-	export const step0 = addr_immediate._u16.step0;
-	export const step1 = addr_immediate._u16.step1;
+	export function step0() : void {
+		addr_immediate._u16.step0();
+	}
+
+	export function step1() : void {
+		addr_immediate._u16.step1();
+	}
 
 	export function step2() : void {
 		addr_immediate._u16.step2();
@@ -80,8 +85,13 @@ export namespace addr_absolute {
 		/** The resolved, effective address */
 		export let effective: bus.long = 0;
 	
-		export const step0 = addr_immediate._u16.step0;
-		export const step1 = addr_immediate._u16.step1;
+		export function step0() : void {
+			addr_immediate._u16.step0();
+		}
+
+		export function step1() : void {
+			addr_immediate._u16.step1();
+		}
 	
 		export function step2() : void {
 			addr_immediate._u16.step2();
@@ -146,8 +156,13 @@ export namespace addr_absolute {
 		/** The resolved, effective address */
 		export let effective: bus.long = 0;
 	
-		export const step0 = addr_immediate._u16.step0;
-		export const step1 = addr_immediate._u16.step1;
+		export function step0() : void {
+			addr_immediate._u16.step0();
+		}
+
+		export function step1() : void {
+			addr_immediate._u16.step1();
+		}
 	
 		export function step2() : void {
 			addr_immediate._u16.step2();
@@ -212,9 +227,17 @@ export namespace addr_absolute {
 		/** The resolved, effective address */
 		export let effective: bus.long = 0;
 	
-		export const step0 = addr_immediate._u24.step0;
-		export const step1 = addr_immediate._u24.step1;
-		export const step2 = addr_immediate._u24.step2;
+		export function step0() : void {
+			addr_immediate._u24.step0();
+		}
+
+		export function step1() : void {
+			addr_immediate._u24.step1();
+		}
+
+		export function step2() : void {
+			addr_immediate._u24.step2();
+		}
 
 		export function step3() : void {
 			addr_immediate._u24.step3();
@@ -275,14 +298,22 @@ export namespace addr_absolute {
 			/** The resolved, effective address */
 			export let effective: bus.long = 0;
 		
-			export const step0 = addr_immediate._u24.step0;
-			export const step1 = addr_immediate._u24.step1;
-			export const step2 = addr_immediate._u24.step2;
+			export function step0() : void {
+				addr_immediate._u24.step0();
+			}
+
+			export function step1() : void {
+				addr_immediate._u24.step1();
+			}
+
+			export function step2() : void {
+				addr_immediate._u24.step2();
+			}
 			
 			export function step3() : void {
 				addr_immediate._u24.step3();
 		
-				let addr: bus.addr = u16.from_u8(addr_immediate._u24.$0, addr_immediate._u24.$1);
+				let addr: bus.addr = u16_util.from_u8(addr_immediate._u24.$0, addr_immediate._u24.$1);
 		
 				if (flags.E || flags.X) {
 					addr += registers.X_low;
@@ -349,14 +380,22 @@ export namespace addr_absolute {
 			/** The resolved, effective address */
 			export let effective: bus.long = 0;
 		
-			export const step0 = addr_immediate._u24.step0;
-			export const step1 = addr_immediate._u24.step1;
-			export const step2 = addr_immediate._u24.step2;
+			export function step0() : void {
+				addr_immediate._u24.step0();
+			}
+
+			export function step1() : void {
+				addr_immediate._u24.step1();
+			}
+			
+			export function step2() : void {
+				addr_immediate._u24.step2();
+			}
 
 			export function step3() : void {
 				addr_immediate._u24.step3();
 		
-				let addr: bus.addr = u16.from_u8(addr_immediate._u24.$0, addr_immediate._u24.$1);
+				let addr: bus.addr = u16_util.from_u8(addr_immediate._u24.$0, addr_immediate._u24.$1);
 		
 				if (flags.E || flags.X) {
 					addr += registers.Y_low;
