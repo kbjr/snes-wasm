@@ -43,8 +43,16 @@ import { scheduler } from '../../scheduler';
  * FIXME: Where do we count all the cpu cycles?
  */
 export namespace adc {
+	export class adc61 extends addr_directPage.indexedX.indirect.Instruction {
+		constructor() {
+			super(adc_);
+		}
+	}
+
 	/** 0x61 - Direct Page Indirect Indexed,X */
-	export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc_);
+	// export const $61 = create(addr_directPage.indexedX.indirect.Instruction);
+	export const $61 = new adc.adc61();
+	// export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc_);
 
 	/** 0x63 - Stack Relative */
 	export const $63 = new addr_stackRelative.Instruction(adc_);

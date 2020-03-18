@@ -31,8 +31,6 @@ export class Scheduler {
 	/** The APU thread */
 	public readonly apuThread: Thread;
 
-
-
 	/** How close is the CPU thread to being synced (1 = synced) */
 	protected cpuFraction: f64 = 0;
 
@@ -58,8 +56,6 @@ export class Scheduler {
 		// TODO: How do we reset the threads?
 	}
 
-
-
 	/** Synchronize all threads to the current clock time */
 	public sync() : void {
 		// Update all the clocks so we know what our target is
@@ -68,22 +64,22 @@ export class Scheduler {
 		// Keep looping until everything is synced up
 		while (true) {
 			// If the CPU thread is behind (< 1) and is further behind than the other threads, run it
-			if (this.cpuFraction < 1 && this.cpuFraction < this.ppuFraction && this.cpuFraction < this.apuFraction) {
+			if (this.cpuFraction < 1 /* && this.cpuFraction <= this.ppuFraction && this.cpuFraction <= this.apuFraction */) {
 				this.step_cpu();
 				continue;
 			}
 			
 			// If the PPU thread is behind (< 1) and is further behind than the other threads, run it
-			else if (this.ppuFraction < 1 && this.ppuFraction < this.apuFraction) {
-				this.step_ppu();
-				continue;
-			}
+			// else if (this.ppuFraction < 1 && this.ppuFraction <= this.apuFraction) {
+			// 	this.step_ppu();
+			// 	continue;
+			// }
 			
 			// If the APU thread is behind (< 1), run it
-			else if (this.apuFraction < 1) {
-				this.step_apu();
-				continue;
-			}
+			// else if (this.apuFraction < 1) {
+			// 	this.step_apu();
+			// 	continue;
+			// }
 
 			break;
 		}

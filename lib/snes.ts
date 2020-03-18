@@ -1,7 +1,6 @@
 
-import { createSNES } from './wasm-bridge';
 import { Controller } from './controllers';
-import { SNESInstance, p } from './wasm-types';
+import { createSNES, Interface } from './wasm-bridge';
 
 export enum MachineStatus {
 	Initializing = 0x00,
@@ -12,7 +11,7 @@ export enum MachineStatus {
 }
 
 export class SNES {
-	protected machine: SNESInstance;
+	protected machine: Interface;
 
 	protected _statusChange: Promise<void>;
 

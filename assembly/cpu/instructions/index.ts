@@ -47,7 +47,7 @@ export function getNextInstruction() : instruction.Instruction {
 	const opcode: u8 = addr_immediate._u8.operand;
 
 	switch (opcode) {
-		// case 0x61: return adc.$61;  // adc (dp,X)
+		case 0x61: return adc.$61;  // adc (dp,X)
 		// case 0x63: return adc.$63;  // adc sr,s
 		// case 0x65: return adc.$65;  // adc dp
 		// case 0x67: return adc.$67;  // adc [dp]

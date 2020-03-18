@@ -60,5 +60,5 @@ export class Clock {
 }
 
 function now() : Time {
-	return <f64>Date.now();
+	return <f64>Date.now() / 1000;
 }

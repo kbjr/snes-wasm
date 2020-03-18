@@ -38,7 +38,17 @@ export namespace scheduler {
 	}
 
 	// @ts-ignore: decorator
+	@inline export function syncClock() : void {
+		scheduler.clock.sync();
+	}
+
+	// @ts-ignore: decorator
 	@inline export function now() : f64 {
 		return scheduler.clock.now;
+	}
+	
+	// @ts-ignore: decorator
+	@inline export function cpuCycles() : f64 {
+		return scheduler.cpuThread.cycles;
 	}
 }
