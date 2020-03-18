@@ -32,7 +32,7 @@ export class SNES {
 
 		// 
 
-		this._status = MachineStatus.Ready;
+		this.setStatus(MachineStatus.Ready);
 	}
 
 	protected createStatusChangePromise() {
