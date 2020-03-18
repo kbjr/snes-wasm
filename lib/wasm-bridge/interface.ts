@@ -1,5 +1,5 @@
 
-import { SNESInstance } from './types';
+import { SNESInstance, p } from './types';
 
 export class Interface {
 	constructor(
@@ -69,6 +69,26 @@ export class Interface {
 	public readonly wram = {
 		getPointer: () => {
 			return this.instance.exports['wram.getPointer']();
+		}
+	};
+
+	public readonly cartridge = {
+		rom: {
+			loaded: () => {
+				return this.instance.exports['cartridge.rom.loaded']();
+			},
+
+			alloc: (size: number) : p => {
+				return this.instance.exports['cartridge.rom.alloc'](size);
+			}
+		},
+
+		init: () => {
+			this.instance.exports['cartridge.init']();
+		},
+
+		reset: () => {
+			this.instance.exports['cartridge.reset']();
 		}
 	};
 }

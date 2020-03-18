@@ -1,6 +1,7 @@
 
 import { Controller } from './controllers';
-import { createSNES, Interface } from './wasm-bridge';
+import { createSNES, Interface, p, p_null } from './wasm-bridge';
+import { smcHeaderSize } from './constants';
 
 export enum MachineStatus {
 	Initializing = 0x00,
@@ -18,6 +19,8 @@ export class SNES {
 	protected _onStatusChange: () => void;
 
 	protected _status: MachineStatus = MachineStatus.Initializing;
+
+	public p_rom: p = p_null;
 
 	constructor() {
 		this.createStatusChangePromise();
@@ -59,7 +62,52 @@ export class SNES {
 
 
 
-	// Controllers
+
+	// ===== ROM =====
+
+	public loadROM(rom: ArrayBuffer) : void {
+		if (this.p_rom !== p_null) {
+			throw new Error('Cannot load a ROM while one is still loaded');
+		}
+
+		let array: Uint8Array;
+		
+		// Check if there is an SMC header by calculating the size of extra length
+		const headerSize = rom.byteLength % (smcHeaderSize * 2);
+
+		// If the header size is 0, there is no header
+		if (headerSize === 0) {
+			array = new Uint8Array(rom);
+		}
+
+		// If the header size is 512 bytes, we have a valid header
+		else if (headerSize === smcHeaderSize) {
+			array = new Uint8Array(rom, smcHeaderSize);
+		}
+
+		else {
+			throw new Error('Invalid ROM; ROM contains an malformed SMC header');
+		}
+
+		// Allocate ourselves some memory inside the instance for the ROM
+		this.p_rom = this.machine.cartridge.rom.alloc(array.length);
+
+		const mem = new Uint8Array(this.machine.instance.exports.memory.buffer, this.p_rom, array.length);
+
+		// Write the contents of the ROM into the allocated space
+		for (let i = 0; i < array.length; i++) {
+			mem[i] = array[i];
+		}
+
+		// Initialize the new cartridge
+		this.machine.cartridge.init();
+	}
+
+
+
+
+
+	// ===== Controllers =====
 
 	// public connectController(controller: Controller, port: 1 | 2 | 3 | 4) {
 	// 	let addr: p;

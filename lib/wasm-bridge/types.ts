@@ -35,6 +35,9 @@ export type f64 = number;
 /** Alias of i32; This is a pointer into machine memory */
 export type p = i32;
 
+/** Null pointer */
+export const p_null = -1 as const;
+
 /** Function that returns a pointer into machine memory */
 export interface GetPointer {
 	(): p;
@@ -44,6 +47,7 @@ export interface GetPointer {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SNESInstance extends WebAssembly.Instance {
 	exports: {
+		memory: WebAssembly.Memory,
 		'joypad.getPort1': GetPointer;
 		'joypad.getPort2': GetPointer;
 		'joypad.getPort3': GetPointer;
@@ -59,5 +63,9 @@ export interface SNESInstance extends WebAssembly.Instance {
 		'scheduler.now': () => f64;
 		'scheduler.cpuCycles': () => f64;
 		'wram.getPointer': GetPointer;
+		'cartridge.init': () => void;
+		'cartridge.reset': () => void;
+		'cartridge.rom.loaded': () => boolean;
+		'cartridge.rom.alloc': (size: i32) => p;
 	};
 }

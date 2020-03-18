@@ -1,18 +1,22 @@
 
 /** The pointer to the next available memory segment in system memory */
-let offset: i32 = 0;
+let offset: i32 = 0x000000;
 
 /** The maximum valid offset within the system memory segment */
 const maxSystemMemory: i32 = 0x7fffff
 
 /** The pointer to the next available memory segment in cartridge memory */
-let cartOffset: i32 = 0;
+let cartOffset: i32 = 0x800000;
 
 /** The maximum valid offset withing the cartridge memory segment */
 const maxCartridgeMemory: i32 = 0xffffff;
 
 /** Alias of i32; This is a pointer into reserved memory */
 export type p = i32;
+
+/** Null Pointer */
+// @ts-ignore: decorator
+@inline export const p_null: p = -1;
 
 /**
  * Allocates a chunk of memory from the reserved system memory segment.
@@ -67,8 +71,5 @@ export function alloc_cart(size: i32) : p {
  */
 export function freeall_cart() : void {
 	cartOffset = maxSystemMemory + 1;
-
-	for (let i = cartOffset; i < maxCartridgeMemory; i += 4) {
-		store<u32>(i, 0);
-	}
+	memory.fill(cartOffset, 0x00, maxCartridgeMemory - cartOffset);
 }
