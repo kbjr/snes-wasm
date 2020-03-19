@@ -35,10 +35,10 @@ import * as nop from './nop';
 // import { sta } from './sta';
 // import { stp, stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
-// import { wai } from './wai';
+import * as wai from './wai';
 import * as wdm from './wdm';
-// import { xba } from './xba';
-// import { xce } from './xce';
+// import * as xba from './xba';
+// import * as xce from './xce';
 
 export function getNextInstruction() : instruction.Instruction {
 	addr_immediate_u8.step0();
@@ -340,7 +340,7 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0x98: return tya.$98;  // tya
 		// case 0xbb: return tyx.$BB;  // tyx
 		
-		// case 0xcb: return wai.$CB;  // wai
+		case 0xcb: return wai.$CB;  // wai
 
 		case 0x42: return wdm.$42;  // wdm
 

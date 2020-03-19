@@ -1,61 +1,107 @@
 
 import { u16_util } from '../../../u16';
 import { stack } from '../../stack';
-import { flags, Flag } from '../../flags';
+import { flags, flag } from '../../flags';
 import { registers } from '../../registers';
 import { scheduler } from '../../../scheduler';
 import { interrupt } from '../../../constants';
+import { instruction } from '../../instruction';
 
-export function brk() : bool {
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+export function brk(inst: instruction.Instruction) : bool {
 	if (flags.E) {
-		brk_6502();
+		return brk_6502(inst.step - instruction.firstStep);
 	}
 
 	else {
-		brk_65816();
+		return brk_65816(inst.step - instruction.firstStep);
 	}
-
-	return false;
 }
 
 // @ts-ignore: decorator
-@inline function brk_6502() {
-	registers.PC++;
+@inline function brk_6502(step: u8) : bool {
+	switch (step) {
+		case 0:
+			registers.PC++;
+			stack.push.step0(registers.PBR);
+			return false;
 
-	stack.push(registers.PBR);
-	stack.push(u16_util.high(registers.PC));
-	stack.push(u16_util.low(registers.PC));
-	stack.push(registers.P | Flag.B);
+		case 1:
+			stack.push.step1();
+			stack.push.step0(u16_util.high(registers.PC));
+			return false;
 
-	flags.D_clear();
-	flags.I_set();
+		case 2:
+			stack.push.step1();
+			stack.push.step0(u16_util.low(registers.PC));
+			return false;
+		
+		case 3:
+			stack.push.step1();
+			stack.push.step0(registers.P | flag.B);
+			return false;
+		
+		case 4:
+			stack.push.step1();
 
-	registers.PBR = 0;
+			flags.D_clear();
+			flags.I_set();
 
-	// Raise the interrupt
-	scheduler.scheduler.interrupt(interrupt.brk);
+			registers.PBR = 0;
 
-	// Count 3 more I/O cycles (18 master cycles) for the instruction in Emulation mode
-	scheduler.scheduler.cpuThread.countCycles(18);
+			// Raise the interrupt
+			scheduler.scheduler.interrupt(interrupt.brk);
+		
+			// Count 3 more I/O cycles (18 master cycles) for the instruction in Emulation mode
+			scheduler.scheduler.cpuThread.countCycles(18);
+
+			return true;
+		
+		// This should never happen
+		default: return true;
+	}
 }
 
 // @ts-ignore: decorator
-@inline function brk_65816() {
-	registers.PC++;
+@inline function brk_65816(step: u8) : bool {
+	switch (step) {
+		case 0:
+			registers.PC++;
+			stack.push.step0(registers.PBR);
+			return false;
 
-	stack.push(registers.PBR);
-	stack.push(u16_util.high(registers.PC));
-	stack.push(u16_util.low(registers.PC));
-	stack.push(registers.P);
+		case 1:
+			stack.push.step1();
+			stack.push.step0(u16_util.high(registers.PC));
+			return false;
 
-	flags.D_clear();
-	flags.I_set();
+		case 2:
+			stack.push.step1();
+			stack.push.step0(u16_util.low(registers.PC));
+			return false;
+		
+		case 3:
+			stack.push.step1();
+			stack.push.step0(registers.P);
+			return false;
+		
+		case 4:
+			stack.push.step1();
 
-	registers.PBR = 0;
+			flags.D_clear();
+			flags.I_set();
 
-	// Raise the interrupt
-	scheduler.scheduler.interrupt(interrupt.brk);
+			registers.PBR = 0;
 
-	// Count 4 more I/O cycles (24 master cycles) for the instruction in Native mode
-	scheduler.scheduler.cpuThread.countCycles(24);
+			// Raise the interrupt
+			scheduler.scheduler.interrupt(interrupt.brk);
+		
+			// Count 4 more I/O cycles (24 master cycles) for the instruction in Native mode
+			scheduler.scheduler.cpuThread.countCycles(24);
+
+			return true;
+		
+		// This should never happen
+		default: return true;
+	}
 }
