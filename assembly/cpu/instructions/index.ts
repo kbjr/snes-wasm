@@ -2,7 +2,7 @@
 import { instruction } from '../instruction';
 import { addr_immediate } from '../addressing';
 
-import { adc } from './adc';
+import * as adc from './adc';
 // import { and } from './and';
 // import { asl } from './asl';
 // import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';

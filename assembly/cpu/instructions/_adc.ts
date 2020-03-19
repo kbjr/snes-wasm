@@ -10,6 +10,7 @@ import {
 } from '../addressing';
 import { bus } from '../../bus';
 import { scheduler } from '../../scheduler';
+import { Instruction_addr_immediate } from '../addressing/immediate';
 
 /**
  * Add With Carry Instruction (`adc`)
@@ -43,6 +44,9 @@ import { scheduler } from '../../scheduler';
  * FIXME: Where do we count all the cpu cycles?
  */
 export namespace adc {
+
+	export const test = new Instruction_addr_immediate(adc_u8, adc_u16);
+
 	export class adc61 extends addr_directPage.indexedX.indirect.Instruction {
 		constructor() {
 			super(adc_);
