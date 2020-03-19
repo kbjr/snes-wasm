@@ -1,51 +1,88 @@
 
+/**
+ * Add With Carry Instruction (`adc`)
+ *
+ * Adds operand to the Accumulator; adds an additional 1 if `C` is set
+ * 
+ *     | OpCode | Syntax       | Addressing                        | Flags     | Bytes | Cycle         |
+ *     |--------|--------------|-----------------------------------|-----------|-------|---------------|
+ *     | 0x61   | and (dp,X)   | Direct Page Indirect Indexed,X    | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x63   | and sr,S     | Stack Relative                    | NV----ZC- | 2     | 4 [1]         |
+ *     | 0x65   | and dp       | Direct Page                       | NV----ZC- | 2     | 3 [1],[2]     |
+ *     | 0x67   | and [dp]     | Direct Page Indirect Long         | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x69   | and #const   | Immediate                         | NV----ZC- | 2 [3] | 2 [1]         |
+ *     | 0x6D   | and addr     | Absolute                          | NV----ZC- | 3     | 4 [1]         |
+ *     | 0x6F   | and long     | Absolute Long                     | NV----ZC- | 4     | 5 [1]         |
+ *     | 0x71   | and (dp),Y   | Direct Page Indirect Indexed,Y    | NV----ZC- | 2     | 5 [1],[2],[4] |
+ *     | 0x72   | and (dp)     | Direct Page Indirect              | NV----ZC- | 2     | 5 [1],[2]     |
+ *     | 0x73   | and (sr,S),Y | Stack Relative Indirect Indexed,Y | NV----ZC- | 2     | 7 [1]         |
+ *     | 0x75   | and dp,X     | Direct Page Indexed,X             | NV----ZC- | 2     | 4 [1],[2]     |
+ *     | 0x77   | and [dp],Y   | Direct Indirect Long Indexed,Y    | NV----ZC- | 2     | 6 [1],[2]     |
+ *     | 0x79   | and addr,Y   | Absolute Indexed,Y                | NV----ZC- | 3     | 4 [1],[4]     |
+ *     | 0x7D   | and addr,X   | Absolute Indexed,X                | NV----ZC- | 3     | 4 [1],[4]     |
+ *     | 0x7F   | and long,X   | Absolute Long Indexed,X           | NV----ZC- | 4     | 5 [1]         |
+ *
+ * [1]: Add 1 cycle if M = 0
+ * [2]: Add 1 cycle if low byte of D is non-zero
+ * [3]: Add 1 byte if M = 0
+ * [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
+ *
+ * FIXME: Implement [4]
+ * FIXME: Where do we count all the cpu cycles?
+ */
+
 import { adc_, adc_u8, adc_u16 } from './implementation';
-import { addr_absolute, addr_immediate, addr_stackRelative, addr_directPage } from '../../addressing';
+import { Instruction_addr_immediate } from '../../addressing/immediate';
+import { Instruction_addr_stackRelative, Instruction_addr_stackRelative_indirect_indexedY } from '../../addressing/stack-relative';
+import {
+	Instruction_addr_absolute,
+	Instruction_addr_absolute_indexedX,
+	Instruction_addr_absolute_indexedY,
+	Instruction_addr_absolute_long,
+	Instruction_addr_absolute_long_indexedX
+} from '../../addressing/absolute';
+import {
+	Instruction_addr_directPage,
+	Instruction_addr_directPage_indexedX,
+	Instruction_addr_directPage_indexedX_indirect,
+	Instruction_addr_directPage_indirect,
+	Instruction_addr_directPage_indirect_indexedY,
+	Instruction_addr_directPage_indirect_long,
+	Instruction_addr_directPage_indirect_long_indexedY
+} from '../../addressing/direct-page';
 
-/** 0x61 - Direct Page Indirect Indexed,X */
-// export const $61 = create(addr_directPage.indexedX.indirect.Instruction);
-// export const $61 = new adc.adc61();
-export const $61 = new addr_directPage.indexedX.indirect.Instruction(adc_);
+export let $61: Instruction_addr_directPage_indexedX_indirect;
+export let $63: Instruction_addr_stackRelative;
+export let $65: Instruction_addr_directPage;
+export let $67: Instruction_addr_directPage_indirect_long;
+export let $69: Instruction_addr_immediate;
+export let $6D: Instruction_addr_absolute;
+export let $6F: Instruction_addr_absolute_long;
+export let $71: Instruction_addr_directPage_indirect_indexedY;
+export let $72: Instruction_addr_directPage_indirect;
+export let $73: Instruction_addr_stackRelative_indirect_indexedY;
+export let $75: Instruction_addr_directPage_indexedX;
+export let $77: Instruction_addr_directPage_indirect_long_indexedY;
+export let $79: Instruction_addr_absolute_indexedY;
+export let $7D: Instruction_addr_absolute_indexedX;
+export let $7F: Instruction_addr_absolute_long_indexedX;
 
-/** 0x63 - Stack Relative */
-export const $63 = new addr_stackRelative.Instruction(adc_);
+function init() : void {
+	$61 = new Instruction_addr_directPage_indexedX_indirect(adc_);
+	$63 = new Instruction_addr_stackRelative(adc_);
+	$65 = new Instruction_addr_directPage(adc_);
+	$67 = new Instruction_addr_directPage_indirect_long(adc_);
+	$69 = new Instruction_addr_immediate(adc_u8, adc_u16);
+	$6D = new Instruction_addr_absolute(adc_);
+	$6F = new Instruction_addr_absolute_long(adc_);
+	$71 = new Instruction_addr_directPage_indirect_indexedY(adc_);
+	$72 = new Instruction_addr_directPage_indirect(adc_);
+	$73 = new Instruction_addr_stackRelative_indirect_indexedY(adc_);
+	$75 = new Instruction_addr_directPage_indexedX(adc_);
+	$77 = new Instruction_addr_directPage_indirect_long_indexedY(adc_);
+	$79 = new Instruction_addr_absolute_indexedY(adc_);
+	$7D = new Instruction_addr_absolute_indexedX(adc_);
+	$7F = new Instruction_addr_absolute_long_indexedX(adc_);
+}
 
-/** 0x65 - Direct Page */
-export const $65 = new addr_directPage.Instruction(adc_);
-
-/** 0x67 - Direct Page Indirect Long */
-export const $67 = new addr_directPage.indirect.long.Instruction(adc_);
-
-/** 0x69 - Immediate */
-export const $69 = new addr_immediate.Instruction(adc_u8, adc_u16);
-
-/** 0x6D - Absolute */
-export const $6D = new addr_absolute.Instruction(adc_);
-
-/** 0x6F - Absolute Long */
-export const $6F = new addr_absolute.long.Instruction(adc_);
-
-/** 0x71 - Direct Page Indirect Indexed,Y */
-export const $71 = new addr_directPage.indirect.indexedY.Instruction(adc_);
-
-/** 0x72 - Direct Page Indirect */
-export const $72 = new addr_directPage.indirect.Instruction(adc_);
-
-/** 0x73 - Stack Relative Indirect Indexed,Y */
-export const $73 = new addr_stackRelative.indirectIndexedY.Instruction(adc_);
-
-/** 0x75 - Direct Page Indexed,X */
-export const $75 = new addr_directPage.indexedX.Instruction(adc_);
-
-/** 0x77 - Direct Indirect Long Indexed,Y */
-export const $77 = new addr_directPage.indirect.long.indexedY.Instruction(adc_);
-
-/** 0x79 - Absolute Indexed,Y */
-export const $79 = new addr_absolute.indexedY.Instruction(adc_);
-
-/** 0x7D - Absolute Indexed,X */
-export const $7D = new addr_absolute.indexedX.Instruction(adc_);
-
-/** 0x7F - Absolute Long Indexed,X */
-export const $7F = new addr_absolute.long.indexedX.Instruction(adc_);
-
+init();

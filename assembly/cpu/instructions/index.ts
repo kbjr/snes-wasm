@@ -1,6 +1,6 @@
 
 import { instruction } from '../instruction';
-import { addr_immediate } from '../addressing';
+import * as addr_immediate_u8 from '../addressing/immediate/u8';
 
 import * as adc from './adc';
 // import { and } from './and';
@@ -41,27 +41,27 @@ import { nop } from './nop';
 // import { xce } from './xce';
 
 export function getNextInstruction() : instruction.Instruction {
-	addr_immediate._u8.step0();
-	addr_immediate._u8.step1();
+	addr_immediate_u8.step0();
+	addr_immediate_u8.step1();
 
-	const opcode: u8 = addr_immediate._u8.operand;
+	const opcode: u8 = addr_immediate_u8.operand;
 
 	switch (opcode) {
 		case 0x61: return adc.$61;  // adc (dp,X)
-		// case 0x63: return adc.$63;  // adc sr,s
-		// case 0x65: return adc.$65;  // adc dp
-		// case 0x67: return adc.$67;  // adc [dp]
-		// case 0x69: return adc.$69;  // adc #const
-		// case 0x6d: return adc.$6D;  // adc addr
-		// case 0x6f: return adc.$6F;  // adc long
-		// case 0x71: return adc.$71;  // adc (dp),Y
-		// case 0x72: return adc.$72;  // adc (dp)
-		// case 0x73: return adc.$73;  // adc (sr,S),Y
-		// case 0x75: return adc.$75;  // adc dp,X
-		// case 0x77: return adc.$77;  // adc [dp],Y
-		// case 0x79: return adc.$79;  // adc addr,Y
-		// case 0x7d: return adc.$7D;  // adc addr,X
-		// case 0x7f: return adc.$7F;  // adc long,X
+		case 0x63: return adc.$63;  // adc sr,s
+		case 0x65: return adc.$65;  // adc dp
+		case 0x67: return adc.$67;  // adc [dp]
+		case 0x69: return adc.$69;  // adc #const
+		case 0x6d: return adc.$6D;  // adc addr
+		case 0x6f: return adc.$6F;  // adc long
+		case 0x71: return adc.$71;  // adc (dp),Y
+		case 0x72: return adc.$72;  // adc (dp)
+		case 0x73: return adc.$73;  // adc (sr,S),Y
+		case 0x75: return adc.$75;  // adc dp,X
+		case 0x77: return adc.$77;  // adc [dp],Y
+		case 0x79: return adc.$79;  // adc addr,Y
+		case 0x7d: return adc.$7D;  // adc addr,X
+		case 0x7f: return adc.$7F;  // adc long,X
 
 		// case 0x21: return and.$21;  // and (dp,X)
 		// case 0x23: return and.$23;  // and sr,S
