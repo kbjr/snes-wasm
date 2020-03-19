@@ -7,7 +7,7 @@ import * as and from './and';
 import * as asl from './asl';
 // import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 // import { bit } from './bit';
-// import { brk } from './brk';
+import * as brk from './brk';
 // import { clc, cld, cli, clv } from './cl_';
 // import { cmp } from './cmp';
 // import { cop } from './cop';
@@ -100,7 +100,7 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0x10: return bpl.$10;  // bpl nearlabel
 		// case 0x80: return bra.$80;  // bra nearlabel
 
-		// case 0x00: return brk.$00;  // brk
+		case 0x00: return brk.$00;  // brk
 
 		// case 0x82: return brl.$82;  // brl label
 		// case 0x50: return bvc.$50;  // bvc nearlabel
