@@ -1,6 +1,7 @@
 
 import { registers } from '../registers';
-import { cpuThread } from '../../_scheduler';
+import { scheduler } from '../../scheduler';
+import { instruction } from '../instruction';
 
 /**
  * wdm
@@ -19,14 +20,22 @@ import { cpuThread } from '../../_scheduler';
  * the WDM instruction is accidentally executed, it acts like a two-byte NOP instuctions,
  * as the 65816 did.
  */
-export namespace wdm {
-	export function $42() : bool {
+class Wdm extends instruction.Instruction {
+	public exec() : bool {
 		// Move the PC forward one as this is treated as a two-byte "opcode"
 		registers.PC++;
 
-		// Count 2 cycles for the instruction
-		cpuThread.countCycles(2);
-
-		return false;
+		// Idle for 2 I/O cycles (12 master cycles)
+		scheduler.scheduler.cpuThread.countCycles(12);
+		
+		return true;
 	}
 }
+
+export let $42: Wdm;
+
+function init() : void {
+	$42 = new Wdm();
+}
+
+init();

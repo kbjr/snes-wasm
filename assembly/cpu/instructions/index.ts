@@ -4,7 +4,7 @@ import * as addr_immediate_u8 from '../addressing/immediate/u8';
 
 import * as adc from './adc';
 // import { and } from './and';
-// import { asl } from './asl';
+import * as asl from './asl';
 // import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 // import { bit } from './bit';
 // import { brk } from './brk';
@@ -22,7 +22,7 @@ import * as adc from './adc';
 // import { ldy } from './ldy';
 // import { lsr } from './lsr';
 // import { mvn, mvp } from './mv_';
-import { nop } from './nop';
+import * as nop from './nop';
 // import { ora } from './ora';
 // import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 // import { pla, plb, pld, plp, plx, ply } from './pl_';
@@ -36,7 +36,7 @@ import { nop } from './nop';
 // import { stp, stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 // import { wai } from './wai';
-// import { wdm } from './wdm';
+import * as wdm from './wdm';
 // import { xba } from './xba';
 // import { xce } from './xce';
 
@@ -79,11 +79,11 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0x3d: return and.$3D;  // and addr,X
 		// case 0x3f: return and.$3F;  // and long,X
 
-		// case 0x06: return asl.$06;  // asl dp
-		// case 0x0a: return asl.$0A;  // asl A
-		// case 0x0e: return asl.$0E;  // asl addr
-		// case 0x16: return asl.$16;  // asl dp,X
-		// case 0x1e: return asl.$1E;  // asl addr,X
+		case 0x06: return asl.$06;  // asl dp
+		case 0x0a: return asl.$0A;  // asl A
+		case 0x0e: return asl.$0E;  // asl addr
+		case 0x16: return asl.$16;  // asl dp,X
+		case 0x1e: return asl.$1E;  // asl addr,X
 
 		// case 0x90: return bcc.$90;  // bcc nearlabel
 		// case 0xb0: return bcs.$B0;  // bcs nearlabel
@@ -342,7 +342,7 @@ export function getNextInstruction() : instruction.Instruction {
 		
 		// case 0xcb: return wai.$CB;  // wai
 
-		// case 0x42: return wdm.$42;  // wdm
+		case 0x42: return wdm.$42;  // wdm
 
 		// case 0xeb: return xba.$EB;  // xba
 		// case 0xfb: return xce.$FB;  // xce

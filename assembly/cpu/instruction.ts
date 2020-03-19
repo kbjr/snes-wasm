@@ -4,9 +4,7 @@ import { u24 } from '../u24';
 export namespace instruction {
 	
 	export namespace callback {
-		export type step = () => void;
-		export type test = () => bool;
-		export type exec = () => bool;
+		export type exec = (instruction: Instruction) => bool;
 		export type u8_op = (instruction: Instruction, value: u8) => bool;
 		export type u16_op = (instruction: Instruction, value: u16) => bool;
 		export type u24_op = (instruction: Instruction, value: u24.native) => bool;
@@ -29,6 +27,16 @@ export namespace instruction {
 		/** Execute the instruction. Should return true if the instruction is complete */
 		public exec() : bool {
 			return true;
+		}
+	}
+
+	export class Instruction_custom extends instruction.Instruction {
+		constructor(public _exec: instruction.callback.exec) {
+			super();
+		}
+
+		public exec() : bool {
+			return this._exec(this);
 		}
 	}
 }

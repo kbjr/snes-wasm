@@ -9,7 +9,7 @@ let buffer: u8 = 0;
 let is8Bit: bool = false;
 
 /** Given a fully resolved effective address, performs the adc instruction */
-export function adc_(inst: instruction.Instruction, effective: u32) : bool {
+export function adc(inst: instruction.Instruction, effective: u32) : bool {
 	switch (inst.step - instruction.firstStep) {
 		case 0:
 			// Check what mode we're running in (8-bit or 16-bit)

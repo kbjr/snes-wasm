@@ -31,7 +31,7 @@
  * FIXME: Where do we count all the cpu cycles?
  */
 
-import { adc_, adc_u8, adc_u16 } from './implementation';
+import { adc, adc_u8, adc_u16 } from './implementation';
 import { Instruction_addr_immediate } from '../../addressing/immediate';
 import { Instruction_addr_stackRelative, Instruction_addr_stackRelative_indirect_indexedY } from '../../addressing/stack-relative';
 import {
@@ -68,21 +68,21 @@ export let $7D: Instruction_addr_absolute_indexedX;
 export let $7F: Instruction_addr_absolute_long_indexedX;
 
 function init() : void {
-	$61 = new Instruction_addr_directPage_indexedX_indirect(adc_);
-	$63 = new Instruction_addr_stackRelative(adc_);
-	$65 = new Instruction_addr_directPage(adc_);
-	$67 = new Instruction_addr_directPage_indirect_long(adc_);
+	$61 = new Instruction_addr_directPage_indexedX_indirect(adc);
+	$63 = new Instruction_addr_stackRelative(adc);
+	$65 = new Instruction_addr_directPage(adc);
+	$67 = new Instruction_addr_directPage_indirect_long(adc);
 	$69 = new Instruction_addr_immediate(adc_u8, adc_u16);
-	$6D = new Instruction_addr_absolute(adc_);
-	$6F = new Instruction_addr_absolute_long(adc_);
-	$71 = new Instruction_addr_directPage_indirect_indexedY(adc_);
-	$72 = new Instruction_addr_directPage_indirect(adc_);
-	$73 = new Instruction_addr_stackRelative_indirect_indexedY(adc_);
-	$75 = new Instruction_addr_directPage_indexedX(adc_);
-	$77 = new Instruction_addr_directPage_indirect_long_indexedY(adc_);
-	$79 = new Instruction_addr_absolute_indexedY(adc_);
-	$7D = new Instruction_addr_absolute_indexedX(adc_);
-	$7F = new Instruction_addr_absolute_long_indexedX(adc_);
+	$6D = new Instruction_addr_absolute(adc);
+	$6F = new Instruction_addr_absolute_long(adc);
+	$71 = new Instruction_addr_directPage_indirect_indexedY(adc);
+	$72 = new Instruction_addr_directPage_indirect(adc);
+	$73 = new Instruction_addr_stackRelative_indirect_indexedY(adc);
+	$75 = new Instruction_addr_directPage_indexedX(adc);
+	$77 = new Instruction_addr_directPage_indirect_long_indexedY(adc);
+	$79 = new Instruction_addr_absolute_indexedY(adc);
+	$7D = new Instruction_addr_absolute_indexedX(adc);
+	$7F = new Instruction_addr_absolute_long_indexedX(adc);
 }
 
 init();
