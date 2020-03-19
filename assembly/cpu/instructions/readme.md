@@ -14,3 +14,4 @@
 - [Branch Always Long (`brl`)](./b__#brl)
 - [Branch if Overflow Clear (`bvc`)](./b__#bvc)
 - [Branch if Overflow Set (`bvs`)](./b__#bvs)
+- [Test Memory Bits Against Accumulator (`bit`)](./bit#readme)

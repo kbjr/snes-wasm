@@ -6,7 +6,7 @@ import * as adc from './adc';
 import * as and from './and';
 import * as asl from './asl';
 // import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
-// import { bit } from './bit';
+import * as bit from './bit';
 import * as brk from './brk';
 // import { clc, cld, cli, clv } from './cl_';
 // import { cmp } from './cmp';
@@ -89,11 +89,11 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0xb0: return bcs.$B0;  // bcs nearlabel
 		// case 0xf0: return beq.$F0;  // beq nearlabel
 
-		// case 0x24: return bit.$24;  // bit dp
-		// case 0x2c: return bit.$2C;  // bit addr
-		// case 0x34: return bit.$34;  // bit dp,X
-		// case 0x3c: return bit.$3C;  // bit addr,X
-		// case 0x89: return bit.$89;  // bit #const
+		case 0x24: return bit.$24;  // bit dp
+		case 0x2c: return bit.$2C;  // bit addr
+		case 0x34: return bit.$34;  // bit dp,X
+		case 0x3c: return bit.$3C;  // bit addr,X
+		case 0x89: return bit.$89;  // bit #const
 
 		// case 0x30: return bmi.$30;  // bmi nearlabel
 		// case 0xd0: return bne.$D0;  // bne nearlabel

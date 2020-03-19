@@ -1,5 +1,7 @@
 
 import { u24 } from '../u24';
+import { flags } from './flags';
+import { bus } from '../bus';
 
 export namespace instruction {
 	
@@ -39,4 +41,5 @@ export namespace instruction {
 			return this._exec(this);
 		}
 	}
+
 }
