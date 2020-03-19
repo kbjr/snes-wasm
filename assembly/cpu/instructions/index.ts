@@ -3,7 +3,7 @@ import { instruction } from '../instruction';
 import * as addr_immediate_u8 from '../addressing/immediate/u8';
 
 import * as adc from './adc';
-// import { and } from './and';
+import * as and from './and';
 import * as asl from './asl';
 // import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 // import { bit } from './bit';
@@ -63,21 +63,21 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x7d: return adc.$7D;  // adc addr,X
 		case 0x7f: return adc.$7F;  // adc long,X
 
-		// case 0x21: return and.$21;  // and (dp,X)
-		// case 0x23: return and.$23;  // and sr,S
-		// case 0x25: return and.$25;  // and dp
-		// case 0x27: return and.$27;  // and [dp]
-		// case 0x29: return and.$29;  // and #const
-		// case 0x2d: return and.$2D;  // and addr
-		// case 0x2f: return and.$2F;  // and long
-		// case 0x31: return and.$31;  // and (dp),Y
-		// case 0x32: return and.$32;  // and (dp)
-		// case 0x33: return and.$33;  // and (sr,S),Y
-		// case 0x35: return and.$35;  // and dp,X
-		// case 0x37: return and.$37;  // and [dp],Y
-		// case 0x39: return and.$39;  // and addr,Y
-		// case 0x3d: return and.$3D;  // and addr,X
-		// case 0x3f: return and.$3F;  // and long,X
+		case 0x21: return and.$21;  // and (dp,X)
+		case 0x23: return and.$23;  // and sr,S
+		case 0x25: return and.$25;  // and dp
+		case 0x27: return and.$27;  // and [dp]
+		case 0x29: return and.$29;  // and #const
+		case 0x2d: return and.$2D;  // and addr
+		case 0x2f: return and.$2F;  // and long
+		case 0x31: return and.$31;  // and (dp),Y
+		case 0x32: return and.$32;  // and (dp)
+		case 0x33: return and.$33;  // and (sr,S),Y
+		case 0x35: return and.$35;  // and dp,X
+		case 0x37: return and.$37;  // and [dp],Y
+		case 0x39: return and.$39;  // and addr,Y
+		case 0x3d: return and.$3D;  // and addr,X
+		case 0x3f: return and.$3F;  // and long,X
 
 		case 0x06: return asl.$06;  // asl dp
 		case 0x0a: return asl.$0A;  // asl A
