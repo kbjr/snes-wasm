@@ -1,35 +1,6 @@
 
-/**
- * Add With Carry Instruction (`adc`)
- *
- * Adds operand to the Accumulator; adds an additional 1 if `C` is set
- * 
- *     | OpCode | Syntax       | Addressing                        | Flags     | Bytes | Cycle         |
- *     |--------|--------------|-----------------------------------|-----------|-------|---------------|
- *     | 0x61   | and (dp,X)   | Direct Page Indirect Indexed,X    | NV----ZC- | 2     | 6 [1],[2]     |
- *     | 0x63   | and sr,S     | Stack Relative                    | NV----ZC- | 2     | 4 [1]         |
- *     | 0x65   | and dp       | Direct Page                       | NV----ZC- | 2     | 3 [1],[2]     |
- *     | 0x67   | and [dp]     | Direct Page Indirect Long         | NV----ZC- | 2     | 6 [1],[2]     |
- *     | 0x69   | and #const   | Immediate                         | NV----ZC- | 2 [3] | 2 [1]         |
- *     | 0x6D   | and addr     | Absolute                          | NV----ZC- | 3     | 4 [1]         |
- *     | 0x6F   | and long     | Absolute Long                     | NV----ZC- | 4     | 5 [1]         |
- *     | 0x71   | and (dp),Y   | Direct Page Indirect Indexed,Y    | NV----ZC- | 2     | 5 [1],[2],[4] |
- *     | 0x72   | and (dp)     | Direct Page Indirect              | NV----ZC- | 2     | 5 [1],[2]     |
- *     | 0x73   | and (sr,S),Y | Stack Relative Indirect Indexed,Y | NV----ZC- | 2     | 7 [1]         |
- *     | 0x75   | and dp,X     | Direct Page Indexed,X             | NV----ZC- | 2     | 4 [1],[2]     |
- *     | 0x77   | and [dp],Y   | Direct Indirect Long Indexed,Y    | NV----ZC- | 2     | 6 [1],[2]     |
- *     | 0x79   | and addr,Y   | Absolute Indexed,Y                | NV----ZC- | 3     | 4 [1],[4]     |
- *     | 0x7D   | and addr,X   | Absolute Indexed,X                | NV----ZC- | 3     | 4 [1],[4]     |
- *     | 0x7F   | and long,X   | Absolute Long Indexed,X           | NV----ZC- | 4     | 5 [1]         |
- *
- * [1]: Add 1 cycle if M = 0
- * [2]: Add 1 cycle if low byte of D is non-zero
- * [3]: Add 1 byte if M = 0
- * [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
- *
- * FIXME: Implement [4]
- * FIXME: Where do we count all the cpu cycles?
- */
+// FIXME: Implement [4]
+// FIXME: Where do we count all the cpu cycles?
 
 import { adc, adc_u8, adc_u16 } from './implementation';
 import { Instruction_addr_immediate } from '../../addressing/immediate';
