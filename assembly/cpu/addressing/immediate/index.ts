@@ -4,6 +4,8 @@ import { instruction } from '../../instruction';
 import * as addr_immediate_u8 from './u8';
 import * as addr_immediate_u16 from './u16';
 
+export { Instruction_addr_immediate_u8 } from './u8';
+
 /**
  * Immediate Addressing
  *

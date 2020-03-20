@@ -59,7 +59,7 @@
 | `plp` | [Pull Status Flags](./pl_#plp)                           | 1     |
 | `plx` | [Pull Index X Register](./pl_#plx)                       | 1     |
 | `ply` | [Pull Index Y Register](./pl_#ply)                       | 1     |
-| `rep` |                                                          | 1     |
+| `rep` | [Reset Processor status bits](./rep#readme)              | 1     |
 | `rol` |                                                          | 5     |
 | `ror` |                                                          | 5     |
 | `rti` |                                                          | 1     |

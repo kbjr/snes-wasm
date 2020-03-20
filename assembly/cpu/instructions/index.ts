@@ -26,7 +26,7 @@ import * as nop from './nop';
 import * as ora from './ora';
 import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 import { pla, plb, pld, plp, plx, ply } from './pl_';
-// import * as rep from './rep';
+import * as rep from './rep';
 // import * as rol from './rol';
 // import * as ror from './ror';
 // import { rti, rtl, rts } from './rt_';
@@ -252,7 +252,7 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xfa: return plx.$FA;  // plx
 		case 0x7a: return ply.$7A;  // ply
 
-		// case 0xc2: return rep.$C2;  // rep #const
+		case 0xc2: return rep.$C2;  // rep #const
 
 		// case 0x2a: return rol.$2A;  // rol A
 		// case 0x2e: return rol.$2E;  // rol addr
