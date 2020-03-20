@@ -22,5 +22,8 @@
 - [Clear Overflow (`clv`)](./cl_#clv)
 - [Block Move Next (`mvn`)](./mv_#mvn)
 - [Block Move Previous (`mvp`)](./mv_#mvp)
+- [OR Accumulator with Memory (`ora`)](./ora#readme)
+
+
 
 - [Wait for Interrupt (`wai`)](./wai#readme)

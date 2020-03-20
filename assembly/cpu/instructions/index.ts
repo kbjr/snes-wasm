@@ -23,7 +23,7 @@ import { clc, cld, cli, clv } from './cl_';
 // import * as lsr from './lsr';
 import { mvn, mvp } from './mv_';
 import * as nop from './nop';
-// import * as ora from './ora';
+import * as ora from './ora';
 // import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 // import { pla, plb, pld, plp, plx, ply } from './pl_';
 // import * as rep from './rep';
@@ -217,21 +217,21 @@ export function getNextInstruction() : instruction.Instruction {
 
 		case 0xea: return nop.$EA;  // nop
 
-		// case 0x01: return ora.$01;  // ora (dp,X)
-		// case 0x03: return ora.$03;  // ora sr,S
-		// case 0x05: return ora.$05;  // ora dp
-		// case 0x07: return ora.$07;  // ora [dp]
-		// case 0x09: return ora.$09;  // ora #const
-		// case 0x0d: return ora.$0D;  // ora addr
-		// case 0x0f: return ora.$0F;  // ora long
-		// case 0x11: return ora.$11;  // ora (dp),Y
-		// case 0x12: return ora.$12;  // ora (dp)
-		// case 0x13: return ora.$13;  // ora (sr,S),Y
-		// case 0x15: return ora.$15;  // ora dp,X
-		// case 0x17: return ora.$17;  // ora [dp],Y
-		// case 0x19: return ora.$19;  // ora addr,Y
-		// case 0x1d: return ora.$1D;  // ora addr,X
-		// case 0x1f: return ora.$1F;  // ora long,X
+		case 0x01: return ora.$01;  // ora (dp,X)
+		case 0x03: return ora.$03;  // ora sr,S
+		case 0x05: return ora.$05;  // ora dp
+		case 0x07: return ora.$07;  // ora [dp]
+		case 0x09: return ora.$09;  // ora #const
+		case 0x0d: return ora.$0D;  // ora addr
+		case 0x0f: return ora.$0F;  // ora long
+		case 0x11: return ora.$11;  // ora (dp),Y
+		case 0x12: return ora.$12;  // ora (dp)
+		case 0x13: return ora.$13;  // ora (sr,S),Y
+		case 0x15: return ora.$15;  // ora dp,X
+		case 0x17: return ora.$17;  // ora [dp],Y
+		case 0x19: return ora.$19;  // ora addr,Y
+		case 0x1d: return ora.$1D;  // ora addr,X
+		case 0x1f: return ora.$1F;  // ora long,X
 
 		// case 0xf4: return pea.$F4;  // pea addr
 		// case 0xd4: return pei.$D4;  // pei (dp)
