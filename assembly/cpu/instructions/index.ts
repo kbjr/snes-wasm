@@ -8,31 +8,31 @@ import * as asl from './asl';
 import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 import * as bit from './bit';
 import * as brk from './brk';
-// import { clc, cld, cli, clv } from './cl_';
-// import { cmp } from './cmp';
-// import { cop } from './cop';
+import { clc, cld, cli, clv } from './cl_';
+// import * as cmp from './cmp';
+// import * as cop from './cop';
 // import { cpx, cpy } from './cp_';
 // import { dec, dex, dey } from './de_';
-// import { eor } from './eor';
+// import * as eor from './eor';
 // import { inc, inx, iny } from './in_';
-// import { jmp } from './jmp';
-// import { jsr } from './jsr';
-// import { lda } from './lda';
-// import { ldx } from './ldx';
-// import { ldy } from './ldy';
-// import { lsr } from './lsr';
+// import * as jmp from './jmp';
+// import * as jsr from './jsr';
+// import * as lda from './lda';
+// import * as ldx from './ldx';
+// import * as ldy from './ldy';
+// import * as lsr from './lsr';
 // import { mvn, mvp } from './mv_';
 import * as nop from './nop';
-// import { ora } from './ora';
+// import * as ora from './ora';
 // import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 // import { pla, plb, pld, plp, plx, ply } from './pl_';
-// import { rep } from './rep';
-// import { rol } from './rol';
-// import { ror } from './ror';
+// import * as rep from './rep';
+// import * as rol from './rol';
+// import * as ror from './ror';
 // import { rti, rtl, rts } from './rt_';
-// import { sbc } from './sbc';
+// import * as sbc from './sbc';
 // import { sec, sed, sei, sep } from './se_';
-// import { sta } from './sta';
+// import * as sta from './sta';
 // import { stp, stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 import * as wai from './wai';
@@ -106,10 +106,10 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x50: return bvc.$50;  // bvc nearlabel
 		case 0x70: return bvs.$70;  // bvs nearlabel
 		
-		// case 0x18: return clc.$18;  // clc
-		// case 0xd8: return cld.$D8;  // cld
-		// case 0x58: return cli.$58;  // cli
-		// case 0xb8: return clv.$B8;  // clv
+		case 0x18: return clc.$18;  // clc
+		case 0xd8: return cld.$D8;  // cld
+		case 0x58: return cli.$58;  // cli
+		case 0xb8: return clv.$B8;  // clv
 
 		// case 0xc1: return cmp.$C1;  // cmp (dp,X)
 		// case 0xc3: return cmp.$C3;  // cmp sr,S

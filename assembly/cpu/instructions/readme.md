@@ -15,5 +15,11 @@
 - [Branch if Overflow Clear (`bvc`)](./b__#bvc)
 - [Branch if Overflow Set (`bvs`)](./b__#bvs)
 - [Test Memory Bits Against Accumulator (`bit`)](./bit#readme)
+- [Software Break (`brk`)](./brk#readme)
+- [Clear Carry (`clc`)](./cl_#clc)
+- [Clear Decimal (`cld`)](./cl_#cld)
+- [Clear IRQ Disable (`cli`)](./cl_#cli)
+- [Clear Overflow (`clv`)](./cl_#clv)
+
 
 - [Wait for Interrupt (`wai`)](./wai#readme)
