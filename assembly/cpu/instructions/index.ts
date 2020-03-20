@@ -25,7 +25,7 @@ import { mvn, mvp } from './mv_';
 import * as nop from './nop';
 import * as ora from './ora';
 import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
-// import { pla, plb, pld, plp, plx, ply } from './pl_';
+import { pla, plb, pld, plp, plx, ply } from './pl_';
 // import * as rep from './rep';
 // import * as rol from './rol';
 // import * as ror from './ror';
@@ -245,12 +245,12 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xda: return phx.$DA;  // phx
 		case 0x5a: return phy.$5A;  // phy
 
-		// case 0x68: return pla.$68;  // pla
-		// case 0xab: return plb.$AB;  // plb
-		// case 0x2b: return pld.$2B;  // pld
-		// case 0x28: return plp.$28;  // plp
-		// case 0xfa: return plx.$FA;  // plx
-		// case 0x7a: return ply.$7A;  // ply
+		case 0x68: return pla.$68;  // pla
+		case 0xab: return plb.$AB;  // plb
+		case 0x2b: return pld.$2B;  // pld
+		case 0x28: return plp.$28;  // plp
+		case 0xfa: return plx.$FA;  // plx
+		case 0x7a: return ply.$7A;  // ply
 
 		// case 0xc2: return rep.$C2;  // rep #const
 

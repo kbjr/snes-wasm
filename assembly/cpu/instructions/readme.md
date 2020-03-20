@@ -53,12 +53,12 @@
 | `php` | [Push Processor Status Register](./ph_#php)              | 1     |
 | `phx` | [Push X Index Register](./ph_#phx)                       | 1     |
 | `phy` | [Push Y Index Register](./ph_#phy)                       | 1     |
-| `pla` |                                                          | 1     |
-| `plb` |                                                          | 1     |
-| `pld` |                                                          | 1     |
-| `plp` |                                                          | 1     |
-| `plx` |                                                          | 1     |
-| `ply` |                                                          | 1     |
+| `pla` | [Pull Accumulator](./pl_#pla)                            | 1     |
+| `plb` | [Pull Data Bank Register](./pl_#plb)                     | 1     |
+| `pld` | [Pull Direct Page Register](./pl_#pld)                   | 1     |
+| `plp` | [Pull Status Flags](./pl_#plp)                           | 1     |
+| `plx` | [Pull Index X Register](./pl_#plx)                       | 1     |
+| `ply` | [Pull Index Y Register](./pl_#ply)                       | 1     |
 | `rep` |                                                          | 1     |
 | `rol` |                                                          | 5     |
 | `ror` |                                                          | 5     |
