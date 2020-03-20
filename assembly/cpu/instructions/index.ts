@@ -37,8 +37,8 @@ import * as nop from './nop';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 import * as wai from './wai';
 import * as wdm from './wdm';
-// import * as xba from './xba';
-// import * as xce from './xce';
+import * as xba from './xba';
+import * as xce from './xce';
 
 export function getNextInstruction() : instruction.Instruction {
 	addr_immediate_u8.step0();
@@ -344,8 +344,8 @@ export function getNextInstruction() : instruction.Instruction {
 
 		case 0x42: return wdm.$42;  // wdm
 
-		// case 0xeb: return xba.$EB;  // xba
-		// case 0xfb: return xce.$FB;  // xce
+		case 0xeb: return xba.$EB;  // xba
+		case 0xfb: return xce.$FB;  // xce
 
 		// This should never happen, but at least nop should be safe....
 		default: return nop.$EA;
