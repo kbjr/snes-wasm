@@ -38,7 +38,12 @@ export namespace instruction {
 		}
 
 		public exec() : bool {
-			return this._exec(this);
+			if (this._exec(this)) {
+				this.step = 0;
+				return true;
+			}
+
+			return false;
 		}
 	}
 

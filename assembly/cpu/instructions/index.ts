@@ -24,7 +24,7 @@ import { clc, cld, cli, clv } from './cl_';
 import { mvn, mvp } from './mv_';
 import * as nop from './nop';
 import * as ora from './ora';
-// import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
+import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 // import { pla, plb, pld, plp, plx, ply } from './pl_';
 // import * as rep from './rep';
 // import * as rol from './rol';
@@ -233,17 +233,17 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x1d: return ora.$1D;  // ora addr,X
 		case 0x1f: return ora.$1F;  // ora long,X
 
-		// case 0xf4: return pea.$F4;  // pea addr
-		// case 0xd4: return pei.$D4;  // pei (dp)
-		// case 0x62: return per.$62;  // per label
+		case 0xf4: return pea.$F4;  // pea addr
+		case 0xd4: return pei.$D4;  // pei (dp)
+		case 0x62: return per.$62;  // per label
 		
-		// case 0x48: return pha.$48;  // pha
-		// case 0x8b: return phb.$8B;  // phb
-		// case 0x0b: return phd.$0B;  // phd
-		// case 0x4b: return phk.$4B;  // phk
-		// case 0x08: return php.$08;  // php
-		// case 0xda: return phx.$DA;  // phx
-		// case 0x5a: return phy.$5A;  // phy
+		case 0x48: return pha.$48;  // pha
+		case 0x8b: return phb.$8B;  // phb
+		case 0x0b: return phd.$0B;  // phd
+		case 0x4b: return phk.$4B;  // phk
+		case 0x08: return php.$08;  // php
+		case 0xda: return phx.$DA;  // phx
+		case 0x5a: return phy.$5A;  // phy
 
 		// case 0x68: return pla.$68;  // pla
 		// case 0xab: return plb.$AB;  // plb
