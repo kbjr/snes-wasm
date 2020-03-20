@@ -5,7 +5,7 @@ import * as addr_immediate_u8 from '../addressing/immediate/u8';
 import * as adc from './adc';
 import * as and from './and';
 import * as asl from './asl';
-// import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
+import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 import * as bit from './bit';
 import * as brk from './brk';
 // import { clc, cld, cli, clv } from './cl_';
@@ -85,9 +85,9 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x16: return asl.$16;  // asl dp,X
 		case 0x1e: return asl.$1E;  // asl addr,X
 
-		// case 0x90: return bcc.$90;  // bcc nearlabel
-		// case 0xb0: return bcs.$B0;  // bcs nearlabel
-		// case 0xf0: return beq.$F0;  // beq nearlabel
+		case 0x90: return bcc.$90;  // bcc nearlabel
+		case 0xb0: return bcs.$B0;  // bcs nearlabel
+		case 0xf0: return beq.$F0;  // beq nearlabel
 
 		case 0x24: return bit.$24;  // bit dp
 		case 0x2c: return bit.$2C;  // bit addr
@@ -95,16 +95,16 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x3c: return bit.$3C;  // bit addr,X
 		case 0x89: return bit.$89;  // bit #const
 
-		// case 0x30: return bmi.$30;  // bmi nearlabel
-		// case 0xd0: return bne.$D0;  // bne nearlabel
-		// case 0x10: return bpl.$10;  // bpl nearlabel
-		// case 0x80: return bra.$80;  // bra nearlabel
+		case 0x30: return bmi.$30;  // bmi nearlabel
+		case 0xd0: return bne.$D0;  // bne nearlabel
+		case 0x10: return bpl.$10;  // bpl nearlabel
+		case 0x80: return bra.$80;  // bra nearlabel
 
 		case 0x00: return brk.$00;  // brk
 
-		// case 0x82: return brl.$82;  // brl label
-		// case 0x50: return bvc.$50;  // bvc nearlabel
-		// case 0x70: return bvs.$70;  // bvs nearlabel
+		case 0x82: return brl.$82;  // brl label
+		case 0x50: return bvc.$50;  // bvc nearlabel
+		case 0x70: return bvs.$70;  // bvs nearlabel
 		
 		// case 0x18: return clc.$18;  // clc
 		// case 0xd8: return cld.$D8;  // cld

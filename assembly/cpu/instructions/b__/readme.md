@@ -44,6 +44,9 @@ with normal execution of the next instruction.
 |--------|-----------------|--------------------------|-------|------------|
 | `0xB0` | `bcs nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
+
 
 
 
@@ -65,6 +68,9 @@ with normal execution of the next instruction.
 | OpCode | Syntax          | Addressing               | Bytes | Cycles     |
 |--------|-----------------|--------------------------|-------|------------|
 | `0xF0` | `beq nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
+
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
 
 
 
@@ -88,6 +94,9 @@ with normal execution of the next instruction.
 |--------|-----------------|--------------------------|-------|------------|
 | `0x30` | `bmi nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
+
 
 
 
@@ -109,6 +118,9 @@ with normal execution of the next instruction.
 | OpCode | Syntax          | Addressing               | Bytes | Cycles     |
 |--------|-----------------|--------------------------|-------|------------|
 | `0xD0` | `bne nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
+
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
 
 
 
@@ -132,6 +144,9 @@ with normal execution of the next instruction.
 |--------|-----------------|--------------------------|-------|------------|
 | `0x10` | `bpl nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
+
 
 
 
@@ -153,6 +168,8 @@ Takes a branch.
 |--------|-----------------|--------------------------|-------|------------|
 | `0x80` | `bra nearlabel` | Program Counter Relative | 2     | 3 [1]      |
 
+- [1]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
+
 
 
 
@@ -173,6 +190,8 @@ Takes a branch with a 2-byte operand.
 | OpCode | Syntax          | Addressing                    | Bytes | Cycles     |
 |--------|-----------------|-------------------------------|-------|------------|
 | `0x82` | `brl nearlabel` | Program Counter Relative Long | 3     | 4 [1]      |
+
+- [1]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
 
 
 
@@ -196,6 +215,9 @@ with normal execution of the next instruction.
 |--------|-----------------|--------------------------|-------|------------|
 | `0x50` | `bvc nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
 
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
+
 
 
 
@@ -217,3 +239,6 @@ with normal execution of the next instruction.
 | OpCode | Syntax          | Addressing               | Bytes | Cycles     |
 |--------|-----------------|--------------------------|-------|------------|
 | `0x70` | `bvs nearlabel` | Program Counter Relative | 2     | 2 [1],[2]  |
+
+- [1]: Add 1 extra cycle if branch is taken
+- [2]: Add 1 extra cycle in Emulation (E = 1) mode if branch taken crosses page boundary
