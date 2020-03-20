@@ -28,7 +28,7 @@ import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
 import { pla, plb, pld, plp, plx, ply } from './pl_';
 import * as rep from './rep';
 import * as rol from './rol';
-// import * as ror from './ror';
+import * as ror from './ror';
 // import { rti, rtl, rts } from './rt_';
 // import * as sbc from './sbc';
 // import { sec, sed, sei, sep } from './se_';
@@ -260,11 +260,11 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x3e: return rol.$3E;  // rol addr,X
 		case 0x36: return rol.$36;  // rol dp,X
 
-		// case 0x6a: return ror.$6A;  // ror A
-		// case 0x6e: return ror.$6E;  // ror addr
-		// case 0x66: return ror.$66;  // ror dp
-		// case 0x7e: return ror.$7E;  // ror addr,X
-		// case 0x76: return ror.$76;  // ror dp,X
+		case 0x6a: return ror.$6A;  // ror A
+		case 0x6e: return ror.$6E;  // ror addr
+		case 0x66: return ror.$66;  // ror dp
+		case 0x7e: return ror.$7E;  // ror addr,X
+		case 0x76: return ror.$76;  // ror dp,X
 		
 		// case 0x40: return rti.$40;  // rti
 		// case 0x6b: return rtl.$6B;  // rtl

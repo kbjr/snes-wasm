@@ -20,3 +20,6 @@ N-----ZC-
 | `0x26` | `rol dp`     | Direct Page           | 2     | 5 [1], [2] |
 | `0x3E` | `rol addr,X` | Absolute Indexed,X    | 3     | 7 [1]      |
 | `0x36` | `rol dp,X`   | Direct Page Indexed,X | 2     | 6 [1], [2] |
+
+[1]: Add 2 cycles if M = 0 (16-bit memory/accumulator)
+[2]: Add 1 cycle if low byte of Direct Page register is other than 0
