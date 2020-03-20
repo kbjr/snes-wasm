@@ -21,7 +21,7 @@ import { clc, cld, cli, clv } from './cl_';
 // import * as ldx from './ldx';
 // import * as ldy from './ldy';
 // import * as lsr from './lsr';
-// import { mvn, mvp } from './mv_';
+import { mvn, mvp } from './mv_';
 import * as nop from './nop';
 // import * as ora from './ora';
 // import { pea, pei, per, pha, phb, phd, phk, php, phx, phy } from './ph_';
@@ -212,8 +212,8 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0x56: return lsr.$56;  // lsr dp,X
 		// case 0x5e: return lsr.$5E;  // lsr addr,X
 
-		// case 0x54: return mvn.$54;  // mvn srcbk,destbk
-		// case 0x44: return mvp.$44;  // mvp srcbk,destbk
+		case 0x54: return mvn.$54;  // mvn srcbk,destbk
+		case 0x44: return mvp.$44;  // mvp srcbk,destbk
 
 		case 0xea: return nop.$EA;  // nop
 

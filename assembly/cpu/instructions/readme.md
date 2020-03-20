@@ -20,6 +20,7 @@
 - [Clear Decimal (`cld`)](./cl_#cld)
 - [Clear IRQ Disable (`cli`)](./cl_#cli)
 - [Clear Overflow (`clv`)](./cl_#clv)
-
+- [Block Move Next (`mvn`)](./mv_#mvn)
+- [Block Move Previous (`mvp`)](./mv_#mvp)
 
 - [Wait for Interrupt (`wai`)](./wai#readme)
