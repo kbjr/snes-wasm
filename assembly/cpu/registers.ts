@@ -140,13 +140,13 @@ class Regsiters {
 	}
 
 	// @ts-ignore: decorator
-	@inline public get X_low() : u16 {
-		return load<u16>(this.addr + Register.X);
+	@inline public get X_low() : u8 {
+		return load<u8>(this.addr + Register.X);
 	}
 
 	// @ts-ignore: decorator
-	@inline public set X_low(byte: u16) {
-		store<u16>(this.addr + Register.X, byte);
+	@inline public set X_low(byte: u8) {
+		store<u8>(this.addr + Register.X, byte);
 	}
 
 	/**
@@ -177,13 +177,13 @@ class Regsiters {
 	}
 
 	// @ts-ignore: decorator
-	@inline public get Y_low() : u16 {
-		return load<u16>(this.addr + Register.Y);
+	@inline public get Y_low() : u8 {
+		return load<u8>(this.addr + Register.Y);
 	}
 
 	// @ts-ignore: decorator
-	@inline public set Y_low(byte: u16) {
-		store<u16>(this.addr + Register.Y, byte);
+	@inline public set Y_low(byte: u8) {
+		store<u8>(this.addr + Register.Y, byte);
 	}
 
 	/**
