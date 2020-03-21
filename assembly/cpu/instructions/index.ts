@@ -14,7 +14,7 @@ import * as cop from './cop';
 import { cpx, cpy } from './cp_';
 import { dec, dex, dey } from './de_';
 import * as eor from './eor';
-// import { inc, inx, iny } from './in_';
+import { inc, inx, iny } from './in_';
 // import * as jmp from './jmp';
 // import * as jsr from './jsr';
 // import * as lda from './lda';
@@ -160,13 +160,13 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x5d: return eor.$5D;  // eor addr,X
 		case 0x5f: return eor.$5F;  // eor long,X
 
-		// case 0x1a: return inc.$1A;  // inc A
-		// case 0xe6: return inc.$E6;  // inc dp
-		// case 0xee: return inc.$EE;  // inc addr
-		// case 0xf6: return inc.$F6;  // inc dp,X
-		// case 0xfe: return inc.$FE;  // inc addr,X
-		// case 0xe8: return inx.$E8;  // inx
-		// case 0xc8: return iny.$C8;  // iny
+		case 0x1a: return inc.$1A;  // inc A
+		case 0xe6: return inc.$E6;  // inc dp
+		case 0xee: return inc.$EE;  // inc addr
+		case 0xf6: return inc.$F6;  // inc dp,X
+		case 0xfe: return inc.$FE;  // inc addr,X
+		case 0xe8: return inx.$E8;  // inx
+		case 0xc8: return iny.$C8;  // iny
 
 		// case 0x4c: return jmp.$4C;  // jmp addr
 		// case 0x5c: return jmp.$5C;  // jmp long

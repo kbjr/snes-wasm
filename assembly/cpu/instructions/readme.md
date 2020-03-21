@@ -30,9 +30,9 @@
 | `dex` | [Decrement Index Register X](./de_#dex)                  | 1     |
 | `dey` | [Decrement Index Register Y](./de_#dey)                  | 1     |
 | `eor` | [Exclusive-OR Accumulator with Memory](./eor#readme)     | 15    |
-| `inc` |                                                          | 5     |
-| `inx` |                                                          | 1     |
-| `iny` |                                                          | 1     |
+| `inc` | [Increment](./in_#inc)                                   | 5     |
+| `inx` | [Increment Index Register X](./in_#inx)                  | 1     |
+| `iny` | [Increment Index Register Y](./in_#iny)                  | 1     |
 | `jmp` |                                                          | 5     |
 | `jsr` |                                                          | 3     |
 | `lda` |                                                          | 15    |
