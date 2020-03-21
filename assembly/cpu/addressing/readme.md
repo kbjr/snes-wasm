@@ -95,8 +95,6 @@ In program counter relative addressing, the effective address is the sum of the 
 
 # Other Addressing Modes
 
-Not all addressing modes are handled here. Specifically, block move addressing and all of the various stack operation addressing modes are implemented directly in their instructions.
-
 
 
 ## Block Move

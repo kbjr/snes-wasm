@@ -44,6 +44,9 @@ if (optimize) {
 	args.push('--optimize');
 }
 
+console.log(`> asc "${args.join('" "')}"`);
+console.log();
+
 exec('asc', args, {
 	// 
 });

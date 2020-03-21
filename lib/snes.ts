@@ -1,7 +1,7 @@
 
-import { Machine } from './machine';
-import { createSNES } from './wasm-bridge';
 import { Controller } from './controllers';
+import { createSNES, Interface, p, p_null } from './wasm-bridge';
+import { smcHeaderSize } from './constants';
 
 export enum MachineStatus {
 	Initializing = 0x00,
@@ -12,13 +12,15 @@ export enum MachineStatus {
 }
 
 export class SNES {
-	protected machine: Machine;
+	protected machine: Interface;
 
 	protected _statusChange: Promise<void>;
 
 	protected _onStatusChange: () => void;
 
 	protected _status: MachineStatus = MachineStatus.Initializing;
+
+	public p_rom: p = p_null;
 
 	constructor() {
 		this.createStatusChangePromise();
@@ -28,12 +30,12 @@ export class SNES {
 	protected async init() {
 		this.machine = await createSNES();
 			
-		const $registers = this.machine.CPU.getRegisters();
-		const registers = new Uint8Array(this.machine.memory.buffer, $registers, 0x11);
+		// const $registers = this.machine.CPU.getRegisters();
+		// const registers = new Uint8Array(this.machine.memory.buffer, $registers, 0x11);
 
 		// 
 
-		this._status = MachineStatus.Ready;
+		this.setStatus(MachineStatus.Ready);
 	}
 
 	protected createStatusChangePromise() {
@@ -60,31 +62,76 @@ export class SNES {
 
 
 
-	// Controllers
 
-	public connectController(controller: Controller, port: 1 | 2 | 3 | 4) {
-		let addr: u24;
+	// ===== ROM =====
 
-		switch (port) {
-			case 1:
-				addr = this.machine.Joypad.getPort1();
-				break;
-			case 2:
-				addr = this.machine.Joypad.getPort2();
-				break;
-			case 3:
-				addr = this.machine.Joypad.getPort3();
-				break;
-			case 4:
-				addr = this.machine.Joypad.getPort4();
-				break;
-
-			default:
-				throw new Error('Controller must be connected to a valid port (1, 2, 3, or 4)');
+	public loadROM(rom: ArrayBuffer) : void {
+		if (this.p_rom !== p_null) {
+			throw new Error('Cannot load a ROM while one is still loaded');
 		}
 
-		const array = new Uint8Array(this.machine.memory.buffer, addr, 2);
+		let array: Uint8Array;
+		
+		// Check if there is an SMC header by calculating the size of extra length
+		const headerSize = rom.byteLength % (smcHeaderSize * 2);
 
-		controller.connect(array);
+		// If the header size is 0, there is no header
+		if (headerSize === 0) {
+			array = new Uint8Array(rom);
+		}
+
+		// If the header size is 512 bytes, we have a valid header
+		else if (headerSize === smcHeaderSize) {
+			array = new Uint8Array(rom, smcHeaderSize);
+		}
+
+		else {
+			throw new Error('Invalid ROM; ROM contains an malformed SMC header');
+		}
+
+		// Allocate ourselves some memory inside the instance for the ROM
+		this.p_rom = this.machine.cartridge.rom.alloc(array.length);
+
+		const mem = new Uint8Array(this.machine.instance.exports.memory.buffer, this.p_rom, array.length);
+
+		// Write the contents of the ROM into the allocated space
+		for (let i = 0; i < array.length; i++) {
+			mem[i] = array[i];
+		}
+
+		// Initialize the new cartridge
+		this.machine.cartridge.init();
 	}
+
+
+
+
+
+	// ===== Controllers =====
+
+	// public connectController(controller: Controller, port: 1 | 2 | 3 | 4) {
+	// 	let addr: p;
+
+	// 	switch (port) {
+	// 		case 1:
+	// 			addr = this.machine.Joypad.getPort1();
+	// 			break;
+	// 		case 2:
+	// 			addr = this.machine.Joypad.getPort2();
+	// 			break;
+	// 		case 3:
+	// 			addr = this.machine.Joypad.getPort3();
+	// 			break;
+	// 		case 4:
+	// 			addr = this.machine.Joypad.getPort4();
+	// 			break;
+
+	// 		default:
+	// 			throw new Error('Controller must be connected to a valid port (1, 2, 3, or 4)');
+	// 	}
+
+	// 	const array = new Uint8Array(this.machine.memory.buffer, addr, 2);
+
+	// 	controller.connect(array);
+	// }
 }

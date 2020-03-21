@@ -1,5 +1,5 @@
 
-import { apuThread } from '../../scheduler';
+import { apuThread } from '../../_scheduler';
 
 export function main() : void {
 	// We don't want to do anything yet...

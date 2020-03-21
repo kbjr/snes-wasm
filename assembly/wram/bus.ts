@@ -1,130 +1,145 @@
 
+import { bus } from '../bus';
 import { lowBank, extBank } from './wram';
-import { RD, WR, getAddrBusA_bank, getAddrBusA_addr, getDataBus, setDataBus } from '../system-bus';
 import { getWMDATA, setWMADDH, setWMADDL, setWMADDM, setWMDATA } from './registers';
 
-RD.addSystemCallback(onRD);
-WR.addSystemCallback(onWR);
-
 /**
- * WRAM responds to the /RD line on Address Bus A
+ * WRAM Bus Connection
  * 
- * Banks $00-$40:
+ * Address Bus A (/RD and /WR): 
  * 
- *     $0000-$2000 = Shadow Low RAM
- *     $2180       = WMDATA Register
+ * - Banks $00-$40 and $80-$BF:
+ *   - $0000-$1FFF = Shadow Low RAM (Slow)
+ * - Bank $7E:
+ *   - $0000-$1FFF = Low ROM (Slow)
+ *   - $2000-$FFFF = High ROM (Slow)
+ * - Bank $7F:
+ *   - $0000-$FFFF = Extended ROM (Slow)
  * 
- * Bank $7E:
+ * Address Bus B (/PARD):
  * 
- *     $0000-$1FFF = Low ROM
- *     $2000-$FFFF = High ROM
+ * - $80 = WMDATA Register
  * 
- * Bank $7F:
+ * Address Bus B (/PAWR):
  * 
- *     $0000-$FFFF = Extended ROM
+ * - $80 = WMDATA Register
+ * - $81 = WMADDL Register
+ * - $82 = WMADDM Register
+ * - $83 = WMADDH Register
  */
-function onRD() : void {
-	const bank: u8 = getAddrBusA_bank();
-
-	// Banks $00-$3F
-	if (bank < 0x40) {
-		const addr: u16 = getAddrBusA_addr();
-
-		// Addresses $0000-$1FFF shadow Low RAM
-		if (addr < 0x2000) {
-			setDataBus(load<u8>(lowBank + addr));
-		}
-
-		// Address $2180; The only other readable address here is the WMDATA register
-		else if (addr === 0x2180) {
-			setDataBus(getWMDATA());
-		}
+// @ts-ignore: decorator
+@inline export function wram_poll() : void {
+	// WRAM Registers respond on Address Bus B
+	if (bus.flags.PARD) {
+		read_register();
 	}
 
-	// Bank $7E
-	else if (bank === 0x7e) {
-		const addr: u16 = getAddrBusA_addr();
-
-		// All addresses map Low RAM bank
-		setDataBus(load<u8>(lowBank + addr));
+	else if (bus.flags.PAWR) {
+		write_register();
 	}
 
-	// Bank $7F
-	else if (bank === 0x7f) {
-		const addr: u16 = getAddrBusA_addr();
+	// On Address Bus A, WRAM only responds when /WRAM flag is set
+	else if (! bus.flags.WRAM) {
+		return;
+	}
 
-		// All addresses map to Extended RAM bank
-		setDataBus(load<u8>(extBank + addr));
+	else if (bus.flags.RD) {
+		read_wram();
+	}
+
+	else if (bus.flags.WR) {
+		write_wram();
 	}
 }
 
-/**
- * WRAM responds to the /WR line on Address Bus A
- * 
- * Banks $00-$40:
- * 
- *     $0000-$2000 = Shadow Low RAM
- *     $2180       = WMDATA Register
- *     $2181       = WMADDL Register
- *     $2182       = WMADDM Register
- *     $2183       = WMADDH Register
- * 
- * Bank $7E:
- * 
- *     $0000-$1FFF = Low ROM
- *     $2000-$FFFF = High ROM
- * 
- * Bank $7F:
- * 
- *     $0000-$FFFF = Extended ROM
- */
-function onWR() : void {
-	const bank: u8 = getAddrBusA_bank();
+function read_register() : void {
+	const addr = bus.mem.load_addrB();
 
-	// Banks $00-$3F
-	if (bank < 0x40) {
-		const addr: u16 = getAddrBusA_addr();
+	// Address $2180; The only readable register here is the WMDATA register
+	if (addr === 0x80) {
+		bus.mem.store_data(getWMDATA());
+	}
+}
+
+function write_register() : void {
+	const addr = bus.mem.load_addrB();
+
+	// Addresses $2180-$2183 map to registers
+	switch (addr) {
+		case 0x80:
+			setWMDATA(bus.mem.load_data());
+			break;
+	
+		case 0x81:
+			setWMADDL(bus.mem.load_data());
+			break;
+	
+		case 0x82:
+			setWMADDM(bus.mem.load_data());
+			break;
+	
+		case 0x83:
+			setWMADDH(bus.mem.load_data());
+			break;
+	}
+}
+
+function read_wram() : void {
+	const bank: bus.bank = bus.mem.load_addrA_bank();
+
+	// Banks $00-$3F and $80-$BF
+	if (bank < 0x40 || bank >= 0x80 && bank < 0xc0) {
+		const addr: bus.addr = bus.mem.load_addrA_addr();
 
 		// Addresses $0000-$1FFF shadow Low RAM
 		if (addr < 0x2000) {
-			store<u8>(lowBank + addr, getDataBus());
-		}
-
-		// The only thing we map to in here are a handful of registers from $2180-$2183
-		else {
-			switch (addr) {
-				case 0x2180:
-					setWMDATA(getDataBus());
-					break;
-			
-				case 0x2181:
-					setWMADDL(getDataBus());
-					break;
-			
-				case 0x2182:
-					setWMADDM(getDataBus());
-					break;
-			
-				case 0x2183:
-					setWMADDH(getDataBus());
-					break;
-			}
+			bus.mem.store_data(load<u8>(lowBank + addr));
 		}
 	}
 
 	// Bank $7E
 	else if (bank === 0x7e) {
-		const addr: u16 = getAddrBusA_addr();
+		const addr: bus.addr = bus.mem.load_addrA_addr();
 
 		// All addresses map Low RAM bank
-		store<u8>(lowBank + addr, getDataBus());
+		bus.mem.store_data(load<u8>(lowBank + addr));
 	}
 
 	// Bank $7F
 	else if (bank === 0x7f) {
-		const addr: u16 = getAddrBusA_addr();
+		const addr: bus.addr = bus.mem.load_addrA_addr();
 
 		// All addresses map to Extended RAM bank
-		store<u8>(extBank + addr, getDataBus());
+		bus.mem.store_data(load<u8>(extBank + addr));
+	}
+}
+
+function write_wram() : void {
+	const bank: bus.bank = bus.mem.load_addrA_bank();
+
+	// Banks $00-$3F and $80-$BF
+	if (bank < 0x40 || bank >= 0x80 && bank < 0xc0) {
+		const addr: bus.addr = bus.mem.load_addrA_addr();
+
+		// Addresses $0000-$1FFF shadow Low RAM
+		if (addr < 0x2000) {
+			store<u8>(lowBank + addr, bus.mem.load_data());
+		}
+	}
+
+	// Bank $7E
+	else if (bank === 0x7e) {
+		const addr: bus.addr = bus.mem.load_addrA_addr();
+
+		// All addresses map Low RAM bank
+		store<u8>(lowBank + addr, bus.mem.load_data());
+	}
+
+	// Bank $7F
+	else if (bank === 0x7f) {
+		const addr: bus.addr = bus.mem.load_addrA_addr();
+
+		// All addresses map to Extended RAM bank
+		store<u8>(extBank + addr, bus.mem.load_data());
 	}
 }
