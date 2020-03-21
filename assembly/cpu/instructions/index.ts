@@ -9,7 +9,7 @@ import { bcc, bcs, beq, bmi, bne, bpl, bra, brl, bvc, bvs } from './b__';
 import * as bit from './bit';
 import * as brk from './brk';
 import { clc, cld, cli, clv } from './cl_';
-// import * as cmp from './cmp';
+import * as cmp from './cmp';
 import * as cop from './cop';
 // import { cpx, cpy } from './cp_';
 // import { dec, dex, dey } from './de_';
@@ -111,21 +111,21 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x58: return cli.$58;  // cli
 		case 0xb8: return clv.$B8;  // clv
 
-		// case 0xc1: return cmp.$C1;  // cmp (dp,X)
-		// case 0xc3: return cmp.$C3;  // cmp sr,S
-		// case 0xc5: return cmp.$C5;  // cmp dp
-		// case 0xc7: return cmp.$C7;  // cmp [dp]
-		// case 0xc9: return cmp.$C9;  // cmp #const
-		// case 0xcd: return cmp.$CD;  // cmp addr
-		// case 0xcf: return cmp.$CF;  // cmp long
-		// case 0xd1: return cmp.$D1;  // cmp (dp),Y
-		// case 0xd2: return cmp.$D2;  // cmp (dp)
-		// case 0xd3: return cmp.$D3;  // cmp (sr,S),Y
-		// case 0xd5: return cmp.$D5;  // cmp dp,X
-		// case 0xd7: return cmp.$D7;  // cmp [dp],Y
-		// case 0xd9: return cmp.$D9;  // cmp addr,Y
-		// case 0xdd: return cmp.$DD;  // cmp addr,X
-		// case 0xdf: return cmp.$DF;  // cmp long,X
+		case 0xc1: return cmp.$C1;  // cmp (dp,X)
+		case 0xc3: return cmp.$C3;  // cmp sr,S
+		case 0xc5: return cmp.$C5;  // cmp dp
+		case 0xc7: return cmp.$C7;  // cmp [dp]
+		case 0xc9: return cmp.$C9;  // cmp #const
+		case 0xcd: return cmp.$CD;  // cmp addr
+		case 0xcf: return cmp.$CF;  // cmp long
+		case 0xd1: return cmp.$D1;  // cmp (dp),Y
+		case 0xd2: return cmp.$D2;  // cmp (dp)
+		case 0xd3: return cmp.$D3;  // cmp (sr,S),Y
+		case 0xd5: return cmp.$D5;  // cmp dp,X
+		case 0xd7: return cmp.$D7;  // cmp [dp],Y
+		case 0xd9: return cmp.$D9;  // cmp addr,Y
+		case 0xdd: return cmp.$DD;  // cmp addr,X
+		case 0xdf: return cmp.$DF;  // cmp long,X
 
 		case 0x02: return cop.$02;  // cop const
 
