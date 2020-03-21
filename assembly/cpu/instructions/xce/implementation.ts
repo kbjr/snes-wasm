@@ -4,7 +4,6 @@ import { instruction } from '../../instruction';
 import { flags } from '../../flags';
 import { onEmulationMode, onNativeMode } from '../../modes';
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function xce(inst: instruction.Instruction) : true {
 	// If the flags already match each other, we can just do nothing
 	if (flags.E !== flags.C) {

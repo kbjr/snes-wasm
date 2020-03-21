@@ -2,7 +2,6 @@
 import { scheduler } from '../../../scheduler';
 import { instruction } from '../../instruction';
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function wai(inst: instruction.Instruction) : true {
 	scheduler.scheduler.cpuThread.idle = true;
 

@@ -3,7 +3,6 @@ import { scheduler } from '../../../scheduler';
 import { instruction } from '../../instruction';
 import { registers } from '../../registers';
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function xba(inst: instruction.Instruction) : true {
 	const temp = registers.A;
 

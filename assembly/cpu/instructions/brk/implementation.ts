@@ -7,7 +7,6 @@ import { scheduler } from '../../../scheduler';
 import { interrupt } from '../../../constants';
 import { instruction } from '../../instruction';
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function brk(inst: instruction.Instruction) : bool {
 	if (flags.E) {
 		return brk_6502(inst.step - instruction.firstStep);

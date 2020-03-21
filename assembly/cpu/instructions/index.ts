@@ -31,7 +31,7 @@ import * as rol from './rol';
 import * as ror from './ror';
 import { rti, rtl, rts } from './rt_';
 import * as sbc from './sbc';
-// import { sec, sed, sei, sep } from './se_';
+import { sec, sed, sei, sep } from './se_';
 // import * as sta from './sta';
 // import { stp, stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
@@ -286,11 +286,11 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xfd: return sbc.$FD;  // sbc addr,X
 		case 0xff: return sbc.$FF;  // sbc long,X
 
-		// case 0x38: return sec.$38;  // sec
-		// case 0xf8: return sed.$F8;  // sed
-		// case 0x78: return sei.$78;  // sei
+		case 0x38: return sec.$38;  // sec
+		case 0xf8: return sed.$F8;  // sed
+		case 0x78: return sei.$78;  // sei
 
-		// case 0xe2: return sep.$E2;  // sep #const 
+		case 0xe2: return sep.$E2;  // sep #const 
 
 		// case 0x81: return sta.$81;  // sta (dp,X)
 		// case 0x83: return sta.$83;  // sta sr,S

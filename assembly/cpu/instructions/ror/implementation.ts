@@ -71,7 +71,6 @@ export function ror(inst: instruction.Instruction, effective: u32) : bool {
 	}
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function ror_acc(inst: instruction.Instruction) : bool {
 	if (flags.E || flags.M) {
 		registers.A = ror_u8(registers.A);

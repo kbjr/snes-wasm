@@ -71,7 +71,6 @@ export function rol(inst: instruction.Instruction, effective: u32) : bool {
 	}
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function rol_acc(inst: instruction.Instruction) : bool {
 	if (flags.E || flags.M) {
 		registers.A = rol_u8(registers.A);

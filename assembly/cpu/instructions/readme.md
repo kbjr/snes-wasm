@@ -66,10 +66,10 @@
 | `rtl` | [Return from Subroutine Long](./rt_#rtl)                 | 1     |
 | `rts` | [Return from Subroutine](./rt_#rts)                      | 1     |
 | `sbc` | [Subtract with Borrow](./sbc)                            | 15    |
-| `sec` |                                                          | 1     |
-| `sed` |                                                          | 1     |
-| `sei` |                                                          | 1     |
-| `sep` |                                                          | 1     |
+| `sec` | [Set Carry Flag](./se_#sec)                              | 1     |
+| `sed` | [Set Decimal Mode Flag](./se_#sed)                       | 1     |
+| `sei` | [Set Interrupt Disable Flag](./se_#sei)                  | 1     |
+| `sep` | [Set Processor status bits](./se_#sep)                   | 1     |
 | `sta` |                                                          | 14    |
 | `stp` |                                                          | 1     |
 | `stx` |                                                          | 3     |

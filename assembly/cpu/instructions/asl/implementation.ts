@@ -71,7 +71,6 @@ export function asl(inst: instruction.Instruction, effective: u32) : bool {
 	}
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export function asl_acc(inst: instruction.Instruction) : true {
 	if (flags.E || flags.M) {
 		registers.A = asl_u8(registers.A);
