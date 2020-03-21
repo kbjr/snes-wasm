@@ -35,7 +35,7 @@
 | `iny` | [Increment Index Register Y](./in_#iny)                  | 1     |
 | `jmp` | [Jump](./jmp#readme)                                     | 5     |
 | `jsr` | [Jump to Subroutine](./jsr#readme)                       | 3     |
-| `lda` |                                                          | 15    |
+| `lda` | [Load Accumulator from Memory](./lda#readme)             | 15    |
 | `ldx` | [Load Index Register X from Memory](./ld_#ldx)           | 5     |
 | `ldy` | [Load Index Register Y from Memory](./ld_#ldy)           | 5     |
 | `lsr` |                                                          | 5     |

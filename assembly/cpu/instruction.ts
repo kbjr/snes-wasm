@@ -14,7 +14,7 @@ export namespace instruction {
 	}
 
 	/** The initial value of Instruction.step when any addressing is finished */
-	export const firstStep: u8 = 5;
+	export const firstStep: u8 = 10;
 
 	/**
 	 * A CPU instruction.

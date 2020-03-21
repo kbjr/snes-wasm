@@ -18,7 +18,7 @@ import { inc, inx, iny } from './in_';
 import * as jmp from './jmp';
 import * as jsr from './jsr';
 import { ldx, ldy } from './ld_';
-// import * as lda from './lda';
+import * as lda from './lda';
 // import * as lsr from './lsr';
 import { mvn, mvp } from './mv_';
 import * as nop from './nop';
@@ -177,28 +177,28 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x22: return jsr.$22;  // jsr long
 		case 0xfc: return jsr.$FC;  // jsr (addr,X))
 
-		// case 0xa1: return lda.$A1;  // lda (dp,X)
-		// case 0xa3: return lda.$A3;  // lda sr,S
-		// case 0xa5: return lda.$A5;  // lda dp
-		// case 0xa7: return lda.$A7;  // lda [dp]
-		// case 0xa9: return lda.$A9;  // lda #const
-		// case 0xad: return lda.$AD;  // lda addr
-		// case 0xaf: return lda.$AF;  // lda long
-		// case 0xb1: return lda.$B1;  // lda (dp),Y
-		// case 0xb2: return lda.$B2;  // lda (dp)
-		// case 0xb3: return lda.$B3;  // lda (sr,S),Y
-		// case 0xb5: return lda.$B5;  // lda dp,X
-		// case 0xb7: return lda.$B7;  // lda [dp],Y
-		// case 0xb9: return lda.$B9;  // lda addr,Y
-		// case 0xbd: return lda.$BD;  // lda addr,X
-		// case 0xbf: return lda.$BF;  // lda long,X
+		case 0xa1: return lda.$A1;  // lda (dp,X)
+		case 0xa3: return lda.$A3;  // lda sr,S
+		case 0xa5: return lda.$A5;  // lda dp
+		case 0xa7: return lda.$A7;  // lda [dp]
+		case 0xa9: return lda.$A9;  // lda #const
+		case 0xad: return lda.$AD;  // lda addr
+		case 0xaf: return lda.$AF;  // lda long
+		case 0xb1: return lda.$B1;  // lda (dp),Y
+		case 0xb2: return lda.$B2;  // lda (dp)
+		case 0xb3: return lda.$B3;  // lda (sr,S),Y
+		case 0xb5: return lda.$B5;  // lda dp,X
+		case 0xb7: return lda.$B7;  // lda [dp],Y
+		case 0xb9: return lda.$B9;  // lda addr,Y
+		case 0xbd: return lda.$BD;  // lda addr,X
+		case 0xbf: return lda.$BF;  // lda long,X
 
 		case 0xa2: return ldx.$A2;  // ldx #const
 		case 0xa6: return ldx.$A6;  // ldx dp
 		case 0xae: return ldx.$AE;  // ldx addr
 		case 0xb6: return ldx.$B6;  // ldx dp,Y
 		case 0xbe: return ldx.$BE;  // ldx addr,Y
-		
+
 		case 0xa0: return ldy.$A0;  // ldy #const
 		case 0xa4: return ldy.$A4;  // ldy dp
 		case 0xac: return ldy.$AC;  // ldy addr
