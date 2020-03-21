@@ -12,7 +12,7 @@ export enum MachineStatus {
 }
 
 export class SNES {
-	protected machine: Interface;
+	public machine: Interface;
 
 	protected _statusChange: Promise<void>;
 

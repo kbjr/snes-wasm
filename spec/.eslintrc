@@ -2,5 +2,9 @@
 	"extends": "../.eslintrc",
 	"parserOptions": {
 		"project": "spec/tsconfig.json"
+	},
+	"rules": {
+		"@typescript-eslint/ban-ts-ignore": 0,
+		"@typescript-eslint/camelcase": 0
 	}
 }
