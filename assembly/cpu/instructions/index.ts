@@ -12,7 +12,7 @@ import { clc, cld, cli, clv } from './cl_';
 import * as cmp from './cmp';
 import * as cop from './cop';
 import { cpx, cpy } from './cp_';
-// import { dec, dex, dey } from './de_';
+import { dec, dex, dey } from './de_';
 // import * as eor from './eor';
 // import { inc, inx, iny } from './in_';
 // import * as jmp from './jmp';
@@ -136,13 +136,13 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xc4: return cpy.$C4;  // cpy dp
 		case 0xcc: return cpy.$CC;  // cpy addr
 
-		// case 0x3a: return dec.$3A;  // dec A
-		// case 0xc6: return dec.$C6;  // dec dp
-		// case 0xce: return dec.$CE;  // dec addr
-		// case 0xd6: return dec.$D6;  // dec dp,X
-		// case 0xde: return dec.$DE;  // dec addr,X
-		// case 0xca: return dex.$CA;  // dex
-		// case 0x88: return dey.$88;  // dey
+		case 0x3a: return dec.$3A;  // dec A
+		case 0xc6: return dec.$C6;  // dec dp
+		case 0xce: return dec.$CE;  // dec addr
+		case 0xd6: return dec.$D6;  // dec dp,X
+		case 0xde: return dec.$DE;  // dec addr,X
+		case 0xca: return dex.$CA;  // dex
+		case 0x88: return dey.$88;  // dey
 
 		// case 0x41: return eor.$41;  // eor (dp,X)
 		// case 0x43: return eor.$43;  // eor sr,S

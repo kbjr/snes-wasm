@@ -41,6 +41,7 @@ let is8Bit: bool = false;
 			// Prepare to read the first byte from the effective address
 			bus.read.setup(effective);
 			
+			inst.step++;
 			return false;
 		
 		case 1:
@@ -55,6 +56,7 @@ let is8Bit: bool = false;
 
 				bus.read.setup(effective + 1);
 
+				inst.step++;
 				return false;
 			}
 		

@@ -26,9 +26,9 @@
 | `cop` | [Co-Processor Enable](./cop#readme)                      | 1     |
 | `cpx` | [Compare Index Register X with Memory](./cp_#cpx)        | 3     |
 | `cpy` | [Compare Index Register Y with Memory](./cp_#cpy)        | 3     |
-| `dec` |                                                          | 5     |
-| `dex` |                                                          | 1     |
-| `dey` |                                                          | 1     |
+| `dec` | [Decrement](./de_#dec)                                   | 5     |
+| `dex` | [Decrement Index Register X](./de_#dex)                  | 1     |
+| `dey` | [Decrement Index Register Y](./de_#dey)                  | 1     |
 | `eor` |                                                          | 15    |
 | `inc` |                                                          | 5     |
 | `inx` |                                                          | 1     |
