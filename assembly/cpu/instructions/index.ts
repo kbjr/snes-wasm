@@ -13,7 +13,7 @@ import * as cmp from './cmp';
 import * as cop from './cop';
 import { cpx, cpy } from './cp_';
 import { dec, dex, dey } from './de_';
-// import * as eor from './eor';
+import * as eor from './eor';
 // import { inc, inx, iny } from './in_';
 // import * as jmp from './jmp';
 // import * as jsr from './jsr';
@@ -144,21 +144,21 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xca: return dex.$CA;  // dex
 		case 0x88: return dey.$88;  // dey
 
-		// case 0x41: return eor.$41;  // eor (dp,X)
-		// case 0x43: return eor.$43;  // eor sr,S
-		// case 0x45: return eor.$45;  // eor dp
-		// case 0x47: return eor.$47;  // eor [dp]
-		// case 0x49: return eor.$49;  // eor #const
-		// case 0x4d: return eor.$4D;  // eor addr
-		// case 0x4f: return eor.$4F;  // eor long
-		// case 0x51: return eor.$51;  // eor (dp),Y
-		// case 0x52: return eor.$52;  // eor (dp)
-		// case 0x53: return eor.$53;  // eor (sr,S),Y
-		// case 0x55: return eor.$55;  // eor dp,X
-		// case 0x57: return eor.$57;  // eor [dp],Y
-		// case 0x59: return eor.$59;  // eor addr,Y
-		// case 0x5d: return eor.$5D;  // eor addr,X
-		// case 0x5f: return eor.$5F;  // eor long,X
+		case 0x41: return eor.$41;  // eor (dp,X)
+		case 0x43: return eor.$43;  // eor sr,S
+		case 0x45: return eor.$45;  // eor dp
+		case 0x47: return eor.$47;  // eor [dp]
+		case 0x49: return eor.$49;  // eor #const
+		case 0x4d: return eor.$4D;  // eor addr
+		case 0x4f: return eor.$4F;  // eor long
+		case 0x51: return eor.$51;  // eor (dp),Y
+		case 0x52: return eor.$52;  // eor (dp)
+		case 0x53: return eor.$53;  // eor (sr,S),Y
+		case 0x55: return eor.$55;  // eor dp,X
+		case 0x57: return eor.$57;  // eor [dp],Y
+		case 0x59: return eor.$59;  // eor addr,Y
+		case 0x5d: return eor.$5D;  // eor addr,X
+		case 0x5f: return eor.$5F;  // eor long,X
 
 		// case 0x1a: return inc.$1A;  // inc A
 		// case 0xe6: return inc.$E6;  // inc dp

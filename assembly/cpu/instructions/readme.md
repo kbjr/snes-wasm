@@ -29,7 +29,7 @@
 | `dec` | [Decrement](./de_#dec)                                   | 5     |
 | `dex` | [Decrement Index Register X](./de_#dex)                  | 1     |
 | `dey` | [Decrement Index Register Y](./de_#dey)                  | 1     |
-| `eor` |                                                          | 15    |
+| `eor` | [Exclusive-OR Accumulator with Memory](./eor#readme)     | 15    |
 | `inc` |                                                          | 5     |
 | `inx` |                                                          | 1     |
 | `iny` |                                                          | 1     |

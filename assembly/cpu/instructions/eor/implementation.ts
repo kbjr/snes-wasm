@@ -7,8 +7,8 @@ import { instruction } from '../../instruction';
 let buffer: u8 = 0;
 let is8Bit: bool = false;
 
-/** Given a fully resolved effective address, performs the ora instruction */
-export function ora(inst: instruction.Instruction, effective: u32) : bool {
+/** Given a fully resolved effective address, performs the eor instruction */
+export function eor(inst: instruction.Instruction, effective: u32) : bool {
 	switch (inst.step - instruction.firstStep) {
 		case 0:
 			// Check what mode we're running in (8-bit or 16-bit)
@@ -22,7 +22,7 @@ export function ora(inst: instruction.Instruction, effective: u32) : bool {
 		case 1:
 			// If we're in 8-bit mode, we just want the one byte, so we can finish up
 			if (is8Bit) {
-				return ora_u8(inst, bus.read.fetch());
+				return eor_u8(inst, bus.read.fetch());
 			}
 
 			// Otherwise, grab our one byte, and prepare to grab second
@@ -42,7 +42,7 @@ export function ora(inst: instruction.Instruction, effective: u32) : bool {
 			// Add on the byte we read last time to get the full u16
 			operand |= buffer;
 
-			return ora_u16(inst, operand);
+			return eor_u16(inst, operand);
 		
 		// This should never happen
 		default:
@@ -51,8 +51,8 @@ export function ora(inst: instruction.Instruction, effective: u32) : bool {
 }
 
 // @ts-ignore: decorator
-@inline export function ora_u8(inst: instruction.Instruction, operand: u8) : true {
-	const result = registers.A | operand;
+@inline export function eor_u8(inst: instruction.Instruction, operand: u8) : true {
+	const result = registers.A ^ operand;
 
 	flags.N_assign(<bool>(result & 0x80));
 	flags.Z_assign(result === 0x00);
@@ -63,8 +63,8 @@ export function ora(inst: instruction.Instruction, effective: u32) : bool {
 }
 
 // @ts-ignore: decorator
-@inline export function ora_u16(inst: instruction.Instruction, operand: u16) : true {
-	const result = registers.C | operand;
+@inline export function eor_u16(inst: instruction.Instruction, operand: u16) : true {
+	const result = registers.C ^ operand;
 
 	flags.N_assign(<bool>(result & 0x8000));
 	flags.Z_assign(result === 0x0000);
