@@ -51,16 +51,15 @@ export function sbc(inst: instruction.Instruction, effective: u32) : bool {
 }
 
 /** Perform the actual sbc operation in 8-bit mode */
-function sbc_u8(inst: instruction.Instruction, operand: u8) : true {
+export function sbc_u8(inst: instruction.Instruction, operand: u8) : true {
 	// Invert the operand, so operand is now negative operand minus 1
 	operand = ~operand;
 
 	const aLow = registers.A;
 	
-	let result: number;
-	let overflow: number;
-
-	let carry = flags.C;
+	let result: u16;
+	let overflow: u8;
+	let carry: u16 = flags.C ? 0x01 : 0x00;
 
 	// Handle BCD subtraction if in decimal mode
 	if (flags.D) {
@@ -79,7 +78,7 @@ function sbc_u8(inst: instruction.Instruction, operand: u8) : true {
 		result = (aLow & 0xf0) + (operand & 0xf0) + (carry << 4) + (result & 0x0f);
 
 		// Check for a signed overflow
-		overflow = ~(aLow ^ operand) & (aLow ^ result) & 0x80;
+		overflow = ~(aLow ^ operand) & (aLow ^ <u8>result) & 0x80;
 
 		// If we overflowed the tens digit, actually overflow
 		if (result <= 0xff) {
@@ -92,17 +91,17 @@ function sbc_u8(inst: instruction.Instruction, operand: u8) : true {
 		result = aLow + operand + carry;
 
 		// Check for a signed overflow
-		overflow = ~(aLow ^ operand) & (aLow ^ result) & 0x80;
+		overflow = ~(aLow ^ operand) & (aLow ^ <u8>result) & 0x80;
 	}
 
 	// Store the result in the accumulator
-	registers.A = result;
+	registers.A = <u8>result;
 
 	// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-	flags.V_assign(overflow);
+	flags.V_assign(<bool>overflow);
 
 	// Set/clear the Negative (N) flag depending on if the high bit is set
-	flags.N_assign(result & 0x80);
+	flags.N_assign(<bool>(result & 0x80));
 
 	// Set/clear the Zero (Z) flag depending on if the value is zero
 	flags.Z_assign((result & 0xff) === 0x00);
@@ -114,16 +113,15 @@ function sbc_u8(inst: instruction.Instruction, operand: u8) : true {
 }
 
 /** Perform the actual sbc operation in 16-bit mode */
-function sbc_u16(inst: instruction.Instruction, operand: u16) : true {
+export function sbc_u16(inst: instruction.Instruction, operand: u16) : true {
 	// Invert the operand, so operand is now negative operand minus 1
 	operand = ~operand;
 
 	const accumulator = registers.C;
 	
-	let result: number;
-	let overflow: number;
-
-	let carry = flags.C;
+	let result: u32;
+	let overflow: u16;
+	let carry: u32 = flags.C ? 0x01 : 0x00;
 
 	// Handle BCD subtraction if in decimal mode
 	if (flags.D) {
@@ -154,7 +152,7 @@ function sbc_u16(inst: instruction.Instruction, operand: u16) : true {
 		result = (accumulator & 0xf000) + (operand & 0xf000) + (carry << 4) + (result & 0x0fff);
 
 		// Check for a signed overflow
-		overflow = ~(accumulator ^ operand) & (accumulator ^ result) & 0x8000;
+		overflow = ~(accumulator ^ operand) & (accumulator ^ <u16>result) & 0x8000;
 
 		// Check for BCD overflow
 		if (result <= 0xffff) {
@@ -167,17 +165,17 @@ function sbc_u16(inst: instruction.Instruction, operand: u16) : true {
 		result = accumulator + operand + carry;
 
 		// Check for a signed overflow
-		overflow = ~(accumulator ^ operand) & (accumulator ^ result) & 0x8000;
+		overflow = ~(accumulator ^ operand) & (accumulator ^ <u16>result) & 0x8000;
 	}
 
 	// Store the result in the accumulator
-	registers.C = result;
+	registers.C = <u16>result;
 
 	// Set/clear the Overflow (V) flag depending on if a signed overflow occured
-	flags.V_assign(overflow);
+	flags.V_assign(<bool>overflow);
 
 	// Set/clear the Negative (N) flag depending on if the high bit is set
-	flags.N_assign(result & 0x8000);
+	flags.N_assign(<bool>(result & 0x8000));
 
 	// Set/clear the Zero (Z) flag depending on if the value is zero
 	flags.Z_assign((result & 0xffff) === 0x0000);

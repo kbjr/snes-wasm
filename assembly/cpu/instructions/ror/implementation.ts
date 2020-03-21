@@ -92,8 +92,8 @@ function ror_u8(operand: u8) : u8 {
 	const shifted = (flags.C << 7) | (operand >> 1);
 
 	// Set/clear the C, N, and Z flags as needed
-	flags.C_assign(operand & 0x01);
-	flags.N_assign(shifted & 0x80);
+	flags.C_assign(<bool>(operand & 0x01));
+	flags.N_assign(<bool>(shifted & 0x80));
 	flags.Z_assign(shifted === 0x00);
 
 	return shifted;
@@ -104,8 +104,8 @@ function ror_u16(operand: u16) : u16 {
 	const shifted = (flags.C << 15) | (operand >> 1);
 
 	// Set/clear the C, N, and Z flags as needed
-	flags.C_assign(operand & 0x0001);
-	flags.N_assign(shifted & 0x8000);
+	flags.C_assign(<bool>(operand & 0x0001));
+	flags.N_assign(<bool>(shifted & 0x8000));
 	flags.Z_assign(shifted === 0x0000);
 
 	return shifted;

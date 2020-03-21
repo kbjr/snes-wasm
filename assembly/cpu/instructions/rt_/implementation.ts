@@ -15,7 +15,7 @@ export function rti_(inst: instruction.Instruction) : bool {
 			return setup_stack_pull(inst);
 		
 		case 1:
-			buffer = <u16>stack.pull.step1();
+			buffer = stack.pull.step1();
 			return setup_stack_pull(inst);
 		
 		case 2:
