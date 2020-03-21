@@ -17,4 +17,4 @@ Causes a software interrupt, similar to `brk`, but using a separate `cop` vector
 |--------|--------------|------------------|-------|--------|
 | `0x02` | `cop #const` | Stack Interrupt  | 2     | 7 [1]  |
 
-[1]: Add 1 extra cycle if Native mode (E = 0)
+<sub>**[1]**: Add 1 extra cycle if Native mode (E = 0)</sub><br />

@@ -37,7 +37,8 @@ Pushes the given indirect address onto the stack.
 |--------|------------|------------------------------|-------|--------|
 | `0xD4` | `pei (dp)` | Stack (Direct Page Indirect) | 2     | 6 [1]  |
 
-[1]: Add 1 cycle if low byte of Direct Page register is non-zero
+<sub>**[1]**: Add 1 cycle if low byte of Direct Page register is non-zero</sub><br />
+<sub>**[1]**: Add 1 cycle if X = 0 (16-bit index registers)</sub><br />
 
 
 
@@ -79,7 +80,7 @@ Pushes the contents of the Accumulator (A) onto the stack.
 |--------|--------|-----------------|-------|--------|
 | `0x48` | `pha`  | Stack (Implied) | 1     | 3 [1]  |
 
-[1]: Add 1 cycle if M = 0 (16-bit memory/accumulator)
+<sub>**[1]**: Add 1 cycle if M = 0 (16-bit memory/accumulator)</sub><br />
 
 
 
@@ -181,7 +182,7 @@ Pushes the X Index Register onto the stack.
 |--------|--------|-----------------|-------|--------|
 | `0xDA` | `phx`  | Stack (Implied) | 1     | 3 [1]  |
 
-[1]: Add 1 cycle if X = 0 (16-bit index registers)
+<sub>**[1]**: Add 1 cycle if X = 0 (16-bit index registers)</sub><br />
 
 
 
@@ -203,5 +204,5 @@ Pushes the Y Index Register onto the stack.
 |--------|--------|-----------------|-------|--------|
 | `0x5A` | `phy`  | Stack (Implied) | 1     | 3 [1]  |
 
-[1]: Add 1 cycle if X = 0 (16-bit index registers)
+<sub>**[1]**: Add 1 cycle if X = 0 (16-bit index registers)</sub><br />
 

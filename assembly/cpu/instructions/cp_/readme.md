@@ -19,8 +19,8 @@ N-----ZC-
 | `0xE4` | `cpx #const`   | Immediate                  | 2 [4] | 2 [1]         |
 | `0xEC` | `cpx addr`     | Absolute                   | 3     | 4 [1]         |
 
-- [1]: Add 1 cycle if M = 0
-- [2]: Add 1 cycle if low byte of D is non-zero
+<sub>**[1]**: Add 1 cycle if M = 0</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of D is non-zero</sub><br />
 
 
 
@@ -46,5 +46,5 @@ N-----ZC-
 | `0xC4` | `cpy #const`   | Immediate                  | 2 [4] | 2 [1]         |
 | `0xCC` | `cpy addr`     | Absolute                   | 3     | 4 [1]         |
 
-- [1]: Add 1 cycle if M = 0
-- [2]: Add 1 cycle if low byte of D is non-zero
+<sub>**[1]**: Add 1 cycle if M = 0</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of D is non-zero</sub><br />

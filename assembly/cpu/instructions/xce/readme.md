@@ -8,7 +8,7 @@ Swaps the value of the hidden `E` (Emulation) flag into the `C` (Carry) flag loc
 #### Affected Flags
 
 ```
---mx---ce
+--MX---CE
 ```
 
 #### Modes

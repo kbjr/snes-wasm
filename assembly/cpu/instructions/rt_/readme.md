@@ -17,7 +17,7 @@ NVMXDIZC-
 |--------|--------------|-----------------------|-------|------------|
 | `0x40` | `rti`        | Stack (RTI)           | 1     | 6 [1]      |
 
-[1]: Add 1 cycle if Native mode (E = 0)
+<sub>**[1]**: Add 1 cycle if Native mode (E = 0)</sub><br />
 
 
 

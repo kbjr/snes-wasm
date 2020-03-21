@@ -17,4 +17,4 @@ Put the processor to sleep (sets the RDY pin low) until a hardware interrupt (NM
 |--------|--------|------------|-------|------------|
 | `0xCB` | `wai`  | Implied    | 2     | 3 [1]      |
 
-[1]: Uses 3 cycles to shut the processor down; additional cycles are required by interrupt to restart it
+<sub>**[1]**: Uses 3 cycles to shut the processor down; additional cycles are required by interrupt to restart it</sub><br />

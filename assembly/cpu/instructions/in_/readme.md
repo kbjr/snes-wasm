@@ -21,8 +21,8 @@ N-----Z--
 | `0xF6` | `inc dp,X`     | DP Indexed,X         | 2     | 6 [1],[2]     |
 | `0xFE` | `inc addr,X`   | Absolute Indexed,X   | 3     | 7 [1]         |
 
-- [1]: Add 2 cycle if M = 0
-- [2]: Add 1 cycle if low byte of D is non-zero
+<sub>**[1]**: Add 2 cycle if M = 0</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of D is non-zero</sub><br />
 
 
 

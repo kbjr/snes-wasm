@@ -22,5 +22,5 @@ N-----ZC-
 | `0x16` | `asl dp,X`   | DP Indexed, X               | 2     | 6 [1],[2]  |
 | `0x1E` | `asl addr,X` | Absolute Indexed, X         | 3     | 4 [1]      |
 
-- [1]: Add 2 cycle if M = 0 (16-bit memory/accumulator)
-- [2]: Add 1 cycle if low byte of Direct Page register is not zero
+<sub>**[1]**: Add 2 cycle if M = 0 (16-bit memory/accumulator)</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of Direct Page register is not zero</sub><br />
