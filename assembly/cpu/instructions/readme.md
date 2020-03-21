@@ -71,7 +71,7 @@
 | `sei` | [Set Interrupt Disable Flag](./se_#sei)                   | 1     |
 | `sep` | [Set Processor status bits](./se_#sep)                    | 1     |
 | `sta` | [Store Accumulator to Memory](./sta#readme)               | 14    |
-| `stp` |                                                           | 1     |
+| `stp` | [Stop the Processor](./stp#readme)                        | 1     |
 | `stx` |                                                           | 3     |
 | `sty` |                                                           | 3     |
 | `stz` |                                                           | 4     |

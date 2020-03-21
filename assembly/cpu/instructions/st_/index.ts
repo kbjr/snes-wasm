@@ -1,63 +1,36 @@
 
-export namespace stp {
-	export function $DB() : bool {
-		// TODO: stp
-		return false;
-	}
-}
+import { instruction } from '../../instruction';
 
 export namespace stx {
-	export function $86() : bool {
-		// TODO: stx dp
-		return false;
-	}
-
-	export function $8E() : bool {
-		// TODO: stx addr
-		return false;
-	}
-
-	export function $96() : bool {
-		// TODO: stx dp,Y
-		return false;
-	}
+	export let $86: void;  // stx dp
+	export let $8E: void;  // stx addr
+	export let $96: void;  // stx dp,Y
 }
 
 export namespace sty {
-	export function $84() : bool {
-		// TODO: sty dp
-		return false;
-	}
-
-	export function $8C() : bool {
-		// TODO: sty addr
-		return false;
-	}
-
-	export function $94() : bool {
-		// TODO: sty dp,X
-		return false;
-	}
+	export let $84: void;  // sty dp
+	export let $8C: void;  // sty addr
+	export let $94: void;  // sty dp,X
 }
 
 export namespace stz {
-	export function $64() : bool {
-		// TODO: stz dp
-		return false;
-	}
-
-	export function $74() : bool {
-		// TODO: stz dp,X
-		return false;
-	}
-
-	export function $9C() : bool {
-		// TODO: stz addr
-		return false;
-	}
-
-	export function $9E() : bool {
-		// TODO: stz addr,X
-		return false;
-	}
+	export let $64: void;  // stz dp
+	export let $74: void;  // stz dp,X
+	export let $9C: void;  // stz addr
+	export let $9E: void;  // stz addr,X
 }
+
+function init() : void {
+	stx.$86 = null;
+	stx.$8E = null;
+	stx.$96 = null;
+	sty.$84 = null;
+	sty.$8C = null;
+	sty.$94 = null;
+	stz.$64 = null;
+	stz.$74 = null;
+	stz.$9C = null;
+	stz.$9E = null;
+}
+
+init();

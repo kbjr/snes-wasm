@@ -32,7 +32,8 @@ import { rti, rtl, rts } from './rt_';
 import * as sbc from './sbc';
 import { sec, sed, sei, sep } from './se_';
 import * as sta from './sta';
-// import { stp, stx, sty, stz } from './st_';
+import * as stp from './stp';
+// import { stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 import * as wai from './wai';
 import * as wdm from './wdm';
@@ -306,7 +307,7 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x9d: return sta.$9D;  // sta addr,X
 		case 0x9f: return sta.$9F;  // sta long,X
 
-		// case 0xdb: return stp.$DB;  // stp
+		case 0xdb: return stp.$DB;  // stp
 
 		// case 0x86: return stx.$86;  // stx dp
 		// case 0x8e: return stx.$8E;  // stx addr
