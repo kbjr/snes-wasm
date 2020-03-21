@@ -33,7 +33,7 @@
 | `inc` | [Increment](./in_#inc)                                   | 5     |
 | `inx` | [Increment Index Register X](./in_#inx)                  | 1     |
 | `iny` | [Increment Index Register Y](./in_#iny)                  | 1     |
-| `jmp` |                                                          | 5     |
+| `jmp` | [Jump](./jmp#readme)                                     | 5     |
 | `jsr` |                                                          | 3     |
 | `lda` |                                                          | 15    |
 | `ldx` |                                                          | 5     |

@@ -15,7 +15,7 @@ import { cpx, cpy } from './cp_';
 import { dec, dex, dey } from './de_';
 import * as eor from './eor';
 import { inc, inx, iny } from './in_';
-// import * as jmp from './jmp';
+import * as jmp from './jmp';
 // import * as jsr from './jsr';
 // import * as lda from './lda';
 // import * as ldx from './ldx';
@@ -168,11 +168,11 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xe8: return inx.$E8;  // inx
 		case 0xc8: return iny.$C8;  // iny
 
-		// case 0x4c: return jmp.$4C;  // jmp addr
-		// case 0x5c: return jmp.$5C;  // jmp long
-		// case 0x6c: return jmp.$6C;  // jmp (addr)
-		// case 0x7c: return jmp.$7C;  // jmp (addr,X)
-		// case 0xdc: return jmp.$DC;  // jmp [addr]
+		case 0x4c: return jmp.$4C;  // jmp addr
+		case 0x5c: return jmp.$5C;  // jmp long
+		case 0x6c: return jmp.$6C;  // jmp (addr)
+		case 0x7c: return jmp.$7C;  // jmp (addr,X)
+		case 0xdc: return jmp.$DC;  // jmp [addr]
 
 		// case 0x20: return jsr.$20;  // jsr addr
 		// case 0x22: return jsr.$22;  // jsr long
