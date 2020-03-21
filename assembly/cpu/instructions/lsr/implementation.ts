@@ -8,7 +8,7 @@ import { instruction } from '../../instruction';
 let buffer: u8 = 0;
 let is8Bit: bool = false;
 
-export function asl(inst: instruction.Instruction, effective: u32) : bool {
+export function lsr(inst: instruction.Instruction, effective: u32) : bool {
 	switch (inst.step - instruction.firstStep) {
 		case 0:
 			// Check what mode we're running in (8-bit or 16-bit)
@@ -22,7 +22,7 @@ export function asl(inst: instruction.Instruction, effective: u32) : bool {
 		case 1:
 			// If we're in 8-bit mode, we just want the one byte, so we can finish up
 			if (is8Bit) {
-				const result = asl_u8(bus.read.fetch());
+				const result = lsr_u8(bus.read.fetch());
 
 				bus.write.setup(effective, result);
 				bus.write.exec();
@@ -47,7 +47,7 @@ export function asl(inst: instruction.Instruction, effective: u32) : bool {
 			// Add on the byte we read last time to get the full u16
 			operand |= buffer;
 
-			const result = asl_u16(operand);
+			const result = lsr_u16(operand);
 
 			// Write the low byte first
 			bus.write.setup(effective, <u8>(result & 0xff));
@@ -74,13 +74,13 @@ export function asl(inst: instruction.Instruction, effective: u32) : bool {
 	}
 }
 
-export function asl_acc(inst: instruction.Instruction) : true {
+export function lsr_acc(inst: instruction.Instruction) : true {
 	if (flags.E || flags.M) {
-		registers.A = asl_u8(registers.A);
+		registers.A = lsr_u8(registers.A);
 	}
 
 	else {
-		registers.C = asl_u16(registers.C);
+		registers.C = lsr_u16(registers.C);
 	}
 
 	// Count 1 I/O cycle (6 master cycles)
@@ -90,25 +90,23 @@ export function asl_acc(inst: instruction.Instruction) : true {
 }
 
 // @ts-ignore: decorator
-@inline export function asl_u8(value: u8) : u8 {
-	const shifted = <u16>value << 1;
-	const result = <u8>(shifted & 0xff);
+@inline export function lsr_u8(value: u8) : u8 {
+	const shifted = value >>> 1;
 
-	flags.C_assign(<bool>(shifted & 0x100));
-	flags.Z_assign(result === 0x00);
-	flags.N_assign(<bool>(result & 0x80));
+	flags.C_assign(<bool>(value & 0x01));
+	flags.Z_assign(shifted === 0x00);
+	flags.N_assign(<bool>(shifted & 0x80));
 
-	return result;
+	return shifted;
 }
 
 // @ts-ignore: decorator
-@inline export function asl_u16(value: u16) : u16 {
-	const shifted = <u32>value << 1;
-	const result = <u16>(shifted & 0xffff);
+@inline export function lsr_u16(value: u16) : u16 {
+	const shifted = value >>> 1;
 
-	flags.C_assign(<bool>(shifted & 0x10000));
-	flags.Z_assign(result === 0x0000);
-	flags.N_assign(<bool>(result & 0x8000));
+	flags.C_assign(<bool>(value & 0x0001));
+	flags.Z_assign(shifted === 0x0000);
+	flags.N_assign(<bool>(shifted & 0x8000));
 
-	return result;
+	return shifted;
 }

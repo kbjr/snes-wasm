@@ -19,7 +19,7 @@ import * as jmp from './jmp';
 import * as jsr from './jsr';
 import { ldx, ldy } from './ld_';
 import * as lda from './lda';
-// import * as lsr from './lsr';
+import * as lsr from './lsr';
 import { mvn, mvp } from './mv_';
 import * as nop from './nop';
 import * as ora from './ora';
@@ -205,11 +205,11 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xb4: return ldy.$B4;  // ldy dp,X
 		case 0xbc: return ldy.$BC;  // ldy addr,X
 
-		// case 0x46: return lsr.$46;  // lsr dp
-		// case 0x4a: return lsr.$4A;  // lsr A
-		// case 0x4e: return lsr.$4E;  // lsr addr
-		// case 0x56: return lsr.$56;  // lsr dp,X
-		// case 0x5e: return lsr.$5E;  // lsr addr,X
+		case 0x46: return lsr.$46;  // lsr dp
+		case 0x4a: return lsr.$4A;  // lsr A
+		case 0x4e: return lsr.$4E;  // lsr addr
+		case 0x56: return lsr.$56;  // lsr dp,X
+		case 0x5e: return lsr.$5E;  // lsr addr,X
 
 		case 0x54: return mvn.$54;  // mvn srcbk,destbk
 		case 0x44: return mvp.$44;  // mvp srcbk,destbk
