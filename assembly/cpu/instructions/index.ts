@@ -17,8 +17,8 @@ import * as eor from './eor';
 import { inc, inx, iny } from './in_';
 import * as jmp from './jmp';
 import * as jsr from './jsr';
+import { ldx, ldy } from './ld_';
 // import * as lda from './lda';
-// import { ldx, ldy } from './ld_';
 // import * as lsr from './lsr';
 import { mvn, mvp } from './mv_';
 import * as nop from './nop';
@@ -193,16 +193,17 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0xbd: return lda.$BD;  // lda addr,X
 		// case 0xbf: return lda.$BF;  // lda long,X
 
-		// case 0xa2: return ldx.$A2;  // ldx #const
-		// case 0xa6: return ldx.$A6;  // ldx dp
-		// case 0xae: return ldx.$AE;  // ldx addr
-		// case 0xb6: return ldx.$B6;  // ldx dp,Y
-		// case 0xbe: return ldx.$BE;  // ldx addr,Y
-		// case 0xa0: return ldy.$A0;  // ldy #const
-		// case 0xa4: return ldy.$A4;  // ldy dp
-		// case 0xac: return ldy.$AC;  // ldy addr
-		// case 0xb4: return ldy.$B4;  // ldy dp,X
-		// case 0xbc: return ldy.$BC;  // ldy addr,X
+		case 0xa2: return ldx.$A2;  // ldx #const
+		case 0xa6: return ldx.$A6;  // ldx dp
+		case 0xae: return ldx.$AE;  // ldx addr
+		case 0xb6: return ldx.$B6;  // ldx dp,Y
+		case 0xbe: return ldx.$BE;  // ldx addr,Y
+		
+		case 0xa0: return ldy.$A0;  // ldy #const
+		case 0xa4: return ldy.$A4;  // ldy dp
+		case 0xac: return ldy.$AC;  // ldy addr
+		case 0xb4: return ldy.$B4;  // ldy dp,X
+		case 0xbc: return ldy.$BC;  // ldy addr,X
 
 		// case 0x46: return lsr.$46;  // lsr dp
 		// case 0x4a: return lsr.$4A;  // lsr A

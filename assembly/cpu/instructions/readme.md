@@ -36,8 +36,8 @@
 | `jmp` | [Jump](./jmp#readme)                                     | 5     |
 | `jsr` | [Jump to Subroutine](./jsr#readme)                       | 3     |
 | `lda` |                                                          | 15    |
-| `ldx` |                                                          | 5     |
-| `ldy` |                                                          | 5     |
+| `ldx` | [Load Index Register X from Memory](./ld_#ldx)           | 5     |
+| `ldy` | [Load Index Register Y from Memory](./ld_#ldy)           | 5     |
 | `lsr` |                                                          | 5     |
 | `mvn` | [Block Move Next](./mv_#mvn)                             | 1     |
 | `mvp` | [Block Move Previous](./mv_#mvp)                         | 1     |
