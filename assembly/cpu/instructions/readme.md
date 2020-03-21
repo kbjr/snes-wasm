@@ -70,7 +70,7 @@
 | `sed` | [Set Decimal Mode Flag](./se_#sed)                        | 1     |
 | `sei` | [Set Interrupt Disable Flag](./se_#sei)                   | 1     |
 | `sep` | [Set Processor status bits](./se_#sep)                    | 1     |
-| `sta` |                                                           | 14    |
+| `sta` | [Store Accumulator to Memory](./sta#readme)               | 14    |
 | `stp` |                                                           | 1     |
 | `stx` |                                                           | 3     |
 | `sty` |                                                           | 3     |

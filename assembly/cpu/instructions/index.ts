@@ -31,7 +31,7 @@ import * as ror from './ror';
 import { rti, rtl, rts } from './rt_';
 import * as sbc from './sbc';
 import { sec, sed, sei, sep } from './se_';
-// import * as sta from './sta';
+import * as sta from './sta';
 // import { stp, stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 import * as wai from './wai';
@@ -291,20 +291,20 @@ export function getNextInstruction() : instruction.Instruction {
 
 		case 0xe2: return sep.$E2;  // sep #const 
 
-		// case 0x81: return sta.$81;  // sta (dp,X)
-		// case 0x83: return sta.$83;  // sta sr,S
-		// case 0x85: return sta.$85;  // sta dp
-		// case 0x87: return sta.$87;  // sta [dp]
-		// case 0x8d: return sta.$8D;  // sta addr
-		// case 0x8f: return sta.$8F;  // sta long
-		// case 0x91: return sta.$91;  // sta (dp),Y
-		// case 0x92: return sta.$92;  // sta (dp)
-		// case 0x93: return sta.$93;  // sta (sr,S),Y
-		// case 0x95: return sta.$95;  // sta _dp_X
-		// case 0x97: return sta.$97;  // sta [dp],Y
-		// case 0x99: return sta.$99;  // sta addr,Y
-		// case 0x9d: return sta.$9D;  // sta addr,X
-		// case 0x9f: return sta.$9F;  // sta long,X
+		case 0x81: return sta.$81;  // sta (dp,X)
+		case 0x83: return sta.$83;  // sta sr,S
+		case 0x85: return sta.$85;  // sta dp
+		case 0x87: return sta.$87;  // sta [dp]
+		case 0x8d: return sta.$8D;  // sta addr
+		case 0x8f: return sta.$8F;  // sta long
+		case 0x91: return sta.$91;  // sta (dp),Y
+		case 0x92: return sta.$92;  // sta (dp)
+		case 0x93: return sta.$93;  // sta (sr,S),Y
+		case 0x95: return sta.$95;  // sta _dp_X
+		case 0x97: return sta.$97;  // sta [dp],Y
+		case 0x99: return sta.$99;  // sta addr,Y
+		case 0x9d: return sta.$9D;  // sta addr,X
+		case 0x9f: return sta.$9F;  // sta long,X
 
 		// case 0xdb: return stp.$DB;  // stp
 
