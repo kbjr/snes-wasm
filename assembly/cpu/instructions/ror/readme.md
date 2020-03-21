@@ -1,7 +1,7 @@
 
 ## `ror`
 
-Rotate Memory or Accumulator Right
+**Rotate Memory or Accumulator Right**
 
 Rotate the contents stored at the given address right one bit. The carry flag is used for the 17th (or 9th) bit, the highest bit, when rotating. The low bit will end up in the carry flag, and the carry flag will end up in bit 16 (or 8)
 

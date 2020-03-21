@@ -1,7 +1,7 @@
 
 ## `pla`
 
-Pull Accumulator
+**Pull Accumulator**
 
 Pulls the top of the stack and stores it in the accumulator
 
@@ -25,7 +25,7 @@ N-----Z--
 
 ## `plb`
 
-Pull Data Bank Register
+**Pull Data Bank Register**
 
 Pulls the top of the stack and stores it in the Data Bank Register
 
@@ -47,7 +47,7 @@ N-----Z--
 
 ## `pld`
 
-Pull Direct Page Register
+**Pull Direct Page Register**
 
 Pulls the top of the stack and stores it in the Direct Page Register
 
@@ -69,7 +69,7 @@ N-----Z--
 
 ## `plp`
 
-Pull Status Flags
+**Pull Status Flags**
 
 Pulls the top of the stack and stores it in the Processor Status Flags Register
 
@@ -92,7 +92,7 @@ NV-BDIZC-   <-- Emulation Mode
 
 ## `plx`
 
-Pull Index X Register
+**Pull Index X Register**
 
 Pulls the top of the stack and stores it in the Index Register X
 
@@ -116,7 +116,7 @@ N-----Z--
 
 ## `ply`
 
-Pull Index Y Register
+**Pull Index Y Register**
 
 Pulls the top of the stack and stores it in the Index Register Y
 

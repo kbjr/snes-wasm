@@ -1,7 +1,7 @@
 
 ## `nop`
 
-No Operation
+**No Operation**
 
 Takes no action at all.
 

@@ -65,7 +65,7 @@
 | `rti` | [Return from Interupt](./rt_#rti)                        | 1     |
 | `rtl` | [Return from Subroutine Long](./rt_#rtl)                 | 1     |
 | `rts` | [Return from Subroutine](./rt_#rts)                      | 1     |
-| `sbc` |                                                          | 15    |
+| `sbc` | [Subtract with Borrow](./sbc)                            | 15    |
 | `sec` |                                                          | 1     |
 | `sed` |                                                          | 1     |
 | `sei` |                                                          | 1     |

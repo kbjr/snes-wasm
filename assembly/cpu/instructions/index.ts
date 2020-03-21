@@ -29,8 +29,8 @@ import { pla, plb, pld, plp, plx, ply } from './pl_';
 import * as rep from './rep';
 import * as rol from './rol';
 import * as ror from './ror';
-// import { rti, rtl, rts } from './rt_';
-// import * as sbc from './sbc';
+import { rti, rtl, rts } from './rt_';
+import * as sbc from './sbc';
 // import { sec, sed, sei, sep } from './se_';
 // import * as sta from './sta';
 // import { stp, stx, sty, stz } from './st_';
@@ -266,25 +266,25 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x7e: return ror.$7E;  // ror addr,X
 		case 0x76: return ror.$76;  // ror dp,X
 		
-		// case 0x40: return rti.$40;  // rti
-		// case 0x6b: return rtl.$6B;  // rtl
-		// case 0x60: return rts.$60;  // rts
+		case 0x40: return rti.$40;  // rti
+		case 0x6b: return rtl.$6B;  // rtl
+		case 0x60: return rts.$60;  // rts
 
-		// case 0xe1: return sbc.$E1;  // sbc (dp,X)
-		// case 0xe3: return sbc.$E3;  // sbc sr,S
-		// case 0xe5: return sbc.$E5;  // sbc dp
-		// case 0xe7: return sbc.$E7;  // sbc [dp]
-		// case 0xe9: return sbc.$E9;  // sbc #const
-		// case 0xed: return sbc.$ED;  // sbc addr
-		// case 0xef: return sbc.$EF;  // sbc long
-		// case 0xf1: return sbc.$F1;  // sbc (dp),Y
-		// case 0xf2: return sbc.$F2;  // sbc (dp)
-		// case 0xf3: return sbc.$F3;  // sbc (sr,S),Y
-		// case 0xf5: return sbc.$F5;  // sbc dp,X
-		// case 0xf7: return sbc.$F7;  // sbc [dp],Y
-		// case 0xf9: return sbc.$F9;  // sbc addr,Y
-		// case 0xfd: return sbc.$FD;  // sbc addr,X
-		// case 0xff: return sbc.$FF;  // sbc long,X
+		case 0xe1: return sbc.$E1;  // sbc (dp,X)
+		case 0xe3: return sbc.$E3;  // sbc sr,S
+		case 0xe5: return sbc.$E5;  // sbc dp
+		case 0xe7: return sbc.$E7;  // sbc [dp]
+		case 0xe9: return sbc.$E9;  // sbc #const
+		case 0xed: return sbc.$ED;  // sbc addr
+		case 0xef: return sbc.$EF;  // sbc long
+		case 0xf1: return sbc.$F1;  // sbc (dp),Y
+		case 0xf2: return sbc.$F2;  // sbc (dp)
+		case 0xf3: return sbc.$F3;  // sbc (sr,S),Y
+		case 0xf5: return sbc.$F5;  // sbc dp,X
+		case 0xf7: return sbc.$F7;  // sbc [dp],Y
+		case 0xf9: return sbc.$F9;  // sbc addr,Y
+		case 0xfd: return sbc.$FD;  // sbc addr,X
+		case 0xff: return sbc.$FF;  // sbc long,X
 
 		// case 0x38: return sec.$38;  // sec
 		// case 0xf8: return sed.$F8;  // sed

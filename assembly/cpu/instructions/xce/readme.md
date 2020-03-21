@@ -1,7 +1,7 @@
  
 ## xce
 
-Exchange Carry with Emulation bit
+**Exchange Carry with Emulation bit**
 
 Swaps the value of the hidden `E` (Emulation) flag into the `C` (Carry) flag location, allowing it to be inspected or set.
 

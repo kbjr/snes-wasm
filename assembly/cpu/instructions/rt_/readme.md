@@ -1,7 +1,7 @@
 
 ## `rti`
 
-Return from Interupt
+**Return from Interupt**
 
 Pulls the status register and program counter from the stack. In native mode (E = 0), also pull the program bank register from the stack.
 
@@ -25,7 +25,7 @@ NVMXDIZC-
 
 ## `rtl`
 
-Return from Subroutine Long
+**Return from Subroutine Long**
 
 Pulls the Program Counter register (incrementing by one before loading) from the stack. Then pulls the Program Bank register from the stack.
 
@@ -47,7 +47,7 @@ NVMXDIZC-
 
 ## `rts`
 
-Return from Subroutine
+**Return from Subroutine**
 
 Pulls the Program Counter register (incrementing by one before loading) from the stack.
 

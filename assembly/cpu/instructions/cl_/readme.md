@@ -1,7 +1,7 @@
 
 ## clc
 
-Clear Carry
+**Clear Carry**
 
 Clears the carry bit of the Processor Status (P) Register, setting it to 0
 
@@ -20,7 +20,7 @@ Clears the carry bit of the Processor Status (P) Register, setting it to 0
 
 ## cld
 
-Clear Decimal
+**Clear Decimal**
 
 Clears the decimal bit of the Processor Status (P) Register, setting it to 0
 
@@ -39,7 +39,7 @@ Clears the decimal bit of the Processor Status (P) Register, setting it to 0
 
 ## cli
 
-Clear IRQ Disable
+**Clear IRQ Disable**
 
 Clears the IRQ disable bit of the Processor Status (P) Register, setting it to 0
 
@@ -58,7 +58,7 @@ Clears the IRQ disable bit of the Processor Status (P) Register, setting it to 0
 
 ## clv
 
-Clear Overflow
+**Clear Overflow**
 
 Clears the Overflow bit of the Processor Status (P) Register, setting it to 0
 

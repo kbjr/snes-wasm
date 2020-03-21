@@ -1,7 +1,7 @@
 
 ## `brk`
 
-Software Break
+**Software Break**
 
 Forces a software interrupt. This interrupt is unaffected by the Interrupt Disable (`I`) flag.
 

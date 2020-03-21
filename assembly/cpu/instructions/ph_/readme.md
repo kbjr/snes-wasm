@@ -1,7 +1,7 @@
 
 ## `pea`
 
-Push Effective Absolute Address
+**Push Effective Absolute Address**
 
 Pushes the given constant value onto the stack.
 
@@ -21,7 +21,7 @@ Pushes the given constant value onto the stack.
 
 ## `pei`
 
-Push Effective Indirect Address
+**Push Effective Indirect Address**
 
 Pushes the given indirect address onto the stack.
 
@@ -43,7 +43,7 @@ Pushes the given indirect address onto the stack.
 
 ## `per`
 
-Push Effective PC Relative Indirect Address
+**Push Effective PC Relative Indirect Address**
 
 Pushes the given PC relative indirect address onto the stack.
 
@@ -63,7 +63,7 @@ Pushes the given PC relative indirect address onto the stack.
 
 ## `pha`
 
-Push Accumulator
+**Push Accumulator**
 
 Pushes the contents of the Accumulator (A) onto the stack.
 
@@ -85,7 +85,7 @@ Pushes the contents of the Accumulator (A) onto the stack.
 
 ## `phb`
 
-Push Data Bank Register
+**Push Data Bank Register**
 
 Pushes the Data Bank Register onto the stack.
 
@@ -105,7 +105,7 @@ Pushes the Data Bank Register onto the stack.
 
 ## `phd`
 
-Push Direct Page Register
+**Push Direct Page Register**
 
 Pushes the Direct Page Register onto the stack.
 
@@ -125,7 +125,7 @@ Pushes the Direct Page Register onto the stack.
 
 ## `phk`
 
-Push Program Bank Register
+**Push Program Bank Register**
 
 Pushes the Program Bank Register onto the stack.
 
@@ -145,7 +145,7 @@ Pushes the Program Bank Register onto the stack.
 
 ## `php`
 
-Push Processor Status Register
+**Push Processor Status Register**
 
 Pushes the Processor Status Register onto the stack.
 
@@ -165,7 +165,7 @@ Pushes the Processor Status Register onto the stack.
 
 ## `phx`
 
-Push X Index Register
+**Push X Index Register**
 
 Pushes the X Index Register onto the stack.
 
@@ -187,7 +187,7 @@ Pushes the X Index Register onto the stack.
 
 ## `phy`
 
-Push Y Index Register
+**Push Y Index Register**
 
 Pushes the Y Index Register onto the stack.
 

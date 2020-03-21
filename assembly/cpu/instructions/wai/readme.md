@@ -1,7 +1,7 @@
 
 ## `wai`
 
-Wait for Interrupt
+**Wait for Interrupt**
 
 Put the processor to sleep (sets the RDY pin low) until a hardware interrupt (NMI, IRQ, ABORT, or RESET) is received. Once an interrupt is received, the RTI from the interrupt handler will return control to the instruction following the original WAI. If, however, interrupts are disabled due to setting the I flag _before_ WAI is called, an IRQ will immediately return control to next instsruction, rather than going through the interrupt handler.
 

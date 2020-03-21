@@ -1,7 +1,7 @@
 
 ## `bit`
 
-Test Memory Bits Against Accumulator
+**Test Memory Bits Against Accumulator**
 
 TODO: Fill in description
 

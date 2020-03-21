@@ -1,7 +1,7 @@
 
 ## mvn
 
-Block Move Next
+**Block Move Next**
 
 Moves (copies) a block of memory to a new location.
 
@@ -20,7 +20,7 @@ Moves (copies) a block of memory to a new location.
 
 ## mvp
 
-Block Move Previous
+**Block Move Previous**
 
 Moves (copies) a block of memory to a new location.
 

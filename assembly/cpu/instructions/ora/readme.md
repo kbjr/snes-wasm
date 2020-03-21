@@ -1,7 +1,7 @@
 
 ## `ora`
 
-OR Accumulator with Memory
+**OR Accumulator with Memory**
 
 Perform a bitwise logical OR of the contents at the effective address against the
 Accumulator. In 8-bit mode (M = 1) or Emulation mode (E = 1), the data from the

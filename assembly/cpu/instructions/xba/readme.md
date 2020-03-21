@@ -1,7 +1,7 @@
 
 ## xba
 
-Exchange B and A Accumulators
+**Exchange B and A Accumulators**
 
 Swaps the high and low bytes of the Accumulator
 

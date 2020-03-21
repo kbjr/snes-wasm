@@ -1,7 +1,7 @@
 
 ## `rol`
 
-Rotate Memory or Accumulator Left
+**Rotate Memory or Accumulator Left**
 
 Rotate the contents of the operand (op) left one bit. The carry flag is used for the 17th (or 9th) bit, the highest bit, when rotating. The high bit from op will end up in the carry flag, and the carry flag will end up in bit 0 of op
 
