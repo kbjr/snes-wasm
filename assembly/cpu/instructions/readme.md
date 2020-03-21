@@ -60,11 +60,11 @@
 | `plx` | [Pull Index X Register](./pl_#plx)                       | 1     |
 | `ply` | [Pull Index Y Register](./pl_#ply)                       | 1     |
 | `rep` | [Reset Processor status bits](./rep#readme)              | 1     |
-| `rol` |                                                          | 5     |
-| `ror` |                                                          | 5     |
-| `rti` |                                                          | 1     |
-| `rtl` |                                                          | 1     |
-| `rts` |                                                          | 1     |
+| `rol` | [Rotate Memory or Accumulator Left](./rol#readme)        | 5     |
+| `ror` | [Rotate Memory or Accumulator Right](./ror#readme)       | 5     |
+| `rti` | [Return from Interupt](./rt_#rti)                        | 1     |
+| `rtl` | [Return from Subroutine Long](./rt_#rtl)                 | 1     |
+| `rts` | [Return from Subroutine](./rt_#rts)                      | 1     |
 | `sbc` |                                                          | 15    |
 | `sec` |                                                          | 1     |
 | `sed` |                                                          | 1     |
