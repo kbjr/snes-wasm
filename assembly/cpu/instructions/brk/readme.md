@@ -20,4 +20,4 @@ Although `brk` is a 1 byte instruction, the Program Counter (`PC`) is incremente
 |--------|--------|------------------|-------|--------|
 | `0x00` | `brk`  | Stack Interrupt  | 2     | 7 [1]  |
 
-[1]: Add 1 extra cycle if Emulation mode (E = 1)
+[1]: Add 1 extra cycle if Native mode (E = 0)

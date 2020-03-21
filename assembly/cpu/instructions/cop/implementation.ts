@@ -3,29 +3,29 @@ import { u24 } from '../../../u24';
 import { u16_util } from '../../../u16';
 import { bus } from '../../../bus';
 import { stack } from '../../stack';
-import { flags, flag } from '../../flags';
+import { flags } from '../../flags';
 import { registers } from '../../registers';
 import { instruction } from '../../instruction';
 
-const brk_vector_emu: u24.native = 0x00fffe;
+const cop_vector_emu: u24.native = 0x00fff4;
 
-const brk_vector_native: u24.native = 0x00ffe6;
+const cop_vector_native: u24.native = 0x00ffe4;
 
 let buffer: u8 = 0;
 
-export function brk(inst: instruction.Instruction) : bool {
+export function cop(inst: instruction.Instruction, operand: u8) : bool {
 	if (flags.E) {
-		return brk_6502(inst);
+		return cop_6502(inst, operand);
 	}
 
 	else {
-		return brk_65816(inst);
+		return cop_65816(inst, operand);
 	}
 }
 
 // @ts-ignore: decorator
-@inline function brk_6502(inst: instruction.Instruction) : bool {
-	switch (inst.step) {
+@inline function cop_6502(inst: instruction.Instruction, operand: u8) : bool {
+	switch (inst.step - instruction.firstStep) {
 		case 0:
 			stack.push.step0(u16_util.high(registers.PC));
 			inst.step++;
@@ -39,20 +39,20 @@ export function brk(inst: instruction.Instruction) : bool {
 		
 		case 2:
 			stack.push.step1();
-			stack.push.step0(registers.P | flag.B);
+			stack.push.step0(registers.P);
 			inst.step++;
 			return false;
 		
 		case 3:
 			stack.push.step1();
 			flags.I_set();
-			bus.read.setup(brk_vector_emu);
+			bus.read.setup(cop_vector_emu);
 			inst.step++;
 			return false;
 		
 		case 4:
 			buffer = bus.read.fetch();
-			bus.read.setup(brk_vector_emu + 1);
+			bus.read.setup(cop_vector_emu + 1);
 			inst.step++;
 			return false;
 		
@@ -67,7 +67,7 @@ export function brk(inst: instruction.Instruction) : bool {
 }
 
 // @ts-ignore: decorator
-@inline function brk_65816(inst: instruction.Instruction) : bool {
+@inline function cop_65816(inst: instruction.Instruction, operand: u8) : bool {
 	switch (inst.step - instruction.firstStep) {
 		case 0:
 			stack.push.step0(registers.PBR);
@@ -95,13 +95,13 @@ export function brk(inst: instruction.Instruction) : bool {
 		case 4:
 			stack.push.step1();
 			flags.I_set();
-			bus.read.setup(brk_vector_native);
+			bus.read.setup(cop_vector_native);
 			inst.step++;
 			return false;
 		
 		case 5:
 			buffer = bus.read.fetch();
-			bus.read.setup(brk_vector_native + 1);
+			bus.read.setup(cop_vector_native + 1);
 			inst.step++;
 			return false;
 		

@@ -10,7 +10,7 @@ import * as bit from './bit';
 import * as brk from './brk';
 import { clc, cld, cli, clv } from './cl_';
 // import * as cmp from './cmp';
-// import * as cop from './cop';
+import * as cop from './cop';
 // import { cpx, cpy } from './cp_';
 // import { dec, dex, dey } from './de_';
 // import * as eor from './eor';
@@ -127,7 +127,7 @@ export function getNextInstruction() : instruction.Instruction {
 		// case 0xdd: return cmp.$DD;  // cmp addr,X
 		// case 0xdf: return cmp.$DF;  // cmp long,X
 
-		// case 0x02: return cop.$02;  // cop const
+		case 0x02: return cop.$02;  // cop const
 
 		// case 0xe0: return cpx.$E0;  // cpx #const
 		// case 0xe4: return cpx.$E4;  // cpx dp
