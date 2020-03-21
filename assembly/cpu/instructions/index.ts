@@ -11,7 +11,7 @@ import * as brk from './brk';
 import { clc, cld, cli, clv } from './cl_';
 import * as cmp from './cmp';
 import * as cop from './cop';
-// import { cpx, cpy } from './cp_';
+import { cpx, cpy } from './cp_';
 // import { dec, dex, dey } from './de_';
 // import * as eor from './eor';
 // import { inc, inx, iny } from './in_';
@@ -129,12 +129,12 @@ export function getNextInstruction() : instruction.Instruction {
 
 		case 0x02: return cop.$02;  // cop const
 
-		// case 0xe0: return cpx.$E0;  // cpx #const
-		// case 0xe4: return cpx.$E4;  // cpx dp
-		// case 0xec: return cpx.$EC;  // cpx addr
-		// case 0xc0: return cpy.$C0;  // cpy #const
-		// case 0xc4: return cpy.$C4;  // cpy dp
-		// case 0xcc: return cpy.$CC;  // cpy addr
+		case 0xe0: return cpx.$E0;  // cpx #const
+		case 0xe4: return cpx.$E4;  // cpx dp
+		case 0xec: return cpx.$EC;  // cpx addr
+		case 0xc0: return cpy.$C0;  // cpy #const
+		case 0xc4: return cpy.$C4;  // cpy dp
+		case 0xcc: return cpy.$CC;  // cpy addr
 
 		// case 0x3a: return dec.$3A;  // dec A
 		// case 0xc6: return dec.$C6;  // dec dp

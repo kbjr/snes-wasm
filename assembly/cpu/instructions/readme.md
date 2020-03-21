@@ -22,10 +22,10 @@
 | `cld` | [Clear Decimal](./cl_#cld)                               | 1     |
 | `cli` | [Clear IRQ Disable](./cl_#cli)                           | 1     |
 | `clv` | [Clear Overflow](./cl_#clv)                              | 1     |
-| `cmp` |                                                          | 15    |
+| `cmp` | [Compare Accumulator with Memory](./cmp)                 | 15    |
 | `cop` | [Co-Processor Enable](./cop#readme)                      | 1     |
-| `cpx` |                                                          | 3     |
-| `cpy` |                                                          | 3     |
+| `cpx` | [Compare Index Register X with Memory](./cp_#cpx)        | 3     |
+| `cpy` | [Compare Index Register Y with Memory](./cp_#cpy)        | 3     |
 | `dec` |                                                          | 5     |
 | `dex` |                                                          | 1     |
 | `dey` |                                                          | 1     |
