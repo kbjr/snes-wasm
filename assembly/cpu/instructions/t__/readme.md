@@ -114,6 +114,69 @@ N-----Z--
 
 
 
+## `tsc`
+
+**Transfer Stack Pointer Register to 16-bit Accumulator**
+
+Transfer the value in the Stack Pointer Register to the Accumulator `C`. This instruction always transfers the full 16-bits, regardless of the `E` or `M` flags.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0x3B` | `tsc`  | Implied          | 1     | 2      |
+
+
+
+
+
+
+## `tsx`
+
+**Transfer Stack Pointer to Index Register X**
+
+Transfer the value in the Stack Pointer Register to the X Index Register.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0xBA` | `tsx`  | Implied          | 1     | 2      |
+
+
+
+
+
+
+## `txa`
+
+**Transfer Index Register X to Accumulator**
+
+Transfer the value in the X Index Register to the Accumulator.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0x8A` | `txa`  | Implied          | 1     | 2      |
 
 
 
@@ -121,21 +184,94 @@ N-----Z--
 
 
 
+## `txs`
+
+**Transfer Index Register X to Stack Pointer**
+
+Transfer the value in the X Index Register to the Stack Pointer.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0x9A` | `txs`  | Implied          | 1     | 2      |
 
 
 
 
-/**
- * tyx
- * Transfer Index Register Y to X Instruction
- *
- * Opcode:     0xBB
- * Flags:      n-----z--
- * Addressing: Implied
- * Bytes:      1
- * Cycles:     2
- *
- *     tyx
- *
- * Transfer the value in index register Y to index register X.
- */
+
+
+
+## `txy`
+
+**Transfer Index Register X to Y**
+
+Transfer the value in the X Index Register to the Y Index Register.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0x9B` | `txy`  | Implied          | 1     | 2      |
+
+
+
+
+
+
+
+## `tya`
+
+**Transfer Index Register Y to Accumulator**
+
+Transfer the value in the Y Index Register to the Accumulator.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0x98` | `tya`  | Implied          | 1     | 2      |
+
+
+
+
+
+
+
+## `tyx`
+
+**Transfer Index register Y to X**
+
+Transfer the value in the Y Index Register to the X Index Register.
+
+#### Affected Flags
+
+```
+N-----Z--
+```
+
+#### Modes
+
+| OpCode | Syntax | Addressing       | Bytes | Cycles |
+|--------|--------|------------------|-------|--------|
+| `0xBB` | `tyx`  | Implied          | 1     | 2      |
+
+

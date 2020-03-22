@@ -66,7 +66,107 @@ export function tdc_(inst: instruction.Instruction) : true {
 	return true;
 }
 
+export function tsc_(inst: instruction.Instruction) : true {
+	registers.C = registers.S;
+	set_flags_u16(registers.S);
+	scheduler.scheduler.cpuThread.countCycles(6);
 
+	return true;
+}
+
+export function tsx_(inst: instruction.Instruction) : true {
+	if (flags.E || flags.X) {
+		registers.X_low = registers.S_low;
+		set_flags_u8(registers.S_low);
+	}
+
+	else {
+		registers.X = registers.S;
+		set_flags_u16(registers.S);
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
+
+export function txa_(inst: instruction.Instruction) : true {
+	if (flags.E || flags.M) {
+		set_flags_u8(registers.X_low);
+		registers.A = registers.X_low;
+	}
+
+	else {
+		set_flags_u16(registers.X);
+		registers.C = registers.X;
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
+
+export function txs_(inst: instruction.Instruction) : true {
+	if (flags.E) {
+		registers.S_low = registers.X_low;
+	}
+
+	else {
+		registers.S = registers.X;
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
+
+export function txy_(inst: instruction.Instruction) : true {
+	if (flags.E || flags.X) {
+		set_flags_u8(registers.X_low);
+		registers.Y_low = registers.X_low;
+	}
+
+	else {
+		set_flags_u16(registers.X);
+		registers.Y = registers.X;
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
+
+export function tya_(inst: instruction.Instruction) : true {
+	if (flags.E || flags.M) {
+		set_flags_u8(registers.Y_low);
+		registers.A = registers.Y_low;
+	}
+
+	else {
+		set_flags_u16(registers.Y);
+		registers.C = registers.Y;
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
+
+export function tyx_(inst: instruction.Instruction) : true {
+	if (flags.E || flags.X) {
+		set_flags_u8(registers.Y_low);
+		registers.X_low = registers.Y_low;
+	}
+
+	else {
+		set_flags_u16(registers.Y);
+		registers.X = registers.Y;
+	}
+
+	scheduler.scheduler.cpuThread.countCycles(6);
+
+	return true;
+}
 
 
 

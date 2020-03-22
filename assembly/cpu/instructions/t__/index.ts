@@ -1,6 +1,6 @@
 
 import { instruction } from '../../instruction';
-import { tax_, tay_, tcd_, tcs_, tdc_ } from './implementation';
+import { tax_, tay_, tcd_, tcs_, tdc_, tsc_, tsx_, txa_, txs_, txy_, tya_, tyx_ } from './implementation';
 
 export namespace tax {
 	export let $AA: instruction.Instruction_custom;
