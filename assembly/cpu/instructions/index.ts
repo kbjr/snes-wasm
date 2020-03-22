@@ -33,7 +33,7 @@ import * as sbc from './sbc';
 import { sec, sed, sei, sep } from './se_';
 import * as sta from './sta';
 import * as stp from './stp';
-// import { stx, sty, stz } from './st_';
+import { stx, sty, stz } from './st_';
 // import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
 import * as wai from './wai';
 import * as wdm from './wdm';
@@ -309,17 +309,17 @@ export function getNextInstruction() : instruction.Instruction {
 
 		case 0xdb: return stp.$DB;  // stp
 
-		// case 0x86: return stx.$86;  // stx dp
-		// case 0x8e: return stx.$8E;  // stx addr
-		// case 0x96: return stx.$96;  // stx dp,Y
-		// case 0x84: return sty.$84;  // sty dp
-		// case 0x8c: return sty.$8C;  // sty addr
-		// case 0x94: return sty.$94;  // sty dp,X
+		case 0x86: return stx.$86;  // stx dp
+		case 0x8e: return stx.$8E;  // stx addr
+		case 0x96: return stx.$96;  // stx dp,Y
+		case 0x84: return sty.$84;  // sty dp
+		case 0x8c: return sty.$8C;  // sty addr
+		case 0x94: return sty.$94;  // sty dp,X
 
-		// case 0x64: return stz.$64;  // stz dp
-		// case 0x74: return stz.$74;  // stz dp,X
-		// case 0x9c: return stz.$9C;  // stz addr
-		// case 0x9e: return stz.$9E;  // stz addr,X
+		case 0x64: return stz.$64;  // stz dp
+		case 0x74: return stz.$74;  // stz dp,X
+		case 0x9c: return stz.$9C;  // stz addr
+		case 0x9e: return stz.$9E;  // stz addr,X
 
 		// case 0xaa: return tax.$AA;  // tax
 		// case 0xa8: return tay.$A8;  // tay

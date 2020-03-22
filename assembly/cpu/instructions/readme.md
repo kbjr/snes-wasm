@@ -72,9 +72,9 @@
 | `sep` | [Set Processor status bits](./se_#sep)                    | 1     |
 | `sta` | [Store Accumulator to Memory](./sta#readme)               | 14    |
 | `stp` | [Stop the Processor](./stp#readme)                        | 1     |
-| `stx` |                                                           | 3     |
-| `sty` |                                                           | 3     |
-| `stz` |                                                           | 4     |
+| `stx` | [Store Index Register X to Memory](./st_#stx)             | 3     |
+| `sty` | [Store Index Register Y to Memory](./st_#sty)             | 3     |
+| `stz` | [Store Zero to Memory](./st_#stz)                         | 4     |
 | `tax` |                                                           | 1     |
 | `tay` |                                                           | 1     |
 | `tcd` |                                                           | 1     |
