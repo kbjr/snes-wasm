@@ -80,8 +80,8 @@
 | `tcd` | [Transfer 16-bit Accumulator to Direct Page Register](./t__#tcd)   | 1     |
 | `tcs` | [Transfer Accumulator to Stack Pointer Register](./t__#tcs)        | 1     |
 | `tdc` | [Transfer Direct Page Register to 16-bit Accumulator](./t__#tdc)   | 1     |
-| `trb` |                                                                    | 2     |
-| `tsb` |                                                                    | 2     |
+| `trb` | [Test and Reset Memory Bits Against Accumulator](./t_b#trb)        | 2     |
+| `tsb` | [Test and Set Memory Bits Against Accumulator](./t_b#tsb)          | 2     |
 | `tsc` | [Transfer Stack Pointer Register to 16-bit Accumulator](./t__#tsc) | 1     |
 | `tsx` | [Transfer Stack Pointer to Index Register X](./t__#tsx)            | 1     |
 | `txa` | [Transfer Index Register X to Accumulator](./t__#txa)              | 1     |

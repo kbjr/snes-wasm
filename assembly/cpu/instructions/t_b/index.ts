@@ -1,4 +1,5 @@
 
+import { trb_, tsb_ } from './implementation';
 import { Instruction_addr_absolute } from '../../addressing/absolute';
 import { Instruction_addr_directPage } from '../../addressing/direct-page';
 

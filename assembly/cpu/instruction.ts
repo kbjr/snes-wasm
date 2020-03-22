@@ -11,6 +11,8 @@ export namespace instruction {
 		export type u16_op = (instruction: Instruction, value: u16) => bool;
 		export type u24_op = (instruction: Instruction, value: u24.native) => bool;
 		export type block_move_op = (instruction: Instruction, source: u8, dest: u8) => bool;
+		export type u8_map = (value: u8) => u8;
+		export type u16_map = (value: u16) => u16;
 	}
 
 	/** The initial value of Instruction.step when any addressing is finished */
