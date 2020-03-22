@@ -1,145 +1,68 @@
-import { flags } from '../flags';
-import { registers } from '../registers';
-import { cpuThread } from '../../_scheduler';
+
+import { instruction } from '../../instruction';
+import { tax_, tay_, tcd_, tcs_, tdc_ } from './implementation';
 
 export namespace tax {
-	export function $AA() : bool {
-		// TODO: tax
-		return false;
-	}
+	export let $AA: instruction.Instruction_custom;
 }
 
 export namespace tay {
-	export function $A8() : bool {
-		// TODO: tay
-		return false;
-	}
+	export let $A8: instruction.Instruction_custom;
 }
 
 export namespace tcd {
-	export function $5B() : bool {
-		// TODO: tcd
-		return false;
-	}
+	export let $5B: instruction.Instruction_custom;
 }
 
 export namespace tcs {
-	export function $1B() : bool {
-		// TODO: tcs
-		return false;
-	}
+	export let $1B: instruction.Instruction_custom;
 }
 
 export namespace tdc {
-	export function $7B() : bool {
-		// TODO: tdc
-		return false;
-	}
-}
-
-export namespace trb {
-	export function $14() : bool {
-		// TODO: trb dp
-		return false;
-	}
-
-	export function $1C() : bool {
-		// TODO: trb addr
-		return false;
-	}
-}
-
-export namespace tsb {
-	export function $04() : bool {
-		// TODO: tsb dp
-		return false;
-	}
-
-	export function $0C() : bool {
-		// TODO: tsb addr
-		return false;
-	}
+	export let $7B: instruction.Instruction_custom;
 }
 
 export namespace tsc {
-	export function $3B() : bool {
-		// TODO: tsc
-		return false;
-	}
+	export let $3B: instruction.Instruction_custom;
 }
 
 export namespace tsx {
-	export function $BA() : bool {
-		// TODO: tsx
-		return false;
-	}
+	export let $BA: instruction.Instruction_custom;
 }
 
 export namespace txa {
-	export function $8A() : bool {
-		// TODO: txa
-		return false;
-	}
+	export let $8A: instruction.Instruction_custom;
 }
 
 export namespace txs {
-	export function $9A() : bool {
-		// TODO: txs
-		return false;
-	}
+	export let $9A: instruction.Instruction_custom;
 }
 
 export namespace txy {
-	export function $9B() : bool {
-		// TODO: txy
-		return false;
-	}
+	export let $9B: instruction.Instruction_custom;
 }
 
 export namespace tya {
-	export function $98() : bool {
-		// TODO: tya
-		return false;
-	}
+	export let $98: instruction.Instruction_custom;
 }
 
-/**
- * tyx
- * Transfer Index Register Y to X Instruction
- *
- * Opcode:     0xBB
- * Flags:      n-----z--
- * Addressing: Implied
- * Bytes:      1
- * Cycles:     2
- *
- *     tyx
- *
- * Transfer the value in index register Y to index register X.
- */
 export namespace tyx {
-	export function $BB() : bool {
-		if (flags.X) {
-			const Y = registers.Y_low;
-
-			registers.X_low = Y;
-
-			flags.N_assign(Y & 0x80);
-			flags.Z_assign(Y === 0);
-		}
-
-		else {
-			const Y = registers.Y;
-
-			registers.X = Y;
-
-			flags.N_assign(Y & 0x8000);
-			flags.Z_assign(Y === 0x0000);
-		}
-
-		// Count 2 cycles for the instruction
-		cpuThread.countCycles(2);
-
-		return false;
-	}
+	export let $BB: instruction.Instruction_custom;
 }
+
+function init() : void {
+	tax.$AA = new instruction.Instruction_custom(tax_);
+	tay.$A8 = new instruction.Instruction_custom(tay_);
+	tcd.$5B = new instruction.Instruction_custom(tcd_);
+	tcs.$1B = new instruction.Instruction_custom(tcs_);
+	tdc.$7B = new instruction.Instruction_custom(tdc_);
+	tsc.$3B = new instruction.Instruction_custom(tsc_);
+	tsx.$BA = new instruction.Instruction_custom(tsx_);
+	txa.$8A = new instruction.Instruction_custom(txa_);
+	txs.$9A = new instruction.Instruction_custom(txs_);
+	txy.$9B = new instruction.Instruction_custom(txy_);
+	tya.$98 = new instruction.Instruction_custom(tya_);
+	tyx.$BB = new instruction.Instruction_custom(tyx_);
+}
+
+init();

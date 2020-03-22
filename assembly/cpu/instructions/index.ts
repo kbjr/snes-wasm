@@ -34,7 +34,8 @@ import { sec, sed, sei, sep } from './se_';
 import * as sta from './sta';
 import * as stp from './stp';
 import { stx, sty, stz } from './st_';
-// import { tax, tay, tcd, tcs, tdc, trb, tsb, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
+import { tax, tay, tcd, tcs, tdc, tsc, tsx, txa, txs, txy, tya, tyx } from './t__';
+import { trb, tsb } from './t_b';
 import * as wai from './wai';
 import * as wdm from './wdm';
 import * as xba from './xba';
@@ -321,24 +322,24 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0x9c: return stz.$9C;  // stz addr
 		case 0x9e: return stz.$9E;  // stz addr,X
 
-		// case 0xaa: return tax.$AA;  // tax
-		// case 0xa8: return tay.$A8;  // tay
-		// case 0x5b: return tcd.$5B;  // tcd
-		// case 0x1b: return tcs.$1B;  // tcs
-		// case 0x7b: return tdc.$7B;  // tdc
+		case 0xaa: return tax.$AA;  // tax
+		case 0xa8: return tay.$A8;  // tay
+		case 0x5b: return tcd.$5B;  // tcd
+		case 0x1b: return tcs.$1B;  // tcs
+		case 0x7b: return tdc.$7B;  // tdc
 
-		// case 0x14: return trb.$14;  // trb dp
-		// case 0x1c: return trb.$1C;  // trb addr
-		// case 0x04: return tsb.$04;  // tsb dp
-		// case 0x0c: return tsb.$0C;  // tsb addr
+		case 0x14: return trb.$14;  // trb dp
+		case 0x1c: return trb.$1C;  // trb addr
+		case 0x04: return tsb.$04;  // tsb dp
+		case 0x0c: return tsb.$0C;  // tsb addr
 
-		// case 0x3b: return tsc.$3B;  // tsc
-		// case 0xba: return tsx.$BA;  // tsx
-		// case 0x8a: return txa.$8A;  // txa
-		// case 0x9a: return txs.$9A;  // txs
-		// case 0x9b: return txy.$9B;  // txy
-		// case 0x98: return tya.$98;  // tya
-		// case 0xbb: return tyx.$BB;  // tyx
+		case 0x3b: return tsc.$3B;  // tsc
+		case 0xba: return tsx.$BA;  // tsx
+		case 0x8a: return txa.$8A;  // txa
+		case 0x9a: return txs.$9A;  // txs
+		case 0x9b: return txy.$9B;  // txy
+		case 0x98: return tya.$98;  // tya
+		case 0xbb: return tyx.$BB;  // tyx
 		
 		case 0xcb: return wai.$CB;  // wai
 

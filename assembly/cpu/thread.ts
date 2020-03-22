@@ -15,13 +15,13 @@ let currentInstruction: instruction.Instruction | null = null;
 
 /** Current status of the thread */
 export namespace status {
-	export let current: u8 = 0x00;
+	export let current: u8 = 0x02;
 
 	/** Normal operation */
 	export const normal: u8 = 0x00;
 	/** Triggered by the `wai` instruction, will idle until an interrupt occurs */
 	export const waiting: u8 = 0x01;
-	/** Triggered by the `stp` instruction, will idle until a reset occurs */
+	/** Default state; Also triggered by the `stp` instruction, will idle until a reset occurs */
 	export const stopped: u8 = 0x02;
 }
 
