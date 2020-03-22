@@ -52,14 +52,24 @@ export function ora(inst: instruction.Instruction, effective: u32) : bool {
 
 // @ts-ignore: decorator
 @inline export function ora_u8(inst: instruction.Instruction, operand: u8) : true {
-	registers.A |= operand;
+	const result = registers.A | operand;
+
+	flags.N_assign(<bool>(result & 0x80));
+	flags.Z_assign(result === 0x00);
+
+	registers.A = result;
 
 	return true;
 }
 
 // @ts-ignore: decorator
 @inline export function ora_u16(inst: instruction.Instruction, operand: u16) : true {
-	registers.C |= operand;
+	const result = registers.C | operand;
+
+	flags.N_assign(<bool>(result & 0x8000));
+	flags.Z_assign(result === 0x0000);
+
+	registers.C = result;
 
 	return true;
 }

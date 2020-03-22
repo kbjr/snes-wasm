@@ -230,8 +230,8 @@ class Regsiters {
 	}
 
 	// @ts-ignore: decorator
-	@inline public get S_low() : u16 {
-		return load<u16>(this.addr + Register.S);
+	@inline public get S_low() : u8 {
+		return load<u8>(this.addr + Register.S);
 	}
 
 	// @ts-ignore: decorator

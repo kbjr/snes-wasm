@@ -4,6 +4,7 @@ import { interrupt } from '../constants';
 import { instruction } from './instruction';
 import { getNextInstruction } from './instructions';
 import { Thread, scheduler } from '../scheduler';
+import { interrupt_reset, interrupt_brk } from './interrupt';
 
 export function createThread_cpu() : Thread {
 	return new Thread(main, onInterrupt);
@@ -12,7 +13,17 @@ export function createThread_cpu() : Thread {
 let currentInterrupt: u8 = interrupt.none;
 let currentInstruction: instruction.Instruction | null = null;
 
+/** Current status of the thread */
+export namespace status {
+	export let current: u8 = 0x02;
 
+	/** Normal operation */
+	export const normal: u8 = 0x00;
+	/** Triggered by the `wai` instruction, will idle until an interrupt occurs */
+	export const waiting: u8 = 0x01;
+	/** Default state; Also triggered by the `stp` instruction, will idle until a reset occurs */
+	export const stopped: u8 = 0x02;
+}
 
 function main() : void {
 	if (currentInstruction === null) {
@@ -38,12 +49,7 @@ function main() : void {
 	}
 }
 
-
-
 function onInterrupt(type: u8) : void {
-	// TODO: Under what circumstances do we do this?
-	scheduler.scheduler.cpuThread.idle = false;
-
 	// If an instruction is running, wait for it to finish
 	if (currentInstruction) {
 		currentInterrupt = type;
@@ -57,11 +63,11 @@ function onInterrupt(type: u8) : void {
 			break;
 		
 		case interrupt.reset:
-			// 
+			interrupt_reset();
 			break;
 		
 		case interrupt.brk:
-			// 
+			interrupt_brk();
 			break;
 	}
 

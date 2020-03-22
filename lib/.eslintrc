@@ -2,5 +2,8 @@
 	"extends": "../.eslintrc",
 	"parserOptions": {
 		"project": "lib/tsconfig.json"
+	},
+	"rules": {
+		"@typescript-eslint/camelcase": 0
 	}
 }

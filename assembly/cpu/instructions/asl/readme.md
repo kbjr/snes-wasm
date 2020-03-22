@@ -17,10 +17,10 @@ N-----ZC-
 | OpCode | Syntax       | Addressing                  | Bytes | Cycles     |
 |--------|--------------|-----------------------------|-------|------------|
 | `0x06` | `asl dp`     | Direct Page                 | 2     | 5 [1],[2]  |
-| `0x0A` | `asl A`      | Accumulator                 | 1     | 2 [1]      |
+| `0x0A` | `asl A`      | Accumulator                 | 1     | 2          |
 | `0x0E` | `asl addr`   | Absolute                    | 3     | 6 [1]      |
 | `0x16` | `asl dp,X`   | DP Indexed, X               | 2     | 6 [1],[2]  |
 | `0x1E` | `asl addr,X` | Absolute Indexed, X         | 3     | 4 [1]      |
 
-- [1]: Add 2 cycle if M = 0 (16-bit memory/accumulator)
-- [2]: Add 1 cycle if low byte of Direct Page register is not zero
+<sub>**[1]**: Add 2 cycle if M = 0 (16-bit memory/accumulator)</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of Direct Page register is not zero</sub><br />

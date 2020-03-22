@@ -8,7 +8,7 @@ Swaps the high and low bytes of the Accumulator
 #### Affected Flags
 
 ```
-n-----z--
+N-----Z--
 ```
 
 #### Modes

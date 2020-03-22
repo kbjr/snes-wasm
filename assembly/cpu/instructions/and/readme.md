@@ -35,7 +35,7 @@ N-----Z--
 | `0x3D` | `and addr,X`   | Absolute Indexed, X         | 3     | 4 [2],[4]  |
 | `0x3F` | `and long,X`   | Absolute Long Indexed, X    | 4     | 5 [2]      |
 
-- [1]: Add 1 byte if m = 0 (16-bit memory/accumulator)
-- [2]: Add 1 cycle if m = 0 (16-bit memory/accumulator)
-- [3]: Add 1 cycle if low byte of Direct Page register is not zero
-- [4]: Add 1 cycle if adding index crosses a page boundary
+<sub>**[1]**: Add 1 byte if m = 0 (16-bit memory/accumulator)</sub><br />
+<sub>**[2]**: Add 1 cycle if m = 0 (16-bit memory/accumulator)</sub><br />
+<sub>**[3]**: Add 1 cycle if low byte of Direct Page register is not zero</sub><br />
+<sub>**[4]**: Add 1 cycle if adding index crosses a page boundary</sub><br />

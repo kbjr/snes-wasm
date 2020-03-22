@@ -17,7 +17,7 @@ N-----Z--
 |--------|------------|------------------|-------|--------|
 | `0x68` | `pla`      | Stack (Implied)  | 1     | 4 [1]  |
 
-[1]: Add 1 cycle if M = 0 (16-bit memory/accumulator)
+<sub>**[1]**: Add 1 cycle if M = 0 (16-bit memory/accumulator)</sub><br />
 
 
 
@@ -108,7 +108,7 @@ N-----Z--
 |--------|------------|------------------|-------|--------|
 | `0xFA` | `plx`      | Stack (Implied)  | 1     | 4 [1]  |
 
-[1]: Add 1 cycle if X = 0 (16-bit index registers)
+<sub>**[1]**: Add 1 cycle if X = 0 (16-bit index registers)</sub><br />
 
 
 
@@ -132,5 +132,5 @@ N-----Z--
 |--------|------------|------------------|-------|--------|
 | `0x7A` | `ply`      | Stack (Implied)  | 1     | 4 [1]  |
 
-[1]: Add 1 cycle if X = 0 (16-bit index registers)
+<sub>**[1]**: Add 1 cycle if X = 0 (16-bit index registers)</sub><br />
 

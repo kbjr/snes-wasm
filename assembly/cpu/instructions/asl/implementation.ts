@@ -62,6 +62,9 @@ export function asl(inst: instruction.Instruction, effective: u32) : bool {
 			// Write the high byte
 			bus.write.setup(effective + 1, buffer);
 			bus.write.exec();
+	
+			// Count 2 extra I/O cycles (12 master cycles) for 16-bit mode
+			scheduler.scheduler.cpuThread.countCycles(12);
 
 			return true;
 		
@@ -106,9 +109,6 @@ export function asl_acc(inst: instruction.Instruction) : true {
 	flags.C_assign(<bool>(shifted & 0x10000));
 	flags.Z_assign(result === 0x0000);
 	flags.N_assign(<bool>(result & 0x8000));
-	
-	// Count 2 extra I/O cycles (12 master cycles) for 16-bit mode
-	scheduler.scheduler.cpuThread.countCycles(12);
 
 	return result;
 }

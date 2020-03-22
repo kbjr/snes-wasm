@@ -31,7 +31,7 @@ NV----ZC-
 | `0x7D` | `and addr,X`   | Absolute Indexed,X                  | 3      | 4 [1],[4]     |
 | `0x7F` | `and long,X`   | Absolute Long Indexed,X             | 4      | 5 [1]         |
 
-- [1]: Add 1 cycle if M = 0
-- [2]: Add 1 cycle if low byte of D is non-zero
-- [3]: Add 1 byte if M = 0
-- [4]: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)
+<sub>**[1]**: Add 1 cycle if M = 0</sub><br />
+<sub>**[2]**: Add 1 cycle if low byte of D is non-zero</sub><br />
+<sub>**[3]**: Add 1 byte if M = 0</sub><br />
+<sub>**[4]**: Add 1 cycle if adding index crosses a page boundary or X = 0 (16-bit index registers)</sub><br />
