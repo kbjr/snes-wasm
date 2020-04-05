@@ -240,6 +240,7 @@ export namespace bus {
 			else if (addr < 0x8000) {
 				busA(bank, addr, speed.slow, read);
 			}
+			
 			// Addresses $6000-$7FFF: Address Bus A + /CART (Slow)
 			else {
 				busA(bank, addr, speed.slow, read);
