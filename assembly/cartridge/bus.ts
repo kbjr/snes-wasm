@@ -8,7 +8,7 @@ import { bus } from '../bus';
 			read_normal();
 		}
 
-		else {
+		else if (bus.flags.WR) {
 			write_normal();
 		}
 	}

@@ -349,6 +349,7 @@ export function getNextInstruction() : instruction.Instruction {
 		case 0xfb: return xce.$FB;  // xce
 
 		// This should never happen, but at least nop should be safe....
+		// TODO: Should this just be a panic condition? Does it matter?
 		default: return nop.$EA;
 	}
 }
