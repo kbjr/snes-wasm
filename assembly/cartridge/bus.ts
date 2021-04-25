@@ -1,15 +1,18 @@
 
 import { bus } from '../bus';
+import { RomMapper, hi_rom_mapper } from './rom-mappers';
+
+let rom_mapper: RomMapper = hi_rom_mapper;
 
 // @ts-ignore: decorator
 @inline export function cartridge_poll() : void {
 	if (bus.flags.CART) {
 		if (bus.flags.RD) {
-			read_normal();
+			rom_mapper.RD();
 		}
 
 		else if (bus.flags.WR) {
-			write_normal();
+			rom_mapper.WR();
 		}
 	}
 
